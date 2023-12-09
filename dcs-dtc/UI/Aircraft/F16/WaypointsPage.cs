@@ -110,5 +110,11 @@ namespace DTC.UI.Aircrafts.F16
                 ShowWptDialog((Waypoint)dgWaypoints.SelectedRows[0].DataBoundItem);
             }
         }
+
+        private void clearBtn_Click(object sender, EventArgs e)
+        {
+            this._waypoints.Waypoints.Clear();
+            this.RefreshList();
+        }
     }
 }
