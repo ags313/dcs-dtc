@@ -30,6 +30,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="UI\Aircrafts\**" />
+	  <EmbeddedResource Remove="UI\Aircrafts\**" />
+	  <None Remove="UI\Aircrafts\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="dtc-airbases.json" />
 		<None Remove="dtc-emitters.json" />
 		<None Remove="dtc-idents.json" />
