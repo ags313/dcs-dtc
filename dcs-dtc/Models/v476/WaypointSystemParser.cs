@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text.RegularExpressions;
 using DTC.Models.F16.Waypoints;
 
 namespace DTC.Models.v476
@@ -121,6 +122,7 @@ namespace DTC.Models.v476
         public RecordType detect(String input)
         {
             var line = input.Trim();
+ 
             if (line.Equals("Flight Plan"))
             {
                 return RecordType.FlightPlanIndicator;
@@ -131,12 +133,15 @@ namespace DTC.Models.v476
                 return RecordType.FlightPlanHeader;
             }
 
-            if (line.Length < 5)
+            if (Regex.IsMatch(line, @"^\d+\s") && line.Length < 5)
             {
                 return RecordType.EmptyRow;
             }
-
-            return RecordType.Waypoint;
+            if (Regex.IsMatch(line, @"^\d+\s"))
+            {
+                return RecordType.Waypoint;
+            }
+            return RecordType.Comment;
         }
     }
 
@@ -145,7 +150,8 @@ namespace DTC.Models.v476
         FlightPlanIndicator,
         EmptyRow,
         Waypoint,
-        FlightPlanHeader
+        FlightPlanHeader,
+        Comment
     }
 
     enum Column

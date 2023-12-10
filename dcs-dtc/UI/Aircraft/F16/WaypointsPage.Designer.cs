@@ -88,7 +88,7 @@ namespace DTC.UI.Aircrafts.F16
             importClipBtn.Name = "importClipBtn";
             importClipBtn.Size = new Size(120, 25);
             importClipBtn.TabIndex = 4;
-            importClipBtn.Text = "Paste MDC";
+            importClipBtn.Text = "Import v476th";
             importClipBtn.UseVisualStyleBackColor = false;
             importClipBtn.Click += importClipBtn_Click;
             // 
