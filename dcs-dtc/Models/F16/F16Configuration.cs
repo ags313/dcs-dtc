@@ -60,6 +60,11 @@ namespace DTC.Models.F16
 
             foreach (var wpt in this.Waypoints.Waypoints)
             {
+                if (wpt.Latitude.Length < 1)
+                {
+                    continue;
+                }
+                
                 if (!wpt.Latitude.Contains("°"))
                 {
                     var parts = wpt.Latitude.Split('.');

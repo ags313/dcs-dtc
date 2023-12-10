@@ -1,36 +1,49 @@
 ﻿using System.Collections;
+using DTC.Models.F16.Waypoints;
 
 namespace DTC.Models.v476
 {
     public class WaypointSystemParser
     {
         Dictionary<int, Column> columns = new Dictionary<int, Column>();
-        
-        public void parse(String contentToParse)
+
+        private List<ReturnType> parse<ReturnType>(
+            String contentToParse,
+            Func<WaypointBuilder, ReturnType> singleParse)
         {
-            var result = new ArrayList();
-            
-            
+            List<ReturnType> result = new List<ReturnType>();
+
             using (StringReader reader = new StringReader(contentToParse))
             {
                 var line = "";
+                var idx = 0;
                 while ((line = reader.ReadLine()) != null)
                 {
+                    idx++;
                     var lineType = detect(line);
                     if (lineType == RecordType.FlightPlanHeader)
                     {
                         columns = parseHeaders(line);
                     }
-                    if (lineType == RecordType.Waypoint)
+
+                    if (lineType == RecordType.Waypoint || lineType == RecordType.EmptyRow)
                     {
                         var waypoint = parseWaypoint(line);
-                        result.Add(waypoint);
+                        result.Add(singleParse(waypoint));
                     }
                 }
             }
+
+            return result;
         }
 
-        object parseWaypoint(String input)
+        public List<F16.Waypoints.Waypoint> parseFor16(String contentToParse)
+        {
+            return parse<F16.Waypoints.Waypoint>(contentToParse,
+                (builder) => builder.buildForF16());
+        }
+
+        WaypointBuilder parseWaypoint(String input)
         {
             var strings = input.Trim().Split("\t");
             var builder = new WaypointBuilder();
@@ -50,7 +63,7 @@ namespace DTC.Models.v476
                         builder.name(value);
                         break;
                     case Column.KnownFixPoint:
-                        builder.ignore(value);
+                        builder.name(value);
                         break;
                     case Column.Location:
                         builder.location(value);
@@ -76,7 +89,7 @@ namespace DTC.Models.v476
                 }
             }
 
-            return builder.build();
+            return builder;
         }
 
         Dictionary<int, Column> parseHeaders(String input)
@@ -127,64 +140,6 @@ namespace DTC.Models.v476
         }
     }
 
-    class WaypointBuilder
-    {
-        private int? _ordinal;
-        private int? _elevation;
-        private string _name;
-        private object? _latitude;
-        private object? _longitude;
-        private int? _altitude;
-
-        public WaypointBuilder ignore(string value)
-        {
-            return this;
-        }
-
-        public WaypointBuilder ordinal(string value)
-        {
-            this._ordinal = Int32.Parse(value);
-            return this;
-        }
-
-        public WaypointBuilder elevation(string value)
-        {
-            if (value.Trim().Length > 2)
-            {
-                this._elevation = Int32.Parse(value);                
-            }
-            return this;
-        }
-
-        public WaypointBuilder altitude(string value)
-        {
-            if (value.Trim().Length > 2)
-            {
-                this._altitude = Int32.Parse(value);                
-            }
-            return this;
-        }
-
-        public WaypointBuilder location(string value)
-        {
-            var midPoint = value.IndexOfAny(new []{'E', 'W'}, 0);
-            this._latitude = Latitude.parse(value[..midPoint]);
-            this._longitude = Longitude.parse(value.Substring(midPoint));
-            return this;
-        }
-
-        public object build()
-        {
-            throw new NotImplementedException();
-        }
-
-        public WaypointBuilder name(string value)
-        {
-            this._name = value;
-            return this;
-        }
-    }
-    
     public enum RecordType
     {
         FlightPlanIndicator,
@@ -210,8 +165,8 @@ namespace DTC.Models.v476
 
     class Longitude
     {
-        private readonly Hemisphere _hemisphere;
-        private DDMMMM ddmmmm;
+        public Hemisphere _hemisphere { get; }
+        public DDMMMM ddmmmm { get; }
 
         public Longitude(Hemisphere hemisphere, DDMMMM ddmmmm)
         {
@@ -224,7 +179,7 @@ namespace DTC.Models.v476
             _hemisphere = hemisphere;
             this.ddmmmm = ddmmss.ToDDMMMM();
         }
-        
+
         public enum Hemisphere
         {
             East,
@@ -239,7 +194,7 @@ namespace DTC.Models.v476
                 'W' => Hemisphere.West,
                 _ => throw new ArgumentException()
             };
-            
+
             var degreeSymbolIdx = substring.IndexOf("°");
             var minuteSymbolIdx = substring.IndexOf("'");
             var degrees = Int32.Parse(substring.Substring(1, degreeSymbolIdx - 1));
@@ -247,7 +202,8 @@ namespace DTC.Models.v476
             if (substring.Contains("\""))
             {
                 var secondSymbolIdx = substring.IndexOf("\"");
-                var minutes = Int32.Parse(substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1));
+                var minutes =
+                    Int32.Parse(substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1));
 
                 var secondsString = substring.Substring(minuteSymbolIdx + 1, secondSymbolIdx - minuteSymbolIdx - 1);
                 var pos = new DDMMSS(degrees,
@@ -264,32 +220,32 @@ namespace DTC.Models.v476
                 return new Longitude(hemisphere, pos);
             }
         }
-    }
-    
-    class Latitude
-    {
-        private readonly Hemisphere _hemisphere;
-        private DDMMMM ddmmmm;
-
-        public Latitude(Hemisphere hemisphere, DDMMMM ddmmmm)
+        
+        public override string ToString()
         {
-            _hemisphere = hemisphere;
-            this.ddmmmm = ddmmmm;
-        }
-
-        public Latitude(Hemisphere hemisphere, DDMMSS ddmmss)
-        {
-            _hemisphere = hemisphere;
-            this.ddmmmm = ddmmss.ToDDMMMM();
+            return viperString();
         }
         
+        public string viperString()
+        {
+            return $"{_hemisphere.ToString()[0]} {ddmmmm.ddmm_mmm()}";
+        }
+    }
+
+    record class Latitude(Latitude.Hemisphere _hemisphere, 
+        DDMMMM ddmmmm)
+    {
+        public Latitude(Hemisphere hemisphere, DDMMSS ddmmss) : this(hemisphere, ddmmss.ToDDMMMM())
+        {
+        }
+
         public enum Hemisphere
         {
             North,
             South
         }
 
-        public static Latitude? parse(string substring)
+        public static Latitude parse(string substring)
         {
             var hemisphere = substring[0] switch
             {
@@ -305,12 +261,13 @@ namespace DTC.Models.v476
             if (substring.Contains("\""))
             {
                 var secondSymbolIdx = substring.IndexOf("\"");
-                var minutes = Int32.Parse(substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1));
+                var minutes =
+                    Int32.Parse(substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1));
 
                 var pos = new DDMMSS(degrees,
                     minutes,
                     Decimal.Parse(substring.Substring(minuteSymbolIdx + 1, secondSymbolIdx - minuteSymbolIdx - 1)));
-                
+
                 return new Latitude(hemisphere, pos);
             }
             else
@@ -321,14 +278,24 @@ namespace DTC.Models.v476
                 return new Latitude(hemisphere, pos);
             }
         }
+
+        public override string ToString()
+        {
+            return viperString();
+        }
+
+        public string viperString()
+        {
+            return $"{_hemisphere.ToString()[0]} {ddmmmm.ddmm_mmm()}";
+        }
     }
-    
+
 
     class DDMMMM
     {
         int degrees;
         decimal minutes;
-            
+
         public DDMMSS ToDDMMSS()
         {
             int wholeMinutes = (int)minutes;
@@ -343,6 +310,11 @@ namespace DTC.Models.v476
             this.degrees = degrees;
             this.minutes = minutes;
         }
+
+        public string ddmm_mmm()
+        {
+            return $"{degrees:00}°{minutes:00.000}'";
+        }
     }
 
     class DDMMSS
@@ -350,19 +322,18 @@ namespace DTC.Models.v476
         private int degrees;
         private int minutes;
         private decimal seconds;
-            
+
         public DDMMSS(int degrees, int minutes, decimal seconds)
         {
             this.degrees = degrees;
             this.minutes = minutes;
             this.seconds = seconds;
         }
-            
+
         public DDMMMM ToDDMMMM()
         {
             decimal fractionalMinutes = minutes + seconds / 60;
             return new DDMMMM(degrees, fractionalMinutes);
         }
     }
-    
 }

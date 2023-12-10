@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using DTC.Models.v476;
 
 namespace DTC.UI.Aircrafts.F16
 {
@@ -115,6 +116,18 @@ namespace DTC.UI.Aircrafts.F16
         {
             this._waypoints.Waypoints.Clear();
             this.RefreshList();
+        }
+
+        private void importClipBtn_Click(object sender, EventArgs e)
+        {
+            var clipboardContent = Clipboard.GetText();
+            WaypointSystemParser parser = new WaypointSystemParser();
+            foreach (Waypoint waypoint in parser.parseFor16(clipboardContent))
+            {
+                this._waypoints.Add(waypoint);
+            }
+            this.RefreshList();
+            this._parent.DataChangedCallback();
         }
     }
 }
