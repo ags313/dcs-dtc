@@ -48,7 +48,7 @@
                                                 14			Elgin.6	N 37°17.000' W 114°50.720'
                                                 15	RVIP
                                                 16			Amoco.IP	N 37°41.000' W 114°30.000'
-                                                17
+                                                17              
                                                 18
                                                 """;
         public const String viperPlanWithNotes = """

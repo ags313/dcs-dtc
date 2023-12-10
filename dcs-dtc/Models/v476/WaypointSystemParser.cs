@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using DTC.Models.F16.Waypoints;
 
@@ -7,6 +8,7 @@ namespace DTC.Models.v476
     public class WaypointSystemParser
     {
         Dictionary<int, Column> columns = new Dictionary<int, Column>();
+        private ParserState parserState = ParserState.Parsing476thData;
 
         private List<ReturnType> parse<ReturnType>(
             String contentToParse,
@@ -16,23 +18,45 @@ namespace DTC.Models.v476
 
             using (StringReader reader = new StringReader(contentToParse))
             {
-                var line = "";
-                var idx = 0;
-                //TODO: This needs to be statefull and finish parsing after detection of last waypoint. Free text notes can be in format resembling waypoints and can cause problems.
-                while ((line = reader.ReadLine()) != null)
-                {
-                    idx++;
-                    var lineType = detect(line);
-                    if (lineType == RecordType.FlightPlanHeader)
+                try
+                { 
+                    var line = "";
+                    var idx = 0;
+                    //TODO: This needs to be statefull and finish parsing after detection of last waypoint. Free text notes can be in format resembling waypoints and thus can cause problems.
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        columns = parseHeaders(line);
-                    }
+                        idx++;
+                        var lineType = detect(line);
+                        if (lineType == RecordType.FlightPlanHeader)
+                        {
+                            columns = parseHeaders(line);
+                            parserState = ParserState.ParsingFlightPlan;
+                        }
 
-                    if (lineType == RecordType.Waypoint || lineType == RecordType.EmptyRow)
-                    {
-                        var waypoint = parseWaypoint(line);
-                        result.Add(singleParse(waypoint));
+                        if (lineType == RecordType.Waypoint || lineType == RecordType.EmptyRow)
+                        {
+                            var waypoint = parseWaypoint(line);
+                            result.Add(singleParse(waypoint));
+                            //TODO: Most likely we should not be parsing empty waypoints; just ommit it in the sequence when entering?
+                        }
+                        if (lineType == RecordType.Comment)
+                        {
+                            //if Comment prior to flight plan, continue. If commend after parsing waypoints, terminate
+                            if (parserState == ParserState.Parsing476thData)
+                                continue;
+                            else if (parserState == ParserState.ParsingFlightPlan)
+                            {
+                                this.parserState = ParserState.FinishedParsing;
+                                break;
+                            }
+                        }
                     }
+                }
+                catch (Exception e)
+                {
+                    //Oops, something went wrong. Let's set the proper parser state
+                    this.parserState = ParserState.BadFormatUnableToParse;
+                    throw;
                 }
             }
 
@@ -134,7 +158,7 @@ namespace DTC.Models.v476
                 return RecordType.FlightPlanHeader;
             }
 
-            if (Regex.IsMatch(line, @"^\d+\s") && line.Length < 5)
+            if (Regex.IsMatch(line, @"^\d+") && line.Length < 5)
             {
                 return RecordType.EmptyRow;
             }
@@ -146,6 +170,14 @@ namespace DTC.Models.v476
         }
     }
 
+    enum ParserState
+    {
+        Parsing476thData,
+        ParsingFlightPlan,
+        ParsingNotes,
+        FinishedParsing,
+        BadFormatUnableToParse
+    }
     public enum RecordType
     {
         FlightPlanIndicator,
