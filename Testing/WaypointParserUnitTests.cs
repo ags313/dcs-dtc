@@ -29,10 +29,11 @@ namespace Testing
         {
             Assert.That(RecordType.Waypoint, Is.EqualTo(_parser.detect("13\tOBJ\t\t4808A.1\tN 37\u00b028.000' W 116\u00b000.050'")));
         }
-
+       
+        [Test]
         public void DetectLine_ReturnsEmptyRow_ForEmptyWaypoint()
         {
-            Assert.Equals(RecordType.EmptyRow, _parser.detect("17\t\t\t\t\t\t\t\t\t")); 
+            Assert.That(_parser.detect("17\t\t\t\t\t\t\t\t\t"), Is.EqualTo(RecordType.EmptyRow)); 
         }
 
         [Test]
