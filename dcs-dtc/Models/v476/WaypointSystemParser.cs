@@ -18,6 +18,7 @@ namespace DTC.Models.v476
             {
                 var line = "";
                 var idx = 0;
+                //TODO: This needs to be statefull and finish parsing after detection of last waypoint. Free text notes can be in format resembling waypoints and can cause problems.
                 while ((line = reader.ReadLine()) != null)
                 {
                     idx++;
