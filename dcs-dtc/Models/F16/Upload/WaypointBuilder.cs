@@ -72,6 +72,9 @@ namespace DTC.Models.F16.Upload
                 var stptId = kv.Key;
                 var wpt = kv.Value;
 
+                if (wpt.IsCoordinateBlank)
+                    continue;
+
                 AppendCommand(BuildDigits(ufc, stptId));
                 AppendCommand(ufc.GetCommand("ENTR"));
                 AppendCommand(ufc.GetCommand("DOWN"));

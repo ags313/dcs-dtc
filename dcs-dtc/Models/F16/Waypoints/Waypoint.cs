@@ -49,7 +49,12 @@ namespace DTC.Models.F16.Waypoints
             get
             {
                 var tmp = Latitude.Replace("N", "").Replace("S", "").Replace(".", "");
-                if (int.TryParse(tmp, out int latInt))
+                if (String.IsNullOrEmpty(tmp))
+                    return true;
+                else
+                    return false;
+                /*
+               if (int.TryParse(tmp, out int latInt))
                 {
                     if (latInt == 0)
                     {
@@ -57,6 +62,7 @@ namespace DTC.Models.F16.Waypoints
                     }
                 }
                 return false;
+                */
             }
         }
 
