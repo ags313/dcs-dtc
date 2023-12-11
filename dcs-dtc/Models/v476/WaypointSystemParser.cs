@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using DTC.Models.F16.Waypoints;
@@ -41,7 +42,7 @@ namespace DTC.Models.v476
                         }
                         if (lineType == RecordType.Comment)
                         {
-                            //if Comment prior to flight plan, continue. If commend after parsing waypoints, terminate
+                            //if Comment prior to flight plan, continue. If comment after parsing waypoints, terminate
                             if (parserState == ParserState.Parsing476thData)
                                 continue;
                             else if (parserState == ParserState.ParsingFlightPlan)
@@ -254,7 +255,7 @@ namespace DTC.Models.v476
             else
             {
                 var minuteString = substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1);
-                var pos = new DDMMMM(degrees, Decimal.Parse(minuteString));
+                var pos = new DDMMMM(degrees, Decimal.Parse(minuteString, new NumberFormatInfo() { NumberDecimalSeparator = "." }));
 
                 return new Longitude(hemisphere, pos);
             }
@@ -313,7 +314,8 @@ namespace DTC.Models.v476
             {
                 var minutes = substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1);
                 var pos = new DDMMMM(degrees,
-                    Decimal.Parse(minutes));
+                    Decimal.Parse(minutes, new NumberFormatInfo() { NumberDecimalSeparator = "." }));
+   
                 return new Latitude(hemisphere, pos);
             }
         }
