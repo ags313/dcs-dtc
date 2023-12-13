@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using DTC.Models.F16.Waypoints;
+using DTC.Models.FA18.Waypoints;
 
 namespace DTC.Models.v476
 {
@@ -64,7 +65,13 @@ namespace DTC.Models.v476
             return result;
         }
 
-        public List<F16.Waypoints.Waypoint> parseFor16(String contentToParse)
+        public List<FA18.Waypoints.Waypoint> parseForFA18(String contentToParse)
+        {
+            return parse<FA18.Waypoints.Waypoint>(contentToParse,
+                (builder) => builder.buildForFA18()); ;
+        }
+
+        public List<F16.Waypoints.Waypoint> parseForF16(String contentToParse)
         {
             return parse<F16.Waypoints.Waypoint>(contentToParse,
                 (builder) => builder.buildForF16());

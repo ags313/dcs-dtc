@@ -23,182 +23,192 @@ namespace DTC.UI.Aircrafts.FA18
 			base.Dispose(disposing);
 		}
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.btnDelete = new DTC.UI.Base.Controls.DTCButton();
-			this.btnAdd = new DTC.UI.Base.Controls.DTCButton();
-			this.dgWaypoints = new DTC.UI.Base.Controls.DTCDataGrid();
-			this.colSequence = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colLatitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colLongitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colElevation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.panel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dgWaypoints)).BeginInit();
-			this.SuspendLayout();
-			// 
-			// panel1
-			// 
-			this.panel1.Controls.Add(this.btnDelete);
-			this.panel1.Controls.Add(this.btnAdd);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel1.Location = new System.Drawing.Point(0, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Padding = new System.Windows.Forms.Padding(10);
-			this.panel1.Size = new System.Drawing.Size(689, 35);
-			this.panel1.TabIndex = 99;
-			// 
-			// btnDelete
-			// 
-			this.btnDelete.BackColor = System.Drawing.Color.DarkKhaki;
-			this.btnDelete.Enabled = false;
-			this.btnDelete.FlatAppearance.BorderSize = 0;
-			this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.btnDelete.Location = new System.Drawing.Point(131, 5);
-			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.Size = new System.Drawing.Size(120, 25);
-			this.btnDelete.TabIndex = 3;
-			this.btnDelete.Text = "Delete";
-			this.btnDelete.UseVisualStyleBackColor = false;
-			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-			// 
-			// btnAdd
-			// 
-			this.btnAdd.BackColor = System.Drawing.Color.DarkKhaki;
-			this.btnAdd.FlatAppearance.BorderSize = 0;
-			this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.btnAdd.Location = new System.Drawing.Point(5, 5);
-			this.btnAdd.Name = "btnAdd";
-			this.btnAdd.Size = new System.Drawing.Size(120, 25);
-			this.btnAdd.TabIndex = 2;
-			this.btnAdd.Text = "Add";
-			this.btnAdd.UseVisualStyleBackColor = false;
-			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-			// 
-			// dgWaypoints
-			// 
-			this.dgWaypoints.AllowDrop = true;
-			this.dgWaypoints.AllowUserToAddRows = false;
-			this.dgWaypoints.AllowUserToDeleteRows = false;
-			this.dgWaypoints.AllowUserToResizeColumns = false;
-			this.dgWaypoints.AllowUserToResizeRows = false;
-			this.dgWaypoints.BackgroundColor = System.Drawing.Color.Beige;
-			this.dgWaypoints.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.dgWaypoints.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-			this.dgWaypoints.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkKhaki;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkKhaki;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dgWaypoints.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			this.dgWaypoints.ColumnHeadersHeight = 30;
-			this.dgWaypoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-			this.dgWaypoints.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colSequence,
-            this.colName,
-            this.colLatitude,
-            this.colLongitude,
-            this.colElevation});
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.Color.Beige;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dgWaypoints.DefaultCellStyle = dataGridViewCellStyle2;
-			this.dgWaypoints.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dgWaypoints.EnableHeadersVisualStyles = false;
-			this.dgWaypoints.Location = new System.Drawing.Point(0, 35);
-			this.dgWaypoints.Name = "dgWaypoints";
-			this.dgWaypoints.ReadOnly = true;
-			this.dgWaypoints.RowHeadersVisible = false;
-			this.dgWaypoints.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.dgWaypoints.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgWaypoints.ShowCellToolTips = false;
-			this.dgWaypoints.Size = new System.Drawing.Size(689, 448);
-			this.dgWaypoints.TabIndex = 100;
-			this.dgWaypoints.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgWaypoints_DataError);
-			this.dgWaypoints.SelectionChanged += new System.EventHandler(this.dgWaypoints_SelectionChanged);
-			this.dgWaypoints.DoubleClick += new System.EventHandler(this.dgWaypoints_DoubleClick);
-			// 
-			// colSequence
-			// 
-			this.colSequence.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			this.colSequence.DataPropertyName = "Sequence";
-			this.colSequence.HeaderText = "Seq";
-			this.colSequence.Name = "colSequence";
-			this.colSequence.ReadOnly = true;
-			this.colSequence.Width = 63;
-			// 
-			// colName
-			// 
-			this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.colName.DataPropertyName = "Name";
-			this.colName.HeaderText = "Name";
-			this.colName.Name = "colName";
-			this.colName.ReadOnly = true;
-			// 
-			// colLatitude
-			// 
-			this.colLatitude.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			this.colLatitude.DataPropertyName = "Latitude";
-			this.colLatitude.HeaderText = "Latitude";
-			this.colLatitude.MinimumWidth = 120;
-			this.colLatitude.Name = "colLatitude";
-			this.colLatitude.ReadOnly = true;
-			this.colLatitude.Width = 120;
-			// 
-			// colLongitude
-			// 
-			this.colLongitude.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			this.colLongitude.DataPropertyName = "Longitude";
-			this.colLongitude.HeaderText = "Longitude";
-			this.colLongitude.MinimumWidth = 120;
-			this.colLongitude.Name = "colLongitude";
-			this.colLongitude.ReadOnly = true;
-			this.colLongitude.Width = 120;
-			// 
-			// colElevation
-			// 
-			this.colElevation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-			this.colElevation.DataPropertyName = "Elevation";
-			this.colElevation.HeaderText = "Elevation";
-			this.colElevation.Name = "colElevation";
-			this.colElevation.ReadOnly = true;
-			this.colElevation.Width = 99;
-			// 
-			// WaypointsPage
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			this.BackColor = System.Drawing.Color.PaleGoldenrod;
-			this.Controls.Add(this.dgWaypoints);
-			this.Controls.Add(this.panel1);
-			this.Name = "WaypointsPage";
-			this.Size = new System.Drawing.Size(689, 483);
-			this.panel1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dgWaypoints)).EndInit();
-			this.ResumeLayout(false);
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            panel1 = new Panel();
+            btnImport476 = new Base.Controls.DTCButton();
+            btnDelete = new Base.Controls.DTCButton();
+            btnAdd = new Base.Controls.DTCButton();
+            dgWaypoints = new Base.Controls.DTCDataGrid();
+            colSequence = new DataGridViewTextBoxColumn();
+            colName = new DataGridViewTextBoxColumn();
+            colLatitude = new DataGridViewTextBoxColumn();
+            colLongitude = new DataGridViewTextBoxColumn();
+            colElevation = new DataGridViewTextBoxColumn();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgWaypoints).BeginInit();
+            SuspendLayout();
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(btnImport476);
+            panel1.Controls.Add(btnDelete);
+            panel1.Controls.Add(btnAdd);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(10);
+            panel1.Size = new Size(689, 35);
+            panel1.TabIndex = 99;
+            // 
+            // btnImport476
+            // 
+            btnImport476.BackColor = Color.DarkKhaki;
+            btnImport476.FlatAppearance.BorderSize = 0;
+            btnImport476.FlatStyle = FlatStyle.Flat;
+            btnImport476.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnImport476.Location = new Point(284, 5);
+            btnImport476.Name = "btnImport476";
+            btnImport476.Size = new Size(120, 25);
+            btnImport476.TabIndex = 4;
+            btnImport476.Text = "Import v476th";
+            btnImport476.UseVisualStyleBackColor = false;
+            btnImport476.Click += btnImport476_Click;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.DarkKhaki;
+            btnDelete.Enabled = false;
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDelete.Location = new Point(131, 5);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(120, 25);
+            btnDelete.TabIndex = 3;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // btnAdd
+            // 
+            btnAdd.BackColor = Color.DarkKhaki;
+            btnAdd.FlatAppearance.BorderSize = 0;
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAdd.Location = new Point(5, 5);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(120, 25);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "Add";
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // dgWaypoints
+            // 
+            dgWaypoints.AllowDrop = true;
+            dgWaypoints.AllowUserToAddRows = false;
+            dgWaypoints.AllowUserToDeleteRows = false;
+            dgWaypoints.AllowUserToResizeColumns = false;
+            dgWaypoints.AllowUserToResizeRows = false;
+            dgWaypoints.BackgroundColor = Color.Beige;
+            dgWaypoints.BorderStyle = BorderStyle.None;
+            dgWaypoints.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgWaypoints.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.DarkKhaki;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DarkKhaki;
+            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgWaypoints.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgWaypoints.ColumnHeadersHeight = 30;
+            dgWaypoints.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgWaypoints.Columns.AddRange(new DataGridViewColumn[] { colSequence, colName, colLatitude, colLongitude, colElevation });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.Beige;
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgWaypoints.DefaultCellStyle = dataGridViewCellStyle2;
+            dgWaypoints.Dock = DockStyle.Fill;
+            dgWaypoints.EnableHeadersVisualStyles = false;
+            dgWaypoints.Location = new Point(0, 35);
+            dgWaypoints.Name = "dgWaypoints";
+            dgWaypoints.ReadOnly = true;
+            dgWaypoints.RowHeadersVisible = false;
+            dgWaypoints.ScrollBars = ScrollBars.Vertical;
+            dgWaypoints.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgWaypoints.ShowCellToolTips = false;
+            dgWaypoints.Size = new Size(689, 448);
+            dgWaypoints.TabIndex = 100;
+            dgWaypoints.DataError += dgWaypoints_DataError;
+            dgWaypoints.SelectionChanged += dgWaypoints_SelectionChanged;
+            dgWaypoints.DoubleClick += dgWaypoints_DoubleClick;
+            // 
+            // colSequence
+            // 
+            colSequence.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colSequence.DataPropertyName = "Sequence";
+            colSequence.HeaderText = "Seq";
+            colSequence.Name = "colSequence";
+            colSequence.ReadOnly = true;
+            colSequence.Width = 58;
+            // 
+            // colName
+            // 
+            colName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colName.DataPropertyName = "Name";
+            colName.HeaderText = "Name";
+            colName.Name = "colName";
+            colName.ReadOnly = true;
+            // 
+            // colLatitude
+            // 
+            colLatitude.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colLatitude.DataPropertyName = "Latitude";
+            colLatitude.HeaderText = "Latitude";
+            colLatitude.MinimumWidth = 120;
+            colLatitude.Name = "colLatitude";
+            colLatitude.ReadOnly = true;
+            colLatitude.Width = 120;
+            // 
+            // colLongitude
+            // 
+            colLongitude.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colLongitude.DataPropertyName = "Longitude";
+            colLongitude.HeaderText = "Longitude";
+            colLongitude.MinimumWidth = 120;
+            colLongitude.Name = "colLongitude";
+            colLongitude.ReadOnly = true;
+            colLongitude.Width = 120;
+            // 
+            // colElevation
+            // 
+            colElevation.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            colElevation.DataPropertyName = "Elevation";
+            colElevation.HeaderText = "Elevation";
+            colElevation.Name = "colElevation";
+            colElevation.ReadOnly = true;
+            colElevation.Width = 91;
+            // 
+            // WaypointsPage
+            // 
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            BackColor = Color.PaleGoldenrod;
+            Controls.Add(dgWaypoints);
+            Controls.Add(panel1);
+            Name = "WaypointsPage";
+            Size = new Size(689, 483);
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgWaypoints).EndInit();
+            ResumeLayout(false);
+        }
 
-		}
-
-		#endregion
-		private System.Windows.Forms.Panel panel1;
+        #endregion
+        private System.Windows.Forms.Panel panel1;
 		private Base.Controls.DTCButton btnDelete;
 		private Base.Controls.DTCButton btnAdd;
 		private Base.Controls.DTCDataGrid dgWaypoints;
@@ -207,5 +217,6 @@ namespace DTC.UI.Aircrafts.FA18
 		private System.Windows.Forms.DataGridViewTextBoxColumn colLatitude;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colLongitude;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colElevation;
-	}
+        private Base.Controls.DTCButton btnImport476;
+    }
 }

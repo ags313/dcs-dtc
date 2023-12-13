@@ -39,7 +39,12 @@ namespace Testing
         [Test]
         public void shouldParseTestInput()
         {
-            _parser.parseFor16(Data.viperPlanWithNotes); //we test public methods.
+            _parser.parseForF16(Data.viperPlanWithNotes); //we test public methods.
+        }
+        [Test]
+        public void ParseForFA18_ParsesTestInput()
+        {
+            _parser.parseForFA18(Data.viperPlanWithNotes);
         }
     }
 }

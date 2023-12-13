@@ -118,11 +118,11 @@ namespace DTC.UI.Aircrafts.F16
             this.RefreshList();
         }
 
-        private void importClipBtn_Click(object sender, EventArgs e)
+        private void btnImport476_Click(object sender, EventArgs e)
         {
             var clipboardContent = Clipboard.GetText();
             WaypointSystemParser parser = new WaypointSystemParser();
-            foreach (Waypoint waypoint in parser.parseFor16(clipboardContent))
+            foreach (Waypoint waypoint in parser.parseForF16(clipboardContent))
             {
                 this._waypoints.Add(waypoint);
             }
