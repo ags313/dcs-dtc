@@ -120,6 +120,7 @@ namespace DTC.UI.Aircrafts.F16
 
         private void btnImport476_Click(object sender, EventArgs e)
         {
+            this._waypoints.Waypoints.Clear();
             var clipboardContent = Clipboard.GetText();
             WaypointSystemParser parser = new WaypointSystemParser();
             foreach (Waypoint waypoint in parser.parseForF16(clipboardContent))

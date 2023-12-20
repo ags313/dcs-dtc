@@ -43,12 +43,14 @@ namespace DTC.UI.Aircrafts.FA18
             colLatitude = new DataGridViewTextBoxColumn();
             colLongitude = new DataGridViewTextBoxColumn();
             colElevation = new DataGridViewTextBoxColumn();
+            btnClear = new Base.Controls.DTCButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgWaypoints).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnClear);
             panel1.Controls.Add(btnImport476);
             panel1.Controls.Add(btnDelete);
             panel1.Controls.Add(btnAdd);
@@ -193,6 +195,20 @@ namespace DTC.UI.Aircrafts.FA18
             colElevation.ReadOnly = true;
             colElevation.Width = 91;
             // 
+            // btnClear
+            // 
+            btnClear.BackColor = Color.DarkKhaki;
+            btnClear.FlatAppearance.BorderSize = 0;
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClear.Location = new Point(556, 5);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(120, 25);
+            btnClear.TabIndex = 5;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
+            // 
             // WaypointsPage
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -218,5 +234,6 @@ namespace DTC.UI.Aircrafts.FA18
 		private System.Windows.Forms.DataGridViewTextBoxColumn colLongitude;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colElevation;
         private Base.Controls.DTCButton btnImport476;
+        private Base.Controls.DTCButton btnClear;
     }
 }
