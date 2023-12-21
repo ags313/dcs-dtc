@@ -117,9 +117,12 @@ namespace DTC.Models.v476
             return null;
         }
 
-        public WaypointBuilder name(string value)
+        public WaypointBuilder name(string input)
         {
-            this._name = value;
+            if (input != null && input.Trim().Length > 0)
+            {
+                this._name = input.Trim();
+            }
             return this;
         }
 

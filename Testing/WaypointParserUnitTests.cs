@@ -46,6 +46,7 @@ namespace Testing
         public void ParseForFA18_ParsesTestInput()
         {
             var result = _parser.parseForFA18(Data.hornetFail2);
+            Assert.That(result[4].Name, Is.EqualTo("R74B/C Centr"));
         }
 
         [Test]
