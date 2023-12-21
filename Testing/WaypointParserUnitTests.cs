@@ -1,4 +1,5 @@
 using DTC.Models.v476;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace Testing
 {
@@ -44,7 +45,28 @@ namespace Testing
         [Test]
         public void ParseForFA18_ParsesTestInput()
         {
-            _parser.parseForFA18(Data.viperPlanWithNotes);
+            var result = _parser.parseForFA18(Data.hornetFail2);
+        }
+
+        [Test]
+        public void Parser_Understands_Different_Height_Formats()
+        {
+            Assert.That(WaypointBuilder.ParseHeightData("FL100"), Is.EqualTo(10000));
+            Assert.That(WaypointBuilder.ParseHeightData("1234"), Is.EqualTo(1234));
+            Assert.That(WaypointBuilder.ParseHeightData(""), Is.Null);
+        }
+        
+        [Test]
+        public void Parser_Understands_MGRS()
+        {
+            var maybeTuple = WaypointBuilder.ParseLatLong("11SNB7237453149");
+            
+            Assert.That(maybeTuple, Is.Not.Null);
+            Assert.That(maybeTuple?.Item1._hemisphere, Is.EqualTo(Longitude.Hemisphere.West));
+            Assert.That(maybeTuple?.Item2._hemisphere, Is.EqualTo(Latitude.Hemisphere.North));
+            
+            Assert.That(maybeTuple?.Item1.ddmmmm.ddmm_mmm(), Is.EqualTo("116\u00b010.858’"));
+            Assert.That(maybeTuple?.Item2.ddmmmm.ddmm_mmm(), Is.EqualTo("37\u00b031.348’"));
         }
     }
 }
