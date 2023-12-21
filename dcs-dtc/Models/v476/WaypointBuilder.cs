@@ -162,6 +162,40 @@ namespace DTC.Models.v476
 
             return wp;
         }
+
+        public F15E.Waypoints.Waypoint buildForF15E()
+        {
+            if (!_ordinal.HasValue)
+            {
+                throw new Exception("Missing required fields");
+            }
+
+            F15E.Waypoints.Waypoint wp = new(_ordinal.Value);
+
+            if (_latitude != null && _longitude != null)
+            {
+                wp.Latitude = _latitude?.viperString();
+                wp.Longitude = _longitude?.viperString();
+            }
+            else
+            {
+                wp.Latitude = "";
+                wp.Longitude = "";
+            }
+            if (_name != null)
+            {
+                wp.Name = _name;
+            }
+            else
+            {
+                wp.Name = "";
+            }
+            if (_elevation != null)
+            {
+                wp.Elevation = _elevation.Value;
+            }
+            return wp;
+        }
         public FA18.Waypoints.Waypoint buildForFA18()
         {
             if (!_ordinal.HasValue)
@@ -194,7 +228,6 @@ namespace DTC.Models.v476
                 wp.Elevation = _elevation.Value;
             }
             return wp;
-
         }
     }
 }

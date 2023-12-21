@@ -65,6 +65,12 @@ namespace DTC.Models.v476
             return result;
         }
 
+        public List<F15E.Waypoints.Waypoint> parseForF15(String contentToParse)
+        {
+            return parse<F15E.Waypoints.Waypoint>(contentToParse,
+                (builder) => builder.buildForF15E()); ;
+        }
+
         public List<FA18.Waypoints.Waypoint> parseForFA18(String contentToParse)
         {
             return parse<FA18.Waypoints.Waypoint>(contentToParse,
