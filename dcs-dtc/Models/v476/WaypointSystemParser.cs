@@ -65,6 +65,12 @@ namespace DTC.Models.v476
             return result;
         }
 
+        public List<F15E.Waypoints.Waypoint> parseForF15(String contentToParse)
+        {
+            return parse<F15E.Waypoints.Waypoint>(contentToParse,
+                (builder) => builder.buildForF15E()); ;
+        }
+
         public List<FA18.Waypoints.Waypoint> parseForFA18(String contentToParse)
         {
             return parse<FA18.Waypoints.Waypoint>(contentToParse,
@@ -210,7 +216,7 @@ namespace DTC.Models.v476
         Unknown
     }
 
-    class Longitude
+    public class Longitude
     {
         public Hemisphere _hemisphere { get; }
         public DDMMMM ddmmmm { get; }
@@ -233,8 +239,9 @@ namespace DTC.Models.v476
             West
         }
 
-        public static Longitude? parse(string substring)
+        public static Longitude? parse(string input)
         {
+            var substring = input.Trim().Replace(" ", "");
             var hemisphere = substring[0] switch
             {
                 'E' => Hemisphere.East,
@@ -279,7 +286,7 @@ namespace DTC.Models.v476
         }
     }
 
-    record class Latitude(Latitude.Hemisphere _hemisphere, 
+    public record class Latitude(Latitude.Hemisphere _hemisphere, 
         DDMMMM ddmmmm)
     {
         public Latitude(Hemisphere hemisphere, DDMMSS ddmmss) : this(hemisphere, ddmmss.ToDDMMMM())
@@ -339,7 +346,7 @@ namespace DTC.Models.v476
     }
 
 
-    class DDMMMM
+    public class DDMMMM
     {
         int degrees;
         decimal minutes;
@@ -361,11 +368,11 @@ namespace DTC.Models.v476
 
         public string ddmm_mmm()
         {
-            return $"{degrees:00}°{minutes:00.000}'";
+            return $"{degrees:00}°{minutes:00.000}’";
         }
     }
 
-    class DDMMSS
+    public class DDMMSS
     {
         private int degrees;
         private int minutes;

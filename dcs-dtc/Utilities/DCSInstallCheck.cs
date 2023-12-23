@@ -11,6 +11,33 @@ namespace DTC.Utilities
 
         private const string MAIN_LUA_FILE = "DCSDTC.lua";
 
+        private static List<string> FindDcsFolders(string savedGamesPath)
+        {
+            var result = new List<string>();
+            foreach (var directory in Directory.EnumerateDirectories(savedGamesPath))
+            {
+                if (directory.ToUpper().Contains("DCS.") || directory.ToUpper().EndsWith("DCS"))
+                {
+                    var options = directory + "\\config\\options.lua";
+                    if (!File.Exists(options))
+                    {
+                        // by-name match found, but it doesn't look like a DCS game folder, skipping!
+                        continue;
+                    }
+
+                    if (Directory.Exists(directory + "\\metashaders2.stub"))
+                    {
+                        // this is a dedicated server folder, skipping!
+                        continue;
+                    }
+                    
+                    result.Add(directory);
+                }
+            }
+
+            return result;
+        }
+        
         public static bool Check()
         {
             if (Settings.SkipDCSInstallCheck) return true;
@@ -22,73 +49,21 @@ namespace DTC.Utilities
                 return false;
             }
 
-            if (!Settings.LuaInstallStable && !Settings.LuaInstallOpenBeta)
-            {
-                Settings.LuaInstallStable = true;
-                Settings.LuaInstallOpenBeta = true;
-            }
+            var paths = FindDcsFolders(savedGamesPath);
 
-            var dcsStablePathExists = false;
-            var dcsOpenBetaPathExists = false;
-
-            if (Settings.LuaInstallStable)
-            {
-                if (string.IsNullOrEmpty(Settings.LuaInstallFolderStable))
-                {
-                    var dcsStablePath = Path.Combine(savedGamesPath, "DCS");
-                    dcsStablePathExists = Directory.Exists(dcsStablePath);
-                    if (dcsStablePathExists)
-                    {
-                        Settings.LuaInstallFolderStable = dcsStablePath;
-                    }
-                    else
-                    {
-                        Settings.LuaInstallStable = false;
-                    }
-                }
-                else
-                {
-                    dcsStablePathExists = true;
-                }
-            }
-
-            if (Settings.LuaInstallOpenBeta)
-            {
-                if (string.IsNullOrEmpty(Settings.LuaInstallFolderOpenBeta))
-                {
-                    var dcsOpenBetaPath = Path.Combine(savedGamesPath, "DCS.openbeta");
-                    dcsOpenBetaPathExists = Directory.Exists(dcsOpenBetaPath);
-                    if (dcsOpenBetaPathExists)
-                    {
-                        Settings.LuaInstallFolderOpenBeta = dcsOpenBetaPath;
-                    }
-                    else
-                    {
-                        Settings.LuaInstallOpenBeta = false;
-                    }
-                }
-                else
-                {
-                    dcsOpenBetaPathExists = true;
-                }
-            }
-
-            if (!dcsStablePathExists && !dcsOpenBetaPathExists)
+            if (paths.Count == 0)
             {
                 DTCMessageBox.ShowError("DCS or DCS.openbeta folder not found under Saved Games.\n\nPlease run DCS once, then exit DCS and try again.");
                 return false;
             }
 
-            if (Settings.LuaInstallStable)
+            var atLeastOne = false;
+            foreach (var path in paths)
             {
-                Settings.LuaInstallStable = CheckAndInstall(Settings.LuaInstallFolderStable);
+                atLeastOne |= CheckAndInstall(path);
             }
-            if (Settings.LuaInstallOpenBeta)
-            {
-                Settings.LuaInstallOpenBeta = CheckAndInstall(Settings.LuaInstallFolderOpenBeta);
-            }
-
-            if (!Settings.LuaInstallStable && !Settings.LuaInstallOpenBeta)
+            
+            if (!atLeastOne)
             {
                 DTCMessageBox.ShowError("Cannot continue since DTC is not installed on either DCS or DCS.openbeta folder under Saved Games.");
                 return false;

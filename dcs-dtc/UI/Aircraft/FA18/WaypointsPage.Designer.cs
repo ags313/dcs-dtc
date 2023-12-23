@@ -31,8 +31,8 @@ namespace DTC.UI.Aircrafts.FA18
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnClear = new Base.Controls.DTCButton();
             btnImport476 = new Base.Controls.DTCButton();
@@ -67,9 +67,9 @@ namespace DTC.UI.Aircrafts.FA18
             btnClear.FlatAppearance.BorderSize = 0;
             btnClear.FlatStyle = FlatStyle.Flat;
             btnClear.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClear.Location = new Point(383, 5);
+            btnClear.Location = new Point(483, 5);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(120, 25);
+            btnClear.Size = new Size(78, 25);
             btnClear.TabIndex = 5;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = false;
@@ -81,7 +81,7 @@ namespace DTC.UI.Aircrafts.FA18
             btnImport476.FlatAppearance.BorderSize = 0;
             btnImport476.FlatStyle = FlatStyle.Flat;
             btnImport476.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btnImport476.Location = new Point(257, 5);
+            btnImport476.Location = new Point(357, 5);
             btnImport476.Name = "btnImport476";
             btnImport476.Size = new Size(120, 25);
             btnImport476.TabIndex = 4;
@@ -129,25 +129,25 @@ namespace DTC.UI.Aircrafts.FA18
             dgWaypoints.BorderStyle = BorderStyle.None;
             dgWaypoints.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgWaypoints.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.DarkKhaki;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.DarkKhaki;
-            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgWaypoints.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.DarkKhaki;
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = Color.DarkKhaki;
+            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgWaypoints.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgWaypoints.ColumnHeadersHeight = 30;
             dgWaypoints.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgWaypoints.Columns.AddRange(new DataGridViewColumn[] { colSequence, colName, colLatitude, colLongitude, colElevation });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.Beige;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgWaypoints.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.Beige;
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dgWaypoints.DefaultCellStyle = dataGridViewCellStyle4;
             dgWaypoints.Dock = DockStyle.Fill;
             dgWaypoints.EnableHeadersVisualStyles = false;
             dgWaypoints.Location = new Point(0, 35);

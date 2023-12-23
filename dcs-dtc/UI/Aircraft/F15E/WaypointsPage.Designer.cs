@@ -31,10 +31,12 @@ namespace DTC.UI.Aircrafts.F15E
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            clearBtn = new Base.Controls.DTCButton();
+            importClipBtn = new Base.Controls.DTCButton();
             btnDelete = new Base.Controls.DTCButton();
             btnAdd = new Base.Controls.DTCButton();
             dgWaypoints = new Base.Controls.DTCDataGrid();
@@ -44,8 +46,6 @@ namespace DTC.UI.Aircrafts.F15E
             colLongitude = new DataGridViewTextBoxColumn();
             colElevation = new DataGridViewTextBoxColumn();
             colExtra = new DataGridViewTextBoxColumn();
-            importClipBtn = new Base.Controls.DTCButton();
-            clearBtn = new Base.Controls.DTCButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgWaypoints).BeginInit();
             SuspendLayout();
@@ -62,6 +62,34 @@ namespace DTC.UI.Aircrafts.F15E
             panel1.Padding = new Padding(10);
             panel1.Size = new Size(689, 35);
             panel1.TabIndex = 99;
+            // 
+            // clearBtn
+            // 
+            clearBtn.BackColor = Color.DarkKhaki;
+            clearBtn.FlatAppearance.BorderSize = 0;
+            clearBtn.FlatStyle = FlatStyle.Flat;
+            clearBtn.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            clearBtn.Location = new Point(438, 5);
+            clearBtn.Name = "clearBtn";
+            clearBtn.Size = new Size(77, 25);
+            clearBtn.TabIndex = 5;
+            clearBtn.Text = "Clear";
+            clearBtn.UseVisualStyleBackColor = false;
+            clearBtn.Click += clearBtn_Click;
+            // 
+            // importClipBtn
+            // 
+            importClipBtn.BackColor = Color.DarkKhaki;
+            importClipBtn.FlatAppearance.BorderSize = 0;
+            importClipBtn.FlatStyle = FlatStyle.Flat;
+            importClipBtn.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            importClipBtn.Location = new Point(312, 5);
+            importClipBtn.Name = "importClipBtn";
+            importClipBtn.Size = new Size(120, 25);
+            importClipBtn.TabIndex = 4;
+            importClipBtn.Text = "Import v476th";
+            importClipBtn.UseVisualStyleBackColor = false;
+            importClipBtn.Click += importClipBtn_Click;
             // 
             // btnDelete
             // 
@@ -103,25 +131,25 @@ namespace DTC.UI.Aircrafts.F15E
             dgWaypoints.BorderStyle = BorderStyle.None;
             dgWaypoints.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgWaypoints.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.DarkKhaki;
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.DarkKhaki;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dgWaypoints.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.DarkKhaki;
+            dataGridViewCellStyle7.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = Color.DarkKhaki;
+            dataGridViewCellStyle7.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dgWaypoints.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgWaypoints.ColumnHeadersHeight = 30;
             dgWaypoints.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgWaypoints.Columns.AddRange(new DataGridViewColumn[] { colSequence, colName, colLatitude, colLongitude, colElevation, colExtra });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.Beige;
-            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dgWaypoints.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.Beige;
+            dataGridViewCellStyle9.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dgWaypoints.DefaultCellStyle = dataGridViewCellStyle9;
             dgWaypoints.Dock = DockStyle.Fill;
             dgWaypoints.EnableHeadersVisualStyles = false;
             dgWaypoints.Location = new Point(0, 35);
@@ -171,8 +199,8 @@ namespace DTC.UI.Aircrafts.F15E
             // colElevation
             // 
             colElevation.DataPropertyName = "Elevation";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
-            colElevation.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleRight;
+            colElevation.DefaultCellStyle = dataGridViewCellStyle8;
             colElevation.HeaderText = "Elevation";
             colElevation.Name = "colElevation";
             colElevation.ReadOnly = true;
@@ -184,33 +212,6 @@ namespace DTC.UI.Aircrafts.F15E
             colExtra.HeaderText = "";
             colExtra.Name = "colExtra";
             colExtra.ReadOnly = true;
-            // 
-            // importClipBtn
-            // 
-            importClipBtn.BackColor = Color.DarkKhaki;
-            importClipBtn.FlatAppearance.BorderSize = 0;
-            importClipBtn.FlatStyle = FlatStyle.Flat;
-            importClipBtn.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            importClipBtn.Location = new Point(345, 5);
-            importClipBtn.Name = "importClipBtn";
-            importClipBtn.Size = new Size(120, 25);
-            importClipBtn.TabIndex = 4;
-            importClipBtn.Text = "Delete";
-            importClipBtn.UseVisualStyleBackColor = false;
-            // 
-            // clearBtn
-            // 
-            clearBtn.BackColor = Color.DarkKhaki;
-            clearBtn.FlatAppearance.BorderSize = 0;
-            clearBtn.FlatStyle = FlatStyle.Flat;
-            clearBtn.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            clearBtn.Location = new Point(480, 5);
-            clearBtn.Name = "clearBtn";
-            clearBtn.Size = new Size(120, 25);
-            clearBtn.TabIndex = 5;
-            clearBtn.Text = "Clear";
-            clearBtn.UseVisualStyleBackColor = false;
-            clearBtn.Click += clearBtn_Click;
             // 
             // WaypointsPage
             // 
