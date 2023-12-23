@@ -70,7 +70,7 @@ namespace DTC.UI.Aircrafts.F16
             clearBtn.FlatAppearance.BorderSize = 0;
             clearBtn.FlatStyle = FlatStyle.Flat;
             clearBtn.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            clearBtn.Location = new Point(556, 5);
+            clearBtn.Location = new Point(383, 5);
             clearBtn.Name = "clearBtn";
             clearBtn.Size = new Size(120, 25);
             clearBtn.TabIndex = 5;
@@ -84,7 +84,7 @@ namespace DTC.UI.Aircrafts.F16
             btnImport476.FlatAppearance.BorderSize = 0;
             btnImport476.FlatStyle = FlatStyle.Flat;
             btnImport476.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btnImport476.Location = new Point(284, 5);
+            btnImport476.Location = new Point(257, 5);
             btnImport476.Name = "btnImport476";
             btnImport476.Size = new Size(120, 25);
             btnImport476.TabIndex = 4;
