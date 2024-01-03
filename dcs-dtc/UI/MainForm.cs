@@ -23,7 +23,7 @@ namespace DTC.UI
         public MainForm()
         {
             InitializeComponent();
-            lblVersion.Text = "Version " + Util.GetAppVersion();
+            lblVersion.Text = "Ver: " + Util.GetAppVersion() + " 476th vFG";
 
             ResetToPage(_mainPage);
             this.TopMost = Settings.AlwaysOnTop;
