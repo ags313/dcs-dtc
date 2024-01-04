@@ -61,27 +61,13 @@ namespace DTC.UI.Aircrafts.FA18
             panel1.Size = new Size(689, 35);
             panel1.TabIndex = 99;
             // 
-            // btnClear
-            // 
-            btnClear.BackColor = Color.DarkKhaki;
-            btnClear.FlatAppearance.BorderSize = 0;
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btnClear.Location = new Point(483, 5);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(78, 25);
-            btnClear.TabIndex = 5;
-            btnClear.Text = "Clear";
-            btnClear.UseVisualStyleBackColor = false;
-            btnClear.Click += btnClear_Click;
-            // 
             // btnImport476
             // 
             btnImport476.BackColor = Color.DarkKhaki;
             btnImport476.FlatAppearance.BorderSize = 0;
             btnImport476.FlatStyle = FlatStyle.Flat;
             btnImport476.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btnImport476.Location = new Point(357, 5);
+            btnImport476.Location = new Point(284, 5);
             btnImport476.Name = "btnImport476";
             btnImport476.Size = new Size(120, 25);
             btnImport476.TabIndex = 4;
