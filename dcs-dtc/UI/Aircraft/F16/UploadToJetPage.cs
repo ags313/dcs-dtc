@@ -78,7 +78,7 @@ namespace DTC.UI.Aircrafts.F16
         private void chkWaypoints_CheckedChanged(object sender, EventArgs e)
         {
             chkCoordinatesElevation.Enabled = chkWaypoints.Checked;
-            chkCoordinatesElevation.Checked = true;
+            chkCoordinatesElevation.Checked = chkWaypoints.Checked;
             chkTimeOverSteerpoint.Enabled = chkWaypoints.Checked;
             chkOverwriteRange.Enabled = chkWaypoints.Checked;
             txtWaypointStart.Enabled = chkWaypoints.Checked;
