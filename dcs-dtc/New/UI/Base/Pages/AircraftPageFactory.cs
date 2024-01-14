@@ -12,20 +12,13 @@ namespace DTC.New.UI.Base.Pages
     {
         public static AircraftPage Make(Aircraft aircraft, Preset preset)
         {
-            if (aircraft is F16Aircraft)
+            return aircraft switch
             {
-                return new F16Page(aircraft, preset);
-            }
-            else if (aircraft is FA18Aircraft)
-            {
-                return new FA18Page(aircraft, preset);
-            }
-            else if (aircraft is F15EAircraft)
-            {
-                return new F15EPage(aircraft, preset);
-            }
-
-            throw new NotImplementedException();
+                F16Aircraft => new F16Page(aircraft, preset),
+                FA18Aircraft => new FA18Page(aircraft, preset),
+                F15EAircraft => new F15EPage(aircraft, preset),
+                _ => throw new NotImplementedException()
+            };
         }
     }
 }

@@ -22,12 +22,13 @@ public partial class WaypointsPageControl : AircraftSystemPage
         this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From 476th MDC", () =>
         {
             DTC.New.Presets.V2.Base.Configuration baseConfig = this.parent.Configuration;
-            if(baseConfig is DTC.New.Presets.V2.Aircrafts.F16.F16Configuration) //stupid, stupid, stupid!!!
+            WaypointSystemParser parser = new WaypointSystemParser();
+            var clipboardContent = Clipboard.GetText();
+            
+            if (baseConfig is DTC.New.Presets.V2.Aircrafts.F16.F16Configuration) //stupid, stupid, stupid!!!
             {
                 DTC.New.Presets.V2.Aircrafts.F16.F16Configuration f16Config = (DTC.New.Presets.V2.Aircrafts.F16.F16Configuration)baseConfig;
-                var clipboardContent = Clipboard.GetText();
                 f16Config.Waypoints.Waypoints.Clear();
-                WaypointSystemParser parser = new WaypointSystemParser();
                 foreach (DTC.Models.F16.Waypoints.Waypoint waypoint in parser.parseForF16(clipboardContent))
                 {
                     Presets.V2.Aircrafts.F16.Systems.Waypoint w = new Presets.V2.Aircrafts.F16.Systems.Waypoint();
@@ -37,9 +38,9 @@ public partial class WaypointsPageControl : AircraftSystemPage
                     w.Name = waypoint.Name;
                     w.Sequence = waypoint.Sequence;
                     f16Config.Waypoints.Add(w);
-                    
+
                 }
-                this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints); 
+                this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints);
             }
 
         }));
@@ -157,5 +158,10 @@ public partial class WaypointsPageControl : AircraftSystemPage
         }
 
         contextMenu.Show(dgWaypoints, e.Location);
+    }
+
+    private void deleteButton_Click(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();    
     }
 }
