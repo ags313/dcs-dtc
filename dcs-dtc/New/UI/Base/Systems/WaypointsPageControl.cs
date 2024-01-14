@@ -41,23 +41,8 @@ public partial class WaypointsPageControl : AircraftSystemPage
                 }
                 this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints); 
             }
-            
 
-            //find out if it's a F-16
-            /*this._waypoints.Waypoints.Clear();
-            var clipboardContent = Clipboard.GetText();
-            WaypointSystemParser parser = new WaypointSystemParser();
-            foreach (Waypoint waypoint in parser.parseForF16(clipboardContent))
-            {
-                this._waypoints.Add(waypoint);
-            }
-            this.RefreshList();
-            this._parent.DataChangedCallback();
-            */
         }));
-        //this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From DTC file...", () =>
-        //{
-        //}));
 
         this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From CombatFlite...", () =>
         {
