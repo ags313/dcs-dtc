@@ -25,6 +25,8 @@ public partial class F16Uploader
 
         foreach (var wpt in wpts)
         {
+            if (string.IsNullOrEmpty(wpt.Longitude)) //This is needed to skip empty lines in MDC
+                continue;
             Cmd(Digits(UFC, wpt.Sequence.ToString()));
             Cmd(UFC.ENTR);
             Cmd(UFC.DOWN);

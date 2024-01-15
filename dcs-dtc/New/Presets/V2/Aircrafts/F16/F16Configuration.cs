@@ -54,12 +54,12 @@ public class F16Configuration : Configuration
 
         foreach (var wpt in Waypoints.Waypoints)
         {
-            if (!wpt.Latitude.Contains("°"))
+            if (!String.IsNullOrEmpty(wpt.Latitude) && !wpt.Latitude.Contains("°"))
             {
                 var parts = wpt.Latitude.Split('.');
                 wpt.Latitude = $"{parts[0]}°{parts[1]}.{parts[2]}’";
             }
-            if (!wpt.Longitude.Contains("°"))
+            if (!String.IsNullOrEmpty(wpt.Longitude) && !wpt.Longitude.Contains("°"))
             {
                 var parts = wpt.Longitude.Split('.');
                 wpt.Longitude = $"{parts[0]}°{parts[1]}.{parts[2]}’";
