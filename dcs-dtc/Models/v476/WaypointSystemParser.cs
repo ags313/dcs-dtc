@@ -35,7 +35,7 @@ namespace DTC.Models.v476
                             parserState = ParserState.ParsingFlightPlan;
                         }
 
-                        if (lineType == RecordType.Waypoint || lineType == RecordType.EmptyRow)
+                        if ((lineType == RecordType.Waypoint || lineType == RecordType.EmptyRow) && parserState == ParserState.ParsingFlightPlan)
                         {
                             var waypoint = parseWaypoint(line);
                             result.Add(singleParse(waypoint));
