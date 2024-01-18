@@ -128,14 +128,15 @@ namespace DTC.Models.v476
             return this;
         }
 
-        public F16.Waypoints.Waypoint buildForF16()
+        public DTC.New.Presets.V2.Aircrafts.F16.Systems.Waypoint buildForF16()
         {
             if (!_ordinal.HasValue)
             {
                 throw new Exception("Missing required fields");
             }
 
-            F16.Waypoints.Waypoint wp = new(_ordinal.Value);
+            DTC.New.Presets.V2.Aircrafts.F16.Systems.Waypoint wp = new();
+            wp.Sequence = _ordinal.Value;
             
             if(_latitude != null && _longitude != null)
             {
@@ -165,14 +166,15 @@ namespace DTC.Models.v476
             return wp;
         }
 
-        public F15E.Waypoints.Waypoint buildForF15E()
+        public DTC.New.Presets.V2.Aircrafts.F15E.Systems.Waypoint buildForF15E()
         {
             if (!_ordinal.HasValue)
             {
                 throw new Exception("Missing required fields");
             }
 
-            F15E.Waypoints.Waypoint wp = new(_ordinal.Value);
+            DTC.New.Presets.V2.Aircrafts.F15E.Systems.Waypoint wp = new();
+            wp.Sequence = _ordinal.Value;
 
             if (_latitude != null && _longitude != null)
             {
@@ -198,14 +200,15 @@ namespace DTC.Models.v476
             }
             return wp;
         }
-        public FA18.Waypoints.Waypoint buildForFA18()
+        public DTC.New.Presets.V2.Aircrafts.FA18.Systems.Waypoint buildForFA18()
         {
             if (!_ordinal.HasValue)
             {
                 throw new Exception("Missing required fields");
             }
 
-            FA18.Waypoints.Waypoint wp = new(_ordinal.Value);
+            DTC.New.Presets.V2.Aircrafts.FA18.Systems.Waypoint wp = new();
+            wp.Sequence = _ordinal.Value;
 
             if (_latitude != null && _longitude != null)
             {

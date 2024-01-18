@@ -1,4 +1,4 @@
-﻿using DTC.Models.v476;
+using DTC.Models.v476;
 using DTC.New.UI.Base.Pages;
 using DTC.New.UI.Base.Systems.WaypointImport;
 using DTC.New.UI.Base.Systems.WaypointImport.Types;
@@ -29,7 +29,7 @@ public partial class WaypointsPageControl : AircraftSystemPage
             {
                 DTC.New.Presets.V2.Aircrafts.F16.F16Configuration f16Config = (DTC.New.Presets.V2.Aircrafts.F16.F16Configuration)baseConfig;
                 f16Config.Waypoints.Waypoints.Clear();
-                foreach (DTC.Models.F16.Waypoints.Waypoint waypoint in parser.parseForF16(clipboardContent))
+                foreach (var waypoint in parser.parseForF16(clipboardContent))
                 {
                     Presets.V2.Aircrafts.F16.Systems.Waypoint w = new Presets.V2.Aircrafts.F16.Systems.Waypoint();
                     w.Elevation = waypoint.Elevation;
