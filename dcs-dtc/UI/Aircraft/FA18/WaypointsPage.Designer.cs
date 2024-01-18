@@ -61,6 +61,19 @@ namespace DTC.UI.Aircrafts.FA18
             panel1.Size = new Size(689, 35);
             panel1.TabIndex = 99;
             // 
+            // btnClear
+            // 
+            btnClear.BackColor = Color.DarkKhaki;
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClear.Location = new Point(410, 2);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(129, 28);
+            btnClear.TabIndex = 0;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click_1;
+            // 
             // btnImport476
             // 
             btnImport476.BackColor = Color.DarkKhaki;

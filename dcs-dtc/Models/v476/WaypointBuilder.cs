@@ -63,7 +63,9 @@ namespace DTC.Models.v476
             }
             else if (value.Trim().Length > 2)
             {
-                return Int32.Parse(value);
+                int height = 0;
+                if (int.TryParse(value, out height))
+                    return height;
             }
 
             return null;

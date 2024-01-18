@@ -111,7 +111,7 @@ public abstract partial class Uploader
 
         foreach (var c in digits.ToCharArray())
         {
-            var first = props.First(p => p.Name == "D" + c);
+            var first = props.FirstOrDefault(p => p.Name == "D" + c);
             if (first != null)
             {
                 var v = first.GetValue(d, null);

@@ -35,7 +35,7 @@ namespace DTC.Models.v476
                             parserState = ParserState.ParsingFlightPlan;
                         }
 
-                        if (lineType == RecordType.Waypoint || lineType == RecordType.EmptyRow)
+                        if ((lineType == RecordType.Waypoint || lineType == RecordType.EmptyRow) && parserState == ParserState.ParsingFlightPlan)
                         {
                             var waypoint = parseWaypoint(line);
                             result.Add(singleParse(waypoint));
@@ -89,7 +89,7 @@ namespace DTC.Models.v476
             var builder = new WaypointBuilder();
             for (int i = 0; i < strings.Length; i++)
             {
-                var value = strings[i];
+                var value = strings[i].Trim();
                 var column = columns[i];
                 switch (column)
                 {
@@ -138,7 +138,7 @@ namespace DTC.Models.v476
             var indexes = new Dictionary<int, Column>();
             foreach (var segment in line.Split("\t"))
             {
-                var kind = segment switch
+                var kind = segment.Trim() switch
                 {
                     "#" => Column.Ordinal,
                     "Type" => Column.WaypointType,

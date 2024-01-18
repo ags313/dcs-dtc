@@ -144,5 +144,11 @@ namespace DTC.UI.Aircrafts.FA18
             this._waypoints.Waypoints.Clear();
             this.RefreshList();
         }
+
+        private void btnClear_Click_1(object sender, EventArgs e)
+        {
+            this._waypoints.Waypoints.Clear();
+            this.RefreshList();
+        }
     }
 }

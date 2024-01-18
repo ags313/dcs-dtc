@@ -12,23 +12,14 @@ namespace DTC.Models.Presets
         {
             get
             {
-                if (Model == AircraftModel.F16C)
+                return Model switch
                 {
-                    return "F-16C";
-                }
-                else if (Model == AircraftModel.FA18C)
-                {
-                    return "F/A-18C";
-                }
-                else if (Model == AircraftModel.AH64D)
-                {
-                    return "AH-64D";
-                }
-                else if (Model == AircraftModel.F15E)
-                {
-                    return "F-15E";
-                }
-                throw new Exception();
+                    AircraftModel.F16C => "F-16C",
+                    AircraftModel.FA18C => "F/A-18C",
+                    AircraftModel.AH64D => "AH-64D",
+                    AircraftModel.F15E => "F-15E",
+                    _ => throw new Exception()
+                };
             }
         }
 
@@ -48,23 +39,14 @@ namespace DTC.Models.Presets
 
         public Type GetAircraftConfigurationType()
         {
-            if (Model == AircraftModel.F16C)
+            return Model switch
             {
-                return typeof(F16Configuration);
-            }
-            else if (Model == AircraftModel.FA18C)
-            {
-                return typeof(FA18Configuration);
-            }
-            else if (Model == AircraftModel.AH64D)
-            {
-                return typeof(AH64Configuration);
-            }
-            else if (Model == AircraftModel.F15E)
-            {
-                return typeof(F15EConfiguration);
-            }
-            throw new Exception();
+                AircraftModel.F16C => typeof(F16Configuration),
+                AircraftModel.FA18C => typeof(FA18Configuration),
+                AircraftModel.AH64D => typeof(AH64Configuration),
+                AircraftModel.F15E => typeof(F15EConfiguration),
+                _ => throw new Exception()
+            };
         }
 
         public Preset CreatePreset(string name, IConfiguration cfg = null)
