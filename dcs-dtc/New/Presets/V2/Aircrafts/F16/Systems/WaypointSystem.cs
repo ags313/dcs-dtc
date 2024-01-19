@@ -1,4 +1,4 @@
-﻿using DTC.New.Presets.V2.Base.Systems;
+using DTC.New.Presets.V2.Base.Systems;
 
 namespace DTC.New.Presets.V2.Aircrafts.F16.Systems;
 
@@ -49,7 +49,7 @@ public class Waypoint : IWaypoint
 
 public class WaypointSystem : WaypointSystem<Waypoint>
 {
-    protected override int GetFirstSequence()
+    public override int GetFirstAllowedSequence()
     {
         return 1;
     }

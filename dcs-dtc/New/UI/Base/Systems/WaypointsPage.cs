@@ -1,4 +1,4 @@
-﻿using DTC.New.UI.Base.Pages;
+using DTC.New.UI.Base.Pages;
 using DTC.Utilities;
 using DTC.New.UI.Base.Systems.WaypointImport;
 using DTC.New.Presets.V2.Base.Systems;
@@ -13,7 +13,7 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
     private readonly string title;
     private WaypointEdit<T>? editDialog;
 
-    public WaypointsPage(AircraftPage parent, WaypointSystem<T> waypoints, IWaypointEditCustomPanel? customPanel, string title = "Waypoints") : base(parent)
+    public WaypointsPage(AircraftPage parent, WaypointSystem<T> waypoints, IWaypointEditCustomPanel? customPanel, string systemName, string title = "Waypoints") : base(parent, systemName)
     {
         this.waypoints = waypoints;
         this.customPanel = customPanel;
@@ -195,5 +195,23 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
         this.waypoints.Reorder(args.From, args.Between1, args.Between2);
         this.SavePreset();
         this.RefreshList();
+    }
+
+    protected override void CopyWaypoints(int[] ints)
+    {
+        var json = this.waypoints.ExportWptsToJson(ints);
+        Clipboard.SetText(json);
+    }
+
+    protected override void PasteWaypoints()
+    {
+        this.waypoints.ImportWptsFromJson(Clipboard.GetText(), false);
+        this.SavePreset();
+        this.RefreshList();
+    }
+
+    protected override bool IsClipboardWaypointsValid()
+    {
+        return this.waypoints.LoadWptsFromJson(Clipboard.GetText()) != null;
     }
 }

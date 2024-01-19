@@ -1,4 +1,4 @@
-﻿namespace DTC.UI.Base.Controls;
+namespace DTC.UI.Base.Controls;
 
 public class DTCGridShowContextMenuArgs : EventArgs
 {
@@ -98,7 +98,6 @@ public class DTCGrid : UserControl
     private void GridMouseClick(object? sender, MouseEventArgs e)
     {
         var ht = grid.HitTest(e.X, e.Y);
-        if (ht.Type != DataGridViewHitTestType.Cell) return;
         if (e.Button != MouseButtons.Right) return;
 
         ShowContextMenu?.Invoke(new DTCGridShowContextMenuArgs { Location = e.Location, RowIndex = ht.RowIndex, HitTestType = ht.Type});

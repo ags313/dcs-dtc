@@ -1,4 +1,5 @@
-﻿using DTC.Utilities.Extensions;
+using DTC.Utilities.Extensions;
+using Newtonsoft.Json;
 
 namespace DTC.New.Presets.V2.Base.Systems;
 
@@ -28,7 +29,7 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
         };
     }
 
-    protected abstract int GetFirstSequence();
+    public abstract int GetFirstAllowedSequence();
 
     public void Add(T wpt)
     {
@@ -63,7 +64,7 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
 
     public int GetNextSequence()
     {
-        var seq = GetFirstSequence() - 1;
+        var seq = GetFirstAllowedSequence() - 1;
         foreach (var wpt in Waypoints)
         {
             if (wpt.Sequence > seq)
@@ -77,7 +78,7 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
 
     internal int GetNextSequenceOfFirstGap()
     {
-        var seq = GetFirstSequence() - 1;
+        var seq = GetFirstAllowedSequence() - 1;
         for (int i = 0; i < Waypoints.Count; i++)
         {
             var wpt = Waypoints[i];
@@ -317,5 +318,72 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
         var endSeq = this.Waypoints[end].Sequence;
 
         return new Block { Start = start, End = end, StartSeq = startSeq, EndSeq = endSeq };
+    }
+
+    public string ExportWptsToJson(int[] indexes)
+    {
+        var wpts = new List<T>();
+        foreach (var i in indexes)
+        {
+            wpts.Add(this.Waypoints[i]);
+        }
+        var clip = new WaypointsOnClipboard<T>();
+        clip.WaypointsOnClipboardList.AddRange(wpts);
+        return JsonConvert.SerializeObject(clip);
+    }
+
+    public string ExportWptsToJson()
+    {
+        var clip = new WaypointsOnClipboard<T>();
+        clip.WaypointsOnClipboardList.AddRange(this.Waypoints);
+        return JsonConvert.SerializeObject(clip);
+    }
+
+    public WaypointsOnClipboard<T> LoadWptsFromJson(string json)
+    {
+        WaypointsOnClipboard<T> wpts = null;
+        try
+        {
+            wpts = JsonConvert.DeserializeObject<WaypointsOnClipboard<T>>(json);
+        }
+        catch
+        {
+        }
+
+        if (wpts == null || wpts.WaypointsOnClipboardList == null || wpts.WaypointsOnClipboardList.Count == 0) return null;
+        return wpts;
+    }
+
+    public void ImportWptsFromJson(string json, bool replace = true)
+    {
+        var wpts = LoadWptsFromJson(json);
+        if (wpts == null) return;
+        if (replace)
+        {
+            this.Waypoints.Clear();
+        }
+        else
+        {
+            var seq = GetNextSequence();
+            foreach (var wpt in wpts.WaypointsOnClipboardList)
+            {
+                wpt.Sequence = seq++;
+            }
+        }
+        this.Waypoints.AddRange(wpts.WaypointsOnClipboardList);
+    }
+
+    public void FixWaypointsStartingAt0()
+    {
+        if (Waypoints != null)
+        {
+            if (IsSequenceInUse(0))
+            {
+                foreach (var wp in Waypoints)
+                {
+                    wp.Sequence++;
+                }
+            }
+        }
     }
 }

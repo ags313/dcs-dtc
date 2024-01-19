@@ -40,6 +40,9 @@ namespace DTC.New.UI.Base.Systems
             shiftUpMenu = new ToolStripMenuItem();
             shiftDownMenu = new ToolStripMenuItem();
             pnlContents = new Panel();
+            toolStripSeparator1 = new ToolStripSeparator();
+            copyMenu = new ToolStripMenuItem();
+            pasteMenu = new ToolStripMenuItem();
             clearButton = new DTCButton();
             panel1.SuspendLayout();
             contextMenu.SuspendLayout();
@@ -115,15 +118,16 @@ namespace DTC.New.UI.Base.Systems
             dgWaypoints.Size = new Size(689, 448);
             dgWaypoints.TabIndex = 100;
             dgWaypoints.Reorder += DataGridReorder;
+            dgWaypoints.ShowContextMenu += DataGridShowContextMenu;
             dgWaypoints.SelectionChanged += DataGridSelectionChanged;
             dgWaypoints.ShowContextMenu += DataGridShowContextMenu;
             dgWaypoints.DoubleClick += DataGridDoubleClick;
             // 
             // contextMenu
             // 
-            contextMenu.Items.AddRange(new ToolStripItem[] { shiftUpMenu, shiftDownMenu });
+            contextMenu.Items.AddRange(new ToolStripItem[] { shiftUpMenu, shiftDownMenu, toolStripSeparator1, copyMenu, pasteMenu });
             contextMenu.Name = "contextMenu";
-            contextMenu.Size = new Size(186, 70);
+            contextMenu.Size = new Size(186, 120);
             // 
             // shiftUpMenu
             // 
@@ -147,6 +151,23 @@ namespace DTC.New.UI.Base.Systems
             pnlContents.Size = new Size(689, 483);
             pnlContents.TabIndex = 4;
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(182, 6);
+            // 
+            // copyMenu
+            // 
+            copyMenu.Name = "copyMenu";
+            copyMenu.Size = new Size(185, 22);
+            copyMenu.Text = "Copy";
+            // 
+            // pasteMenu
+            // 
+            pasteMenu.Name = "pasteMenu";
+            pasteMenu.Size = new Size(185, 22);
+            pasteMenu.Text = "Paste";
+            // 
             // clearButton
             // 
             clearButton.BackColor = Color.DarkKhaki;
@@ -160,7 +181,6 @@ namespace DTC.New.UI.Base.Systems
             clearButton.TabIndex = 5;
             clearButton.Text = "Clear";
             clearButton.UseVisualStyleBackColor = false;
-            clearButton.Click += deleteButton_Click;
             // 
             // WaypointsPageControl
             // 
@@ -186,6 +206,9 @@ namespace DTC.New.UI.Base.Systems
         private ContextMenuStrip contextMenu;
         private ToolStripMenuItem shiftUpMenu;
         private ToolStripMenuItem shiftDownMenu;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem copyMenu;
+        private ToolStripMenuItem pasteMenu;
         private DTCButton clearButton;
     }
 }
