@@ -1,5 +1,4 @@
-﻿using DTC.Models.DCS;
-using DTC.New.Presets.V2.Base.Systems;
+﻿using DTC.New.Presets.V2.Base.Systems;
 using DTC.Utilities;
 
 namespace DTC.New.UI.Base.Systems;
@@ -20,6 +19,7 @@ public class WaypointEdit<T> : WaypointEditControl where T : class, IWaypoint, n
         this.customPanel = customPanel;
         this.waypoints = waypoints;
         this.txtElevation.MaximumValue = maxWptElevation;
+        this.txtSequence.MinimumValue = waypoints.GetFirstAllowedSequence();
 
         if (customPanel != null)
         {

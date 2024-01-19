@@ -1,4 +1,4 @@
-﻿using DTC.New.Presets.V2.Base.Systems;
+using DTC.New.Presets.V2.Base.Systems;
 
 namespace DTC.New.Presets.V2.Aircrafts.F16.Systems;
 
@@ -45,30 +45,12 @@ public class Waypoint : IWaypoint
             return str;
         }
     }
-
-    [Newtonsoft.Json.JsonIgnore]
-    public bool IsCoordinateBlank
-    {
-        get
-        {
-            var tmp = Latitude.Replace("N", "").Replace("S", "").Replace(".", "");
-            if (int.TryParse(tmp, out int latInt))
-            {
-                if (latInt == 0)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
-    public void AutoName()
-    {
-        Name = "WPT " + Sequence.ToString("00");
-    }
 }
 
 public class WaypointSystem : WaypointSystem<Waypoint>
 {
+    public override int GetFirstAllowedSequence()
+    {
+        return 1;
+    }
 }

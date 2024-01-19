@@ -1,6 +1,7 @@
 ﻿
 using DTC.New.Uploader.Base;
 using DTC.Utilities;
+using static DTC.Utilities.DataReceiver;
 
 namespace DTC.New.Uploader.Aircrafts.F16;
 
@@ -72,7 +73,7 @@ public partial class F16Uploader
         Cmd(UFC.LIST);
         Cmd(UFC.D0);
         Cmd(Wait());
-        If(IsHTSEnabled(), cmds.ToArray());
+        If(HTSEnabled(), cmds.ToArray());
         Cmd(UFC.RTN);
     }
 
@@ -107,7 +108,40 @@ public partial class F16Uploader
         Cmd(UFC.LIST);
         Cmd(UFC.D0);
         Cmd(Wait());
-        If(IsHARMEnabled(), cmds.ToArray());
+        IfNot(HARMEnabled(), SelectHARM());
+        Cmd(Wait());
+        If(HARMEnabled(), cmds.ToArray());
         Cmd(UFC.RTN);
+    }
+
+    private Condition HARMEnabled()
+    {
+        return new Condition("HARMEnabled()");
+    }
+
+    private Condition HTSEnabled()
+    {
+        return new Condition("HTSEnabled()");
+    }
+
+    private CustomCommand SelectHARM()
+    {
+        var data = "{" +
+            $"firstPageId = {LMFD.OSB14.Id}, " +
+            $"secondPageId = {LMFD.OSB13.Id}, " +
+            $"thirdPageId = {LMFD.OSB12.Id}, " +
+            $"leftMFDDeviceID = {LMFD.Id}, " +
+            $"rightMFDDeviceID = {RMFD.Id}, " +
+            $"weaponStep = {LMFD.OSB06.Id}, " +
+            $"delay = {Settings.ViperCommandDelayMs * LMFD.OSB06.DelayFactor}, " +
+            $"activation = {LMFD.OSB06.Activation}" +
+            "}";
+
+        return new CustomCommand("SelectHARM(" + data + ")");
+    }
+
+    private CustomCommand BuildHTSMFD(string data)
+    {
+        return new CustomCommand("BuildHTSMFD(" + data + ")");
     }
 }

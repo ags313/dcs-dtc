@@ -95,7 +95,10 @@ namespace DTC.New.UI.Aircrafts.F16.Systems
 
                 this.selectedPageDropDown.Visible = this.selectedPageDropDown.Items.Count != 0;
 
-                this.selectedPageDropDown.SelectedItem = mfd.SelectedPage;
+                if (this.selectedPageDropDown.SelectedItem == null || (int)this.selectedPageDropDown.SelectedItem != mfd.SelectedPage)
+                {
+                    this.selectedPageDropDown.SelectedItem = mfd.SelectedPage;
+                }
 
                 if (this.selectedPageDropDown.Visible && !this.selectedPageDropDown.Items.Contains(this.mfd.SelectedPage))
                 {
@@ -271,9 +274,9 @@ namespace DTC.New.UI.Aircrafts.F16.Systems
 
         private List<Row> rows = new();
 
-        public MFDPage(F16Page parent, MFDSystem mfdSystem) : base(parent)
+        public MFDPage(F16Page parent) : base(parent, nameof(parent.Configuration.MFD))
         {
-            _mfdSystem = mfdSystem;
+            _mfdSystem = parent.Configuration.MFD;
             InitializeComponent();
 
             var margin = 15;

@@ -2,8 +2,6 @@
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using DTC.Models.F16.Waypoints;
-using DTC.Models.FA18.Waypoints;
 
 namespace DTC.Models.v476
 {
@@ -65,21 +63,21 @@ namespace DTC.Models.v476
             return result;
         }
 
-        public List<F15E.Waypoints.Waypoint> parseForF15(String contentToParse)
+        public List<DTC.New.Presets.V2.Aircrafts.F15E.Systems.Waypoint> parseForF15(String contentToParse)
         {
-            return parse<F15E.Waypoints.Waypoint>(contentToParse,
+            return parse<DTC.New.Presets.V2.Aircrafts.F15E.Systems.Waypoint>(contentToParse,
                 (builder) => builder.buildForF15E()); ;
         }
 
-        public List<FA18.Waypoints.Waypoint> parseForFA18(String contentToParse)
+        public List<DTC.New.Presets.V2.Aircrafts.FA18.Systems.Waypoint> parseForFA18(String contentToParse)
         {
-            return parse<FA18.Waypoints.Waypoint>(contentToParse,
+            return parse<DTC.New.Presets.V2.Aircrafts.FA18.Systems.Waypoint>(contentToParse,
                 (builder) => builder.buildForFA18()); ;
         }
 
-        public List<F16.Waypoints.Waypoint> parseForF16(String contentToParse)
+        public List<DTC.New.Presets.V2.Aircrafts.F16.Systems.Waypoint> parseForF16(String contentToParse)
         {
-            return parse<F16.Waypoints.Waypoint>(contentToParse,
+            return parse<DTC.New.Presets.V2.Aircrafts.F16.Systems.Waypoint>(contentToParse,
                 (builder) => builder.buildForF16());
         }
 

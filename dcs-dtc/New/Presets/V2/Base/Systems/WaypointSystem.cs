@@ -1,4 +1,7 @@
-﻿namespace DTC.New.Presets.V2.Base.Systems;
+using DTC.Utilities.Extensions;
+using Newtonsoft.Json;
+
+namespace DTC.New.Presets.V2.Base.Systems;
 
 public interface IWaypoint
 {
@@ -18,11 +21,15 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
 
     public T NewWaypoint()
     {
+        var seq = GetNextSequence();
         return new T()
         {
-            Sequence = GetNextSequence()
+            Sequence = seq,
+            Name = "STPT " + seq,
         };
     }
+
+    public abstract int GetFirstAllowedSequence();
 
     public void Add(T wpt)
     {
@@ -49,44 +56,15 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
     public void Remove(T wpt)
     {
         var startIdx = Waypoints.IndexOf(wpt);
+        var block = GetSequenceBlock(startIdx);
         Waypoints.Remove(wpt);
-
-        ReSequence(startIdx, wpt.Sequence, false);
-    }
-
-    private int ReSequence(int startIdx, int sequence, bool increment)
-    {
-        var lastIdx = -1;
-        var prevSeq = sequence;
-
-        for (var i = startIdx; i < Waypoints.Count; i++)
-        {
-            var w = Waypoints[i];
-            if (w.Sequence <= prevSeq + 1)
-            {
-                prevSeq = w.Sequence;
-                lastIdx = i;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        if (lastIdx != -1)
-        {
-            for (var i = startIdx; i <= lastIdx; i++)
-            {
-                Waypoints[i].Sequence += increment ? 1 : -1;
-            }
-        }
-
-        return lastIdx;
+        block.End--;
+        Renumerate(block);
     }
 
     public int GetNextSequence()
     {
-        var seq = 0;
+        var seq = GetFirstAllowedSequence() - 1;
         foreach (var wpt in Waypoints)
         {
             if (wpt.Sequence > seq)
@@ -100,7 +78,7 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
 
     internal int GetNextSequenceOfFirstGap()
     {
-        var seq = 0;
+        var seq = GetFirstAllowedSequence() - 1;
         for (int i = 0; i < Waypoints.Count; i++)
         {
             var wpt = Waypoints[i];
@@ -116,6 +94,7 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
         }
         return seq + 1;
     }
+
     internal int GetNextSequenceFromSequence(int navPointsRangeFrom)
     {
         var seq = navPointsRangeFrom;
@@ -217,6 +196,194 @@ public abstract class WaypointSystem<T> where T : class, IWaypoint, new()
 
             newSeq += 1;
             wpt.Sequence = newSeq;
+        }
+    }
+
+    private void Renumerate(Block block)
+    {
+        var startSeq = block.StartSeq;
+        for (var i = block.Start; i <= block.End; i++)
+        {
+            var wpt = Waypoints[i];
+            wpt.Sequence = startSeq++;
+        }
+    }
+
+    internal void Reorder(int from, int between1, int between2)
+    {
+        var src = this.Waypoints[from];
+        var blockSource = GetSequenceBlock(from);
+
+        T tgtBefore = null;
+        T tgtAfter = null;
+        Block blockBefore = null;
+        Block blockAfter = null;
+
+        if (this.Waypoints.InBounds(between1))
+        {
+            tgtBefore = this.Waypoints[between1];
+            blockBefore = GetSequenceBlock(between1);
+        }
+        if (this.Waypoints.InBounds(between2))
+        {
+            tgtAfter = this.Waypoints[between2];
+            blockAfter = GetSequenceBlock(between2);
+        }
+
+        if (blockSource.Equals(blockBefore) || blockSource.Equals(blockAfter))
+        {
+            this.Waypoints.Remove(src);
+            if (tgtBefore != null)
+            {
+                this.Waypoints.InsertAfter(src, tgtBefore);
+            }
+            else if (tgtAfter != null)
+            {
+                this.Waypoints.InsertBefore(src, tgtAfter);
+            }
+            Renumerate(blockSource);
+        }
+        else
+        {
+            this.Waypoints.Remove(src);
+            blockSource.End--;
+            Renumerate(blockSource);
+
+            if (tgtAfter != null)
+            {
+                this.Waypoints.InsertBefore(src, tgtAfter);
+                if (blockSource.End < blockAfter.Start)
+                {
+                    blockAfter.Start--;
+                }
+                else
+                {
+                    blockAfter.End++;
+                }
+                Renumerate(blockAfter);
+            }
+            else if (tgtBefore != null)
+            {
+                this.Waypoints.InsertAfter(src, tgtBefore);
+                blockBefore.Start--;
+                Renumerate(blockBefore);
+            }
+
+        }
+    }
+
+    private class Block : IEquatable<Block>
+    {
+        public int Start { get; set; }
+        public int End { get; set; }
+        public int StartSeq { get; set; }
+        public int EndSeq { get; set; }
+
+        public bool Equals(WaypointSystem<T>.Block? other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            return this.Start == other.Start && this.End == other.End;
+        }
+    }
+
+    private Block GetSequenceBlock(int from)
+    {
+        var start = 0;
+        var end = 0;
+        
+        for (var i = from; i > -1; i--)
+        {
+            var seq = this.Waypoints[i].Sequence;
+            start = i;
+            if (i > 0 && this.Waypoints[i - 1].Sequence < seq - 1)
+            {
+                break;
+            }
+        }
+
+        for (var i = from; i < this.Waypoints.Count; i++)
+        {
+            var seq = this.Waypoints[i].Sequence;
+            end = i;
+            if (i < this.Waypoints.Count - 1 && this.Waypoints[i + 1].Sequence > seq + 1)
+            {
+                break;
+            }
+        }
+
+        var startSeq = this.Waypoints[start].Sequence;
+        var endSeq = this.Waypoints[end].Sequence;
+
+        return new Block { Start = start, End = end, StartSeq = startSeq, EndSeq = endSeq };
+    }
+
+    public string ExportWptsToJson(int[] indexes)
+    {
+        var wpts = new List<T>();
+        foreach (var i in indexes)
+        {
+            wpts.Add(this.Waypoints[i]);
+        }
+        var clip = new WaypointsOnClipboard<T>();
+        clip.WaypointsOnClipboardList.AddRange(wpts);
+        return JsonConvert.SerializeObject(clip);
+    }
+
+    public string ExportWptsToJson()
+    {
+        var clip = new WaypointsOnClipboard<T>();
+        clip.WaypointsOnClipboardList.AddRange(this.Waypoints);
+        return JsonConvert.SerializeObject(clip);
+    }
+
+    public WaypointsOnClipboard<T> LoadWptsFromJson(string json)
+    {
+        WaypointsOnClipboard<T> wpts = null;
+        try
+        {
+            wpts = JsonConvert.DeserializeObject<WaypointsOnClipboard<T>>(json);
+        }
+        catch
+        {
+        }
+
+        if (wpts == null || wpts.WaypointsOnClipboardList == null || wpts.WaypointsOnClipboardList.Count == 0) return null;
+        return wpts;
+    }
+
+    public void ImportWptsFromJson(string json, bool replace = true)
+    {
+        var wpts = LoadWptsFromJson(json);
+        if (wpts == null) return;
+        if (replace)
+        {
+            this.Waypoints.Clear();
+        }
+        else
+        {
+            var seq = GetNextSequence();
+            foreach (var wpt in wpts.WaypointsOnClipboardList)
+            {
+                wpt.Sequence = seq++;
+            }
+        }
+        this.Waypoints.AddRange(wpts.WaypointsOnClipboardList);
+    }
+
+    public void FixWaypointsStartingAt0()
+    {
+        if (Waypoints != null)
+        {
+            if (IsSequenceInUse(0))
+            {
+                foreach (var wp in Waypoints)
+                {
+                    wp.Sequence++;
+                }
+            }
         }
     }
 }

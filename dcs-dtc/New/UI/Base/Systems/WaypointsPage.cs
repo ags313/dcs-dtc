@@ -1,8 +1,8 @@
-﻿using DTC.New.UI.Base.Pages;
+using DTC.New.UI.Base.Pages;
 using DTC.Utilities;
 using DTC.New.UI.Base.Systems.WaypointImport;
 using DTC.New.Presets.V2.Base.Systems;
-using System.Diagnostics;
+using DTC.UI.Base.Controls;
 
 namespace DTC.New.UI.Base.Systems;
 
@@ -13,7 +13,7 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
     private readonly string title;
     private WaypointEdit<T>? editDialog;
 
-    public WaypointsPage(AircraftPage parent, WaypointSystem<T> waypoints, IWaypointEditCustomPanel? customPanel, string title = "Waypoints") : base(parent)
+    public WaypointsPage(AircraftPage parent, WaypointSystem<T> waypoints, IWaypointEditCustomPanel? customPanel, string systemName, string title = "Waypoints") : base(parent, systemName)
     {
         this.waypoints = waypoints;
         this.customPanel = customPanel;
@@ -31,10 +31,7 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
     {
         this.DeleteSelection();
     }
-    protected override void btnClear_Click(object sender, EventArgs e)
-    {
-        this.ClearWaypoints();
-    }
+
     protected override void DataGridDoubleClick(object sender, EventArgs e)
     {
         if (this.dgWaypoints.SelectedRows.Count > 0)
@@ -127,12 +124,6 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
         this.dgWaypoints.Focus();
     }
 
-    private void ClearWaypoints()
-    {
-        this.waypoints.Waypoints.Clear();
-        this.RefreshList();
-    }
-
     protected override void ProcessCfImport(ImportDialog dialog)
     {
         var wpts = new List<T>();
@@ -153,21 +144,15 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
 
     private void ProcessImport(List<T> wpts, bool append, bool replace, bool insert, int insertAt, bool overwrite, bool shift)
     {
-        if (append)
+        if (append || replace)
         {
+            if (replace)
+            {
+                this.waypoints.Waypoints.Clear();
+            }
+
             var seq = this.waypoints.GetNextSequence();
 
-            foreach (var wpt in wpts)
-            {
-                wpt.Sequence = seq++;
-                this.waypoints.Add(wpt);
-            }
-        }
-        else if (replace)
-        {
-            var seq = 1;
-
-            this.waypoints.Waypoints.Clear();
             foreach (var wpt in wpts)
             {
                 wpt.Sequence = seq++;
@@ -203,5 +188,30 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
 
         this.SavePreset();
         this.RefreshList();
+    }
+
+    protected override void DataGridReorder(DTCGridReorderArgs args)
+    {
+        this.waypoints.Reorder(args.From, args.Between1, args.Between2);
+        this.SavePreset();
+        this.RefreshList();
+    }
+
+    protected override void CopyWaypoints(int[] ints)
+    {
+        var json = this.waypoints.ExportWptsToJson(ints);
+        Clipboard.SetText(json);
+    }
+
+    protected override void PasteWaypoints()
+    {
+        this.waypoints.ImportWptsFromJson(Clipboard.GetText(), false);
+        this.SavePreset();
+        this.RefreshList();
+    }
+
+    protected override bool IsClipboardWaypointsValid()
+    {
+        return this.waypoints.LoadWptsFromJson(Clipboard.GetText()) != null;
     }
 }
