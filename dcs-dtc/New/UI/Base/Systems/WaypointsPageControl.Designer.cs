@@ -32,18 +32,17 @@ namespace DTC.New.UI.Base.Systems
         {
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
+            clearButton = new DTCButton();
             btnImport = new DTCDropDownButton();
             btnDelete = new DTCButton();
             btnAdd = new DTCButton();
-            dgWaypoints = new DTCGrid();
             contextMenu = new ContextMenuStrip(components);
             shiftUpMenu = new ToolStripMenuItem();
             shiftDownMenu = new ToolStripMenuItem();
-            pnlContents = new Panel();
             toolStripSeparator1 = new ToolStripSeparator();
             copyMenu = new ToolStripMenuItem();
             pasteMenu = new ToolStripMenuItem();
-            clearButton = new DTCButton();
+            pnlContents = new Panel();
             panel1.SuspendLayout();
             contextMenu.SuspendLayout();
             pnlContents.SuspendLayout();
@@ -61,6 +60,21 @@ namespace DTC.New.UI.Base.Systems
             panel1.Padding = new Padding(10);
             panel1.Size = new Size(689, 35);
             panel1.TabIndex = 99;
+            // 
+            // clearButton
+            // 
+            clearButton.BackColor = Color.DarkKhaki;
+            clearButton.Enabled = false;
+            clearButton.FlatAppearance.BorderSize = 0;
+            clearButton.FlatStyle = FlatStyle.Flat;
+            clearButton.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            clearButton.Location = new Point(176, 5);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new Size(80, 25);
+            clearButton.TabIndex = 5;
+            clearButton.Text = "Clear";
+            clearButton.UseVisualStyleBackColor = false;
+            clearButton.Click += clearButton_Click;
             // 
             // btnImport
             // 
@@ -107,27 +121,11 @@ namespace DTC.New.UI.Base.Systems
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += AddButtonClick;
             // 
-            // dgWaypoints
-            // 
-            dgWaypoints.ColumnHeadersVisible = true;
-            dgWaypoints.Dock = DockStyle.Fill;
-            dgWaypoints.EnableReorder = true;
-            dgWaypoints.Location = new Point(0, 35);
-            dgWaypoints.Multiselect = true;
-            dgWaypoints.Name = "dgWaypoints";
-            dgWaypoints.Size = new Size(689, 448);
-            dgWaypoints.TabIndex = 100;
-            dgWaypoints.Reorder += DataGridReorder;
-            dgWaypoints.ShowContextMenu += DataGridShowContextMenu;
-            dgWaypoints.SelectionChanged += DataGridSelectionChanged;
-            dgWaypoints.ShowContextMenu += DataGridShowContextMenu;
-            dgWaypoints.DoubleClick += DataGridDoubleClick;
-            // 
             // contextMenu
             // 
             contextMenu.Items.AddRange(new ToolStripItem[] { shiftUpMenu, shiftDownMenu, toolStripSeparator1, copyMenu, pasteMenu });
             contextMenu.Name = "contextMenu";
-            contextMenu.Size = new Size(186, 120);
+            contextMenu.Size = new Size(186, 98);
             // 
             // shiftUpMenu
             // 
@@ -140,16 +138,6 @@ namespace DTC.New.UI.Base.Systems
             shiftDownMenu.Name = "shiftDownMenu";
             shiftDownMenu.Size = new Size(185, 22);
             shiftDownMenu.Text = "Increment sequence";
-            // 
-            // pnlContents
-            // 
-            pnlContents.Controls.Add(dgWaypoints);
-            pnlContents.Controls.Add(panel1);
-            pnlContents.Dock = DockStyle.Fill;
-            pnlContents.Location = new Point(0, 0);
-            pnlContents.Name = "pnlContents";
-            pnlContents.Size = new Size(689, 483);
-            pnlContents.TabIndex = 4;
             // 
             // toolStripSeparator1
             // 
@@ -168,19 +156,14 @@ namespace DTC.New.UI.Base.Systems
             pasteMenu.Size = new Size(185, 22);
             pasteMenu.Text = "Paste";
             // 
-            // clearButton
+            // pnlContents
             // 
-            clearButton.BackColor = Color.DarkKhaki;
-            clearButton.Enabled = false;
-            clearButton.FlatAppearance.BorderSize = 0;
-            clearButton.FlatStyle = FlatStyle.Flat;
-            clearButton.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            clearButton.Location = new Point(176, 5);
-            clearButton.Name = "clearButton";
-            clearButton.Size = new Size(80, 25);
-            clearButton.TabIndex = 5;
-            clearButton.Text = "Clear";
-            clearButton.UseVisualStyleBackColor = false;
+            pnlContents.Controls.Add(panel1);
+            pnlContents.Dock = DockStyle.Fill;
+            pnlContents.Location = new Point(0, 0);
+            pnlContents.Name = "pnlContents";
+            pnlContents.Size = new Size(689, 483);
+            pnlContents.TabIndex = 4;
             // 
             // WaypointsPageControl
             // 

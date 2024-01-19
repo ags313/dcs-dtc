@@ -47,7 +47,7 @@ public partial class WaypointsPageControl : AircraftSystemPage
             DTC.New.Presets.V2.Base.Configuration baseConfig = this.parent.Configuration;
             WaypointSystemParser parser = new WaypointSystemParser();
             var clipboardContent = Clipboard.GetText();
-            
+
             if (baseConfig is Presets.V2.Aircrafts.F16.F16Configuration) //stupid, stupid, stupid!!!
             {
                 DTC.New.Presets.V2.Aircrafts.F16.F16Configuration f16Config = (DTC.New.Presets.V2.Aircrafts.F16.F16Configuration)baseConfig;
@@ -215,6 +215,11 @@ public partial class WaypointsPageControl : AircraftSystemPage
     }
 
     protected virtual bool IsClipboardWaypointsValid()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void clearButton_Click(object sender, EventArgs e)
     {
         throw new NotImplementedException();
     }
