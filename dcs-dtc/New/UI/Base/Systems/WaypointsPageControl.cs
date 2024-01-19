@@ -3,9 +3,6 @@ using DTC.New.UI.Base.Pages;
 using DTC.New.UI.Base.Systems.WaypointImport;
 using DTC.New.UI.Base.Systems.WaypointImport.Types;
 using DTC.UI.Base.Controls;
-using DTC.New.Presets.V2;
-using DTC.Models;
-using System.Diagnostics;
 
 namespace DTC.New.UI.Base.Systems;
 
@@ -19,13 +16,24 @@ public partial class WaypointsPageControl : AircraftSystemPage
     public WaypointsPageControl(AircraftPage parent) : base(parent)
     {
         this.InitializeComponent();
+
+        this.dgWaypoints.EnableReorder = true;
+
+        this.dgWaypoints.SetColumns(
+            new DTCGridColumn { Name = "Seq", DataBindName = "Sequence", Width = 40 },
+            new DTCGridColumn { Name = "Name" },
+            new DTCGridColumn { Name = "Latitude", Width = 100 },
+            new DTCGridColumn { Name = "Longitude", Width = 110 },
+            new DTCGridColumn { Name = "Elev", DataBindName = "Elevation", Width = 55, Alignment = DataGridViewContentAlignment.MiddleRight },
+            new DTCGridColumn { Name = "", DataBindName = "ExtraDescription", Width = 100 });
+
         this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From 476th MDC", () =>
         {
             DTC.New.Presets.V2.Base.Configuration baseConfig = this.parent.Configuration;
             WaypointSystemParser parser = new WaypointSystemParser();
             var clipboardContent = Clipboard.GetText();
             
-            if (baseConfig is DTC.New.Presets.V2.Aircrafts.F16.F16Configuration) //stupid, stupid, stupid!!!
+            if (baseConfig is Presets.V2.Aircrafts.F16.F16Configuration) //stupid, stupid, stupid!!!
             {
                 DTC.New.Presets.V2.Aircrafts.F16.F16Configuration f16Config = (DTC.New.Presets.V2.Aircrafts.F16.F16Configuration)baseConfig;
                 f16Config.Waypoints.Waypoints.Clear();
@@ -42,7 +50,6 @@ public partial class WaypointsPageControl : AircraftSystemPage
                 }
                 this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints);
             }
-
         }));
 
         this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From CombatFlite...", () =>
@@ -91,11 +98,7 @@ public partial class WaypointsPageControl : AircraftSystemPage
 
     protected void SelectRows(int[] rows)
     {
-        this.dgWaypoints.ClearSelection();
-        foreach (var row in rows)
-        {
-            this.dgWaypoints.Rows[row].Selected = true;
-        }
+        this.dgWaypoints.Select(rows);
     }
 
     protected virtual void AddButtonClick(object sender, EventArgs e)
@@ -109,6 +112,11 @@ public partial class WaypointsPageControl : AircraftSystemPage
     }
 
     protected virtual void DataGridDoubleClick(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected virtual void DataGridReorder(DTCGridReorderArgs args)
     {
         throw new NotImplementedException();
     }
@@ -143,21 +151,17 @@ public partial class WaypointsPageControl : AircraftSystemPage
         return dgWaypoints.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Index).Order().ToArray();
     }
 
-    private void dgWaypoints_MouseClick(object sender, MouseEventArgs e)
+    private void DataGridShowContextMenu(DTCGridShowContextMenuArgs args)
     {
-        var hti = dgWaypoints.HitTest(e.X, e.Y);
-        if (hti.RowIndex == -1 || e.Button != MouseButtons.Right)
+        if (args.HitTestType == DataGridViewHitTestType.Cell)
         {
-            return;
+            if (!IsRowSelected(args.RowIndex))
+            {
+                dgWaypoints.ClearSelection();
+                dgWaypoints.Select(args.RowIndex);
+            }
+            contextMenu.Show(dgWaypoints, args.Location);
         }
-
-        if (!IsRowSelected(hti.RowIndex))
-        {
-            dgWaypoints.ClearSelection();
-            dgWaypoints.Rows[hti.RowIndex].Selected = true;
-        }
-
-        contextMenu.Show(dgWaypoints, e.Location);
     }
 
     private void deleteButton_Click(object sender, EventArgs e)
