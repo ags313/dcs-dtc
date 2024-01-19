@@ -2,6 +2,7 @@
 using DTC.Utilities;
 using DTC.New.UI.Base.Systems.WaypointImport;
 using DTC.New.Presets.V2.Base.Systems;
+using System.Diagnostics;
 
 namespace DTC.New.UI.Base.Systems;
 
@@ -30,7 +31,10 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
     {
         this.DeleteSelection();
     }
-
+    protected override void btnClear_Click(object sender, EventArgs e)
+    {
+        this.ClearWaypoints();
+    }
     protected override void DataGridDoubleClick(object sender, EventArgs e)
     {
         if (this.dgWaypoints.SelectedRows.Count > 0)
@@ -121,6 +125,12 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
         this.SavePreset();
         this.RefreshList();
         this.dgWaypoints.Focus();
+    }
+
+    private void ClearWaypoints()
+    {
+        this.waypoints.Waypoints.Clear();
+        this.RefreshList();
     }
 
     protected override void ProcessCfImport(ImportDialog dialog)

@@ -31,10 +31,11 @@ namespace DTC.New.UI.Base.Systems
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            btnClear = new DTCButton();
             btnImport = new DTCDropDownButton();
             btnDelete = new DTCButton();
             btnAdd = new DTCButton();
@@ -49,7 +50,6 @@ namespace DTC.New.UI.Base.Systems
             shiftUpMenu = new ToolStripMenuItem();
             shiftDownMenu = new ToolStripMenuItem();
             pnlContents = new Panel();
-            clearButton = new DTCButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgWaypoints).BeginInit();
             contextMenu.SuspendLayout();
@@ -58,16 +58,32 @@ namespace DTC.New.UI.Base.Systems
             // 
             // panel1
             // 
-            panel1.Controls.Add(clearButton);
+            panel1.Controls.Add(btnClear);
             panel1.Controls.Add(btnImport);
             panel1.Controls.Add(btnDelete);
             panel1.Controls.Add(btnAdd);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Padding = new Padding(10);
-            panel1.Size = new Size(689, 35);
+            panel1.Padding = new Padding(15);
+            panel1.Size = new Size(1034, 52);
             panel1.TabIndex = 99;
+            // 
+            // btnClear
+            // 
+            btnClear.BackColor = Color.DarkKhaki;
+            btnClear.FlatAppearance.BorderSize = 0;
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClear.Location = new Point(264, 8);
+            btnClear.Margin = new Padding(4);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(120, 38);
+            btnClear.TabIndex = 5;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
             // 
             // btnImport
             // 
@@ -78,9 +94,10 @@ namespace DTC.New.UI.Base.Systems
             btnImport.FlatAppearance.MouseOverBackColor = Color.FromArgb(158, 153, 89);
             btnImport.FlatStyle = FlatStyle.Flat;
             btnImport.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btnImport.Location = new Point(606, 5);
+            btnImport.Location = new Point(909, 8);
+            btnImport.Margin = new Padding(4);
             btnImport.Name = "btnImport";
-            btnImport.Size = new Size(80, 25);
+            btnImport.Size = new Size(120, 38);
             btnImport.TabIndex = 4;
             btnImport.Text = "Import";
             btnImport.UseVisualStyleBackColor = false;
@@ -92,9 +109,10 @@ namespace DTC.New.UI.Base.Systems
             btnDelete.FlatAppearance.BorderSize = 0;
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btnDelete.Location = new Point(90, 5);
+            btnDelete.Location = new Point(135, 8);
+            btnDelete.Margin = new Padding(4);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(80, 25);
+            btnDelete.Size = new Size(120, 38);
             btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
@@ -106,9 +124,10 @@ namespace DTC.New.UI.Base.Systems
             btnAdd.FlatAppearance.BorderSize = 0;
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btnAdd.Location = new Point(5, 5);
+            btnAdd.Location = new Point(8, 8);
+            btnAdd.Margin = new Padding(4);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(80, 25);
+            btnAdd.Size = new Size(120, 38);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = false;
@@ -125,36 +144,38 @@ namespace DTC.New.UI.Base.Systems
             dgWaypoints.BorderStyle = BorderStyle.None;
             dgWaypoints.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgWaypoints.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.DarkKhaki;
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.DarkKhaki;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dgWaypoints.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.DarkKhaki;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DarkKhaki;
+            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dgWaypoints.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgWaypoints.ColumnHeadersHeight = 30;
             dgWaypoints.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgWaypoints.Columns.AddRange(new DataGridViewColumn[] { colSequence, colName, colLatitude, colLongitude, colElevation, colExtra });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.Beige;
-            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = Color.Olive;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dgWaypoints.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.Beige;
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.Olive;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgWaypoints.DefaultCellStyle = dataGridViewCellStyle3;
             dgWaypoints.Dock = DockStyle.Fill;
             dgWaypoints.EnableHeadersVisualStyles = false;
-            dgWaypoints.Location = new Point(0, 35);
+            dgWaypoints.Location = new Point(0, 52);
+            dgWaypoints.Margin = new Padding(4);
             dgWaypoints.Name = "dgWaypoints";
             dgWaypoints.ReadOnly = true;
             dgWaypoints.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgWaypoints.RowHeadersVisible = false;
+            dgWaypoints.RowHeadersWidth = 62;
             dgWaypoints.ScrollBars = ScrollBars.Vertical;
             dgWaypoints.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgWaypoints.ShowCellToolTips = false;
-            dgWaypoints.Size = new Size(689, 448);
+            dgWaypoints.Size = new Size(1034, 672);
             dgWaypoints.StandardTab = true;
             dgWaypoints.TabIndex = 100;
             dgWaypoints.SelectionChanged += DataGridSelectionChanged;
@@ -165,6 +186,7 @@ namespace DTC.New.UI.Base.Systems
             // 
             colSequence.DataPropertyName = "Sequence";
             colSequence.HeaderText = "Seq";
+            colSequence.MinimumWidth = 8;
             colSequence.Name = "colSequence";
             colSequence.ReadOnly = true;
             colSequence.Width = 50;
@@ -174,6 +196,7 @@ namespace DTC.New.UI.Base.Systems
             colName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             colName.DataPropertyName = "Name";
             colName.HeaderText = "Name";
+            colName.MinimumWidth = 8;
             colName.Name = "colName";
             colName.ReadOnly = true;
             // 
@@ -181,6 +204,7 @@ namespace DTC.New.UI.Base.Systems
             // 
             colLatitude.DataPropertyName = "Latitude";
             colLatitude.HeaderText = "Latitude";
+            colLatitude.MinimumWidth = 8;
             colLatitude.Name = "colLatitude";
             colLatitude.ReadOnly = true;
             colLatitude.Width = 110;
@@ -189,6 +213,7 @@ namespace DTC.New.UI.Base.Systems
             // 
             colLongitude.DataPropertyName = "Longitude";
             colLongitude.HeaderText = "Longitude";
+            colLongitude.MinimumWidth = 8;
             colLongitude.Name = "colLongitude";
             colLongitude.ReadOnly = true;
             colLongitude.Width = 110;
@@ -196,9 +221,10 @@ namespace DTC.New.UI.Base.Systems
             // colElevation
             // 
             colElevation.DataPropertyName = "Elevation";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
-            colElevation.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            colElevation.DefaultCellStyle = dataGridViewCellStyle2;
             colElevation.HeaderText = "Elev";
+            colElevation.MinimumWidth = 8;
             colElevation.Name = "colElevation";
             colElevation.ReadOnly = true;
             colElevation.Width = 55;
@@ -207,25 +233,28 @@ namespace DTC.New.UI.Base.Systems
             // 
             colExtra.DataPropertyName = "ExtraDescription";
             colExtra.HeaderText = "";
+            colExtra.MinimumWidth = 8;
             colExtra.Name = "colExtra";
             colExtra.ReadOnly = true;
+            colExtra.Width = 150;
             // 
             // contextMenu
             // 
+            contextMenu.ImageScalingSize = new Size(24, 24);
             contextMenu.Items.AddRange(new ToolStripItem[] { shiftUpMenu, shiftDownMenu });
             contextMenu.Name = "contextMenu";
-            contextMenu.Size = new Size(132, 48);
+            contextMenu.Size = new Size(171, 68);
             // 
             // shiftUpMenu
             // 
             shiftUpMenu.Name = "shiftUpMenu";
-            shiftUpMenu.Size = new Size(131, 22);
+            shiftUpMenu.Size = new Size(170, 32);
             shiftUpMenu.Text = "Shift up";
             // 
             // shiftDownMenu
             // 
             shiftDownMenu.Name = "shiftDownMenu";
-            shiftDownMenu.Size = new Size(131, 22);
+            shiftDownMenu.Size = new Size(170, 32);
             shiftDownMenu.Text = "Shift down";
             // 
             // pnlContents
@@ -234,33 +263,20 @@ namespace DTC.New.UI.Base.Systems
             pnlContents.Controls.Add(panel1);
             pnlContents.Dock = DockStyle.Fill;
             pnlContents.Location = new Point(0, 0);
+            pnlContents.Margin = new Padding(4);
             pnlContents.Name = "pnlContents";
-            pnlContents.Size = new Size(689, 483);
+            pnlContents.Size = new Size(1034, 724);
             pnlContents.TabIndex = 4;
-            // 
-            // clearButton
-            // 
-            clearButton.BackColor = Color.DarkKhaki;
-            clearButton.Enabled = false;
-            clearButton.FlatAppearance.BorderSize = 0;
-            clearButton.FlatStyle = FlatStyle.Flat;
-            clearButton.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            clearButton.Location = new Point(176, 5);
-            clearButton.Name = "clearButton";
-            clearButton.Size = new Size(80, 25);
-            clearButton.TabIndex = 5;
-            clearButton.Text = "Clear";
-            clearButton.UseVisualStyleBackColor = false;
-            clearButton.Click += deleteButton_Click;
             // 
             // WaypointsPageControl
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.PaleGoldenrod;
             Controls.Add(pnlContents);
+            Margin = new Padding(4);
             Name = "WaypointsPageControl";
-            Size = new Size(689, 483);
+            Size = new Size(1034, 724);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgWaypoints).EndInit();
             contextMenu.ResumeLayout(false);
@@ -284,6 +300,6 @@ namespace DTC.New.UI.Base.Systems
         private ContextMenuStrip contextMenu;
         private ToolStripMenuItem shiftUpMenu;
         private ToolStripMenuItem shiftDownMenu;
-        private DTCButton clearButton;
+        private DTCButton btnClear;
     }
 }

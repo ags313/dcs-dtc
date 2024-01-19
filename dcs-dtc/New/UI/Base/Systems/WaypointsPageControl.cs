@@ -24,7 +24,7 @@ public partial class WaypointsPageControl : AircraftSystemPage
             DTC.New.Presets.V2.Base.Configuration baseConfig = this.parent.Configuration;
             WaypointSystemParser parser = new WaypointSystemParser();
             var clipboardContent = Clipboard.GetText();
-            
+
             if (baseConfig is DTC.New.Presets.V2.Aircrafts.F16.F16Configuration) //stupid, stupid, stupid!!!
             {
                 DTC.New.Presets.V2.Aircrafts.F16.F16Configuration f16Config = (DTC.New.Presets.V2.Aircrafts.F16.F16Configuration)baseConfig;
@@ -160,8 +160,8 @@ public partial class WaypointsPageControl : AircraftSystemPage
         contextMenu.Show(dgWaypoints, e.Location);
     }
 
-    private void deleteButton_Click(object sender, EventArgs e)
+    protected virtual void btnClear_Click(object sender, EventArgs e)
     {
-        throw new NotImplementedException();    
+        throw new NotImplementedException();
     }
 }
