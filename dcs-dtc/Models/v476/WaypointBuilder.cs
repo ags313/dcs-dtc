@@ -4,6 +4,9 @@ namespace DTC.Models.v476
 {
     public class WaypointBuilder
     {
+        private const string MGRS10_FORMAT = @"\d{2}[A-Z]{3}\d{5}\d+";
+        private static readonly Regex REGEX_MGRS10 = new Regex(MGRS10_FORMAT);
+
         private int? _ordinal;
         private int? _elevation; // of waypoint
         private string? _name;
@@ -85,8 +88,7 @@ namespace DTC.Models.v476
         
         public static Tuple<Longitude, Latitude>? ParseLatLong(string value)
         {
-            string mgrs10 = @"\d{2}[A-Z]{3}\d{5}\d+";
-            if (new Regex(mgrs10).IsMatch(value))
+            if (REGEX_MGRS10.IsMatch(value))
             {
                 // mgrs10 
                 var parsed = CoordinateSharp.Coordinate.Parse(value);

@@ -69,5 +69,18 @@ namespace Testing
             Assert.That(maybeTuple?.Item1.ddmmmm.ddmm_mmm(), Is.EqualTo("116\u00b010.858’"));
             Assert.That(maybeTuple?.Item2.ddmmmm.ddmm_mmm(), Is.EqualTo("37\u00b031.348’"));
         }
+        
+        [Test]
+        public void Parser_Troublesome_Coordinates()
+        {
+            var maybeTuple = WaypointBuilder.ParseLatLong("N 36\u00b018,617' W 115\u00b002,367'");
+            
+            Assert.That(maybeTuple, Is.Not.Null);
+            Assert.That(maybeTuple?.Item1._hemisphere, Is.EqualTo(Longitude.Hemisphere.West));
+            Assert.That(maybeTuple?.Item2._hemisphere, Is.EqualTo(Latitude.Hemisphere.North));
+            
+            Assert.That(maybeTuple?.Item1.ddmmmm.ddmm_mmm(), Is.EqualTo("115\u00b002.367’"));
+            Assert.That(maybeTuple?.Item2.ddmmmm.ddmm_mmm(), Is.EqualTo("36\u00b018.617’"));
+        }
     }
 }

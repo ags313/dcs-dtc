@@ -266,7 +266,7 @@ namespace DTC.Models.v476
             }
             else
             {
-                var minuteString = substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1);
+                var minuteString = substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1).Replace(",", ".");
                 var pos = new DDMMMM(degrees, Decimal.Parse(minuteString, new NumberFormatInfo() { NumberDecimalSeparator = "." }));
 
                 return new Longitude(hemisphere, pos);
@@ -324,7 +324,7 @@ namespace DTC.Models.v476
             }
             else
             {
-                var minutes = substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1);
+                var minutes = substring.Substring(degreeSymbolIdx + 1, minuteSymbolIdx - degreeSymbolIdx - 1).Replace(",", ".");
                 var pos = new DDMMMM(degrees,
                     Decimal.Parse(minutes, new NumberFormatInfo() { NumberDecimalSeparator = "." }));
    
