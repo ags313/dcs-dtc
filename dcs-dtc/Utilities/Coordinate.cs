@@ -51,7 +51,7 @@ namespace DTC.Utilities
             if (string.IsNullOrWhiteSpace(coordinate))
                 return null;
 
-            coordinate = coordinate.Replace("”", "\"").Replace("’", "'");
+            coordinate = coordinate.Replace("”", "\"").Replace("’", "'").Replace(",",".");
 
             if (CoordinateSharp.Coordinate.TryParse(coordinate, out var c) == false)
                 throw new Exception("Cannot parse coordinate - " + coordinate);
