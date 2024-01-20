@@ -36,6 +36,7 @@ namespace DTC.New.UI.Base.Systems
             btnImport = new DTCDropDownButton();
             btnDelete = new DTCButton();
             btnAdd = new DTCButton();
+            dgWaypoints = new DTCGrid();
             contextMenu = new ContextMenuStrip(components);
             shiftUpMenu = new ToolStripMenuItem();
             shiftDownMenu = new ToolStripMenuItem();
@@ -121,11 +122,26 @@ namespace DTC.New.UI.Base.Systems
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += AddButtonClick;
             // 
+            // dgWaypoints
+            // 
+            dgWaypoints.ColumnHeadersVisible = true;
+            dgWaypoints.Dock = DockStyle.Fill;
+            dgWaypoints.EnableReorder = true;
+            dgWaypoints.Location = new Point(0, 35);
+            dgWaypoints.Multiselect = true;
+            dgWaypoints.Name = "dgWaypoints";
+            dgWaypoints.Size = new Size(689, 448);
+            dgWaypoints.TabIndex = 100;
+            dgWaypoints.Reorder += DataGridReorder;
+            dgWaypoints.ShowContextMenu += DataGridShowContextMenu;
+            dgWaypoints.SelectionChanged += DataGridSelectionChanged;
+            dgWaypoints.DoubleClick += DataGridDoubleClick;
+            // 
             // contextMenu
             // 
             contextMenu.Items.AddRange(new ToolStripItem[] { shiftUpMenu, shiftDownMenu, toolStripSeparator1, copyMenu, pasteMenu });
             contextMenu.Name = "contextMenu";
-            contextMenu.Size = new Size(186, 98);
+            contextMenu.Size = new Size(186, 120);
             // 
             // shiftUpMenu
             // 
@@ -138,6 +154,16 @@ namespace DTC.New.UI.Base.Systems
             shiftDownMenu.Name = "shiftDownMenu";
             shiftDownMenu.Size = new Size(185, 22);
             shiftDownMenu.Text = "Increment sequence";
+            // 
+            // pnlContents
+            // 
+            pnlContents.Controls.Add(dgWaypoints);
+            pnlContents.Controls.Add(panel1);
+            pnlContents.Dock = DockStyle.Fill;
+            pnlContents.Location = new Point(0, 0);
+            pnlContents.Name = "pnlContents";
+            pnlContents.Size = new Size(689, 483);
+            pnlContents.TabIndex = 4;
             // 
             // toolStripSeparator1
             // 
@@ -155,15 +181,6 @@ namespace DTC.New.UI.Base.Systems
             pasteMenu.Name = "pasteMenu";
             pasteMenu.Size = new Size(185, 22);
             pasteMenu.Text = "Paste";
-            // 
-            // pnlContents
-            // 
-            pnlContents.Controls.Add(panel1);
-            pnlContents.Dock = DockStyle.Fill;
-            pnlContents.Location = new Point(0, 0);
-            pnlContents.Name = "pnlContents";
-            pnlContents.Size = new Size(689, 483);
-            pnlContents.TabIndex = 4;
             // 
             // WaypointsPageControl
             // 

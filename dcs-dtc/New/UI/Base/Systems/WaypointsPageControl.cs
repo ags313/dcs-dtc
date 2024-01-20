@@ -28,20 +28,6 @@ public partial class WaypointsPageControl : AircraftSystemPage
             new DTCGridColumn { Name = "Elev", DataBindName = "Elevation", Width = 55, Alignment = DataGridViewContentAlignment.MiddleRight },
             new DTCGridColumn { Name = "", DataBindName = "ExtraDescription", Width = 100 });
 
-        //this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From DTC file...", () =>
-        //{
-        //}));
-
-        this.dgWaypoints.EnableReorder = true;
-
-        this.dgWaypoints.SetColumns(
-            new DTCGridColumn { Name = "Seq", DataBindName = "Sequence", Width = 40 },
-            new DTCGridColumn { Name = "Name" },
-            new DTCGridColumn { Name = "Latitude", Width = 100 },
-            new DTCGridColumn { Name = "Longitude", Width = 110 },
-            new DTCGridColumn { Name = "Elev", DataBindName = "Elevation", Width = 55, Alignment = DataGridViewContentAlignment.MiddleRight },
-            new DTCGridColumn { Name = "", DataBindName = "ExtraDescription", Width = 100 });
-
         this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From 476th MDC", () =>
         {
             DTC.New.Presets.V2.Base.Configuration baseConfig = this.parent.Configuration;
