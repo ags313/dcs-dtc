@@ -51,6 +51,23 @@ public partial class WaypointsPageControl : AircraftSystemPage
                 }
                 this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints);
             }
+            else if (baseConfig is Presets.V2.Aircrafts.FA18.FA18Configuration)
+            {
+                DTC.New.Presets.V2.Aircrafts.FA18.FA18Configuration f18Config = (DTC.New.Presets.V2.Aircrafts.FA18.FA18Configuration)baseConfig;
+                f18Config.Waypoints.Waypoints.Clear();
+                foreach (var waypoint in parser.parseForFA18(clipboardContent))
+                {
+                    Presets.V2.Aircrafts.FA18.Systems.Waypoint w = new Presets.V2.Aircrafts.FA18.Systems.Waypoint();
+                    w.Elevation = waypoint.Elevation;
+                    w.Latitude = waypoint.Latitude;
+                    w.Longitude = waypoint.Longitude;
+                    w.Name = waypoint.Name;
+                    w.Sequence = waypoint.Sequence;
+                    f18Config.Waypoints.Add(w);
+                }
+                this.dgWaypoints.RefreshList(f18Config.Waypoints.Waypoints);
+            }
+
         }));
 
         this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From CombatFlite...", () =>
