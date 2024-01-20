@@ -31,6 +31,11 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
     {
         this.DeleteSelection();
     }
+    protected override void ClearButtonClick(object sender, EventArgs e)
+    {
+        this.waypoints.Waypoints.Clear();
+        this.RefreshList();
+    }
 
     protected override void DataGridDoubleClick(object sender, EventArgs e)
     {

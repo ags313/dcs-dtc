@@ -65,7 +65,7 @@ namespace DTC.New.UI.Base.Systems
             // clearButton
             // 
             clearButton.BackColor = Color.DarkKhaki;
-            clearButton.Enabled = false;
+            clearButton.Enabled = true;
             clearButton.FlatAppearance.BorderSize = 0;
             clearButton.FlatStyle = FlatStyle.Flat;
             clearButton.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -75,7 +75,7 @@ namespace DTC.New.UI.Base.Systems
             clearButton.TabIndex = 5;
             clearButton.Text = "Clear";
             clearButton.UseVisualStyleBackColor = false;
-            clearButton.Click += clearButton_Click;
+            clearButton.Click += ClearButtonClick;
             // 
             // btnImport
             // 

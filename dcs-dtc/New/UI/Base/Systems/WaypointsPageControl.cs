@@ -204,8 +204,7 @@ public partial class WaypointsPageControl : AircraftSystemPage
     {
         throw new NotImplementedException();
     }
-
-    private void clearButton_Click(object sender, EventArgs e)
+    protected virtual void ClearButtonClick(object sender, EventArgs e)
     {
         throw new NotImplementedException();
     }
