@@ -20,7 +20,7 @@ public partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
-        lblVersion.Text = "Version " + Util.GetAppVersion() + " 476th vFG";
+        lblVersion.Text = "Version " + Util.GetAppVersion() + " v476th vFG";
 
         ResetToPage(_mainPage);
         SetTopMost(Settings.AlwaysOnTop);
