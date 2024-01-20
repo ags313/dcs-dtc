@@ -9,6 +9,7 @@ namespace Testing
     [TestFixture("en-GB")] 
     [TestFixture("pl-PL")]
     [TestFixture("de-DE")]
+    [TestFixture("ar_OM")]
     public class WaypointParserUnitTests
     {
         private WaypointSystemParser _parser;
