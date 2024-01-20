@@ -2,15 +2,16 @@ name: Build
 
 on:  
   push:
-    tags:
-      - '*'
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:  
   build:    
     runs-on: windows-latest
     
     steps:      
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.3.1
