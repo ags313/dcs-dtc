@@ -96,6 +96,11 @@ public partial class FA18Uploader
 
             foreach (var wpt in config.Waypoints.Waypoints)
             {
+                if (wpt.Longitude == "" || wpt.Latitude == "")
+                {
+                    continue;
+                }
+                
                 Cmd(GoToWaypoint(wpt.Sequence));
                 Cmd(RMFD.OSB05); //UFC
                 Cmd(UFC.OPT1);

@@ -1,4 +1,8 @@
 using DTC.Models.v476;
+using DTC.New.Presets.V2.Aircrafts.F15E;
+using DTC.New.Presets.V2.Aircrafts.F15E.Systems;
+using DTC.New.Presets.V2.Aircrafts.F16;
+using DTC.New.Presets.V2.Aircrafts.FA18;
 using DTC.New.UI.Base.Pages;
 using DTC.New.UI.Base.Systems.WaypointImport;
 using DTC.New.UI.Base.Systems.WaypointImport.Types;
@@ -9,16 +13,94 @@ namespace DTC.New.UI.Base.Systems;
 
 public partial class WaypointsPageControl : AircraftSystemPage
 {
+    private readonly string systemName;
+
     public WaypointsPageControl()
     {
         this.InitializeComponent();
     }
 
+    private void importViper(string clipboardContent, F16Configuration f16Config)
+    {
+        WaypointSystemParser parser = new WaypointSystemParser();
+        f16Config.Waypoints.Waypoints.Clear();
+        foreach (var waypoint in parser.parseForF16(clipboardContent))
+        {
+            Presets.V2.Aircrafts.F16.Systems.Waypoint w = new()
+            {
+                Elevation = waypoint.Elevation,
+                Latitude = waypoint.Latitude,
+                Longitude = waypoint.Longitude,
+                Name = waypoint.Name,
+                Sequence = waypoint.Sequence
+            };
+            f16Config.Waypoints.Add(w);
+
+        }
+        this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints);
+    }
+
+    private void importHornet(string clipboardContent, FA18Configuration f18Config)
+    {
+        WaypointSystemParser parser = new WaypointSystemParser();
+        f18Config.Waypoints.Waypoints.Clear();
+        foreach (var waypoint in parser.parseForFA18(clipboardContent))
+        {
+            Presets.V2.Aircrafts.FA18.Systems.Waypoint w = new()
+            {
+                Elevation = waypoint.Elevation,
+                Latitude = waypoint.Latitude,
+                Longitude = waypoint.Longitude,
+                Name = waypoint.Name,
+                Sequence = waypoint.Sequence
+            };
+            f18Config.Waypoints.Add(w);
+        }
+        this.dgWaypoints.RefreshList(f18Config.Waypoints.Waypoints);
+    }
+
+    private WaypointSystem whichEagleRoute(F15EConfiguration f15config)
+    {
+        switch (systemName)
+        {
+            case "RouteA":
+                return f15config.RouteA;
+            case "RouteB":
+                return f15config.RouteB;
+            case "RouteC":
+                return f15config.RouteC;
+            default:
+                throw new ArgumentException("Should never get there, F15 has 3 routes.");
+        }
+    }
+    
+    private void importEagle(string clipboardContent, F15EConfiguration f15config)
+    {
+        WaypointSystemParser parser = new WaypointSystemParser();
+        var route = whichEagleRoute(f15config);
+        route.Waypoints.Clear();
+        foreach (var waypoint in parser.parseForFA18(clipboardContent))
+        {
+            Presets.V2.Aircrafts.F15E.Systems.Waypoint w = new()
+            {
+                Elevation = waypoint.Elevation,
+                Latitude = waypoint.Latitude,
+                Longitude = waypoint.Longitude,
+                Name = waypoint.Name,
+                Sequence = waypoint.Sequence
+            };
+            route.Waypoints.Add(w);
+        }
+        this.dgWaypoints.RefreshList(route.Waypoints);
+        
+    }
+    
     public WaypointsPageControl(AircraftPage parent, string systemName) : base(parent, systemName)
     {
         this.InitializeComponent();
 
         this.dgWaypoints.EnableReorder = true;
+        this.systemName = systemName;
 
         this.dgWaypoints.SetColumns(
             new DTCGridColumn { Name = "Seq", DataBindName = "Sequence", Width = 40 },
@@ -31,43 +113,20 @@ public partial class WaypointsPageControl : AircraftSystemPage
         this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From 476th MDC", () =>
         {
             DTC.New.Presets.V2.Base.Configuration baseConfig = this.parent.Configuration;
-            WaypointSystemParser parser = new WaypointSystemParser();
             var clipboardContent = Clipboard.GetText();
 
-            if (baseConfig is Presets.V2.Aircrafts.F16.F16Configuration) //stupid, stupid, stupid!!!
+            switch (baseConfig)
             {
-                DTC.New.Presets.V2.Aircrafts.F16.F16Configuration f16Config = (DTC.New.Presets.V2.Aircrafts.F16.F16Configuration)baseConfig;
-                f16Config.Waypoints.Waypoints.Clear();
-                foreach (var waypoint in parser.parseForF16(clipboardContent))
-                {
-                    Presets.V2.Aircrafts.F16.Systems.Waypoint w = new Presets.V2.Aircrafts.F16.Systems.Waypoint();
-                    w.Elevation = waypoint.Elevation;
-                    w.Latitude = waypoint.Latitude;
-                    w.Longitude = waypoint.Longitude;
-                    w.Name = waypoint.Name;
-                    w.Sequence = waypoint.Sequence;
-                    f16Config.Waypoints.Add(w);
-
-                }
-                this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints);
+                case F16Configuration config:
+                    importViper(clipboardContent, config);
+                    break;
+                case F15EConfiguration config:
+                    importEagle(clipboardContent, config);
+                    break;
+                case FA18Configuration config:
+                    importHornet(clipboardContent, config);
+                    break;
             }
-            else if (baseConfig is Presets.V2.Aircrafts.FA18.FA18Configuration)
-            {
-                DTC.New.Presets.V2.Aircrafts.FA18.FA18Configuration f18Config = (DTC.New.Presets.V2.Aircrafts.FA18.FA18Configuration)baseConfig;
-                f18Config.Waypoints.Waypoints.Clear();
-                foreach (var waypoint in parser.parseForFA18(clipboardContent))
-                {
-                    Presets.V2.Aircrafts.FA18.Systems.Waypoint w = new Presets.V2.Aircrafts.FA18.Systems.Waypoint();
-                    w.Elevation = waypoint.Elevation;
-                    w.Latitude = waypoint.Latitude;
-                    w.Longitude = waypoint.Longitude;
-                    w.Name = waypoint.Name;
-                    w.Sequence = waypoint.Sequence;
-                    f18Config.Waypoints.Add(w);
-                }
-                this.dgWaypoints.RefreshList(f18Config.Waypoints.Waypoints);
-            }
-
         }));
 
         this.btnImport.Items.Add(new DTCDropDownButton.MenuItem("From CombatFlite...", () =>
