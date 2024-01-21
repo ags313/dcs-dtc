@@ -104,13 +104,15 @@ The mod features usage of unused cockpit buttons in DCS to show/hide the app, an
 ## Strike Eagle
 
 - pressing the "I/P" button on the UFC for more than 1 second will command the upload of the current preset (you must be on the Upload page of the preset for this to happen)
-- pressing the "EM" button on the UFC will toggle visibility of the DTC app
+- pressing the "EMIS LMT" button on the UFC will toggle visibility of the DTC app
 
 # Capturing coordinates in DCS
 
 By pressing Ctrl+Shift+D within DCS, a window with a crosshair will popup. By going into the F10 map and positioning the crosshair over a point of interest, you can capture the coordinates of that point as steerpoints or target points. Pressing "Send to DTC" will send the coordinates to the app, and pressing "Send to DTC + Jet" will save the coordinates into the app but also uploads these same coordinates into the aircraft. Otherwise the dialog is self-explanatory.
 
 You can also capture coordinates this way directly into PP stations (Hornet) or Smart Weapons (Strike Eagle).
+
+The shortcut can be changed by editing the dtc-settings.json file located in the Documents\DCS-DTC folder. After editing it, restart the DTC app and after the prompt, restart DCS as well. The shortcut has to be a valid keyboard combination not in use by the aircraft in DCS.
 
 # Limitations
 
