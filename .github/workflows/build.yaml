@@ -45,10 +45,10 @@ jobs:
 
       - name: Build Solution
         run: |
-          dotnet publish -c Release -p:PublishProfile=FolderProfile dcs-dtc\DTC.csproj
+          dotnet publish -c Release -p:PublishProfile=FolderProfile dcs-dtc\DTC.csproj -o build_output 
 
       - name: Zip the publish folder
-        run: Compress-Archive -Path bin/Release/net7.0-windows.win-x64/publish/win-x64/* -DestinationPath dcs_dtc_476th.zip
+        run: Compress-Archive -Path build_output/* -DestinationPath dcs_dtc_476th.zip
 
       - uses: actions/upload-artifact@v4
         with:
