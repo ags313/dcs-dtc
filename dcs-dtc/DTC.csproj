@@ -17,7 +17,7 @@
 		<FileVersion>$(Version)</FileVersion>
 		<Title>$(Product)</Title>
 		<Copyright>Copyright © 2023</Copyright>
-		<PackageProjectUrl>https://github.com/the-paid-actor/dcs-dtc</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/ags313/dcs-dtc</PackageProjectUrl>
 		<RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
 		<RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
 		<AnalysisLevel>latest</AnalysisLevel>

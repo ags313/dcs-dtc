@@ -10,8 +10,19 @@ jobs:
   build:    
     runs-on: windows-latest
     
+    env:
+      DOTNET_INSTALL_DIR: '.\.dotnet'
+    
     steps:      
       - uses: actions/checkout@v3
+
+      - name: Cache dotnet
+        id: cache-dotnet
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.DOTNET_INSTALL_DIR }}
+          key: ${{ runner.os }}-dotnet-7
+          restore-keys: ${{ runner.os }}-dotnet-7
       
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.3.1
@@ -36,10 +47,28 @@ jobs:
         run: |
           dotnet publish -c Release -p:PublishProfile=FolderProfile dcs-dtc\DTC.csproj
 
+      - name: Zip the publish folder
+        run: Compress-Archive -Path bin/Release/net7.0-windows.win-x64/publish/win-x64/* -DestinationPath dcs_dtc_476th.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dcs_dtc_476th
+          path: dcs_dtc_476th.zip
+          overwrite: true
+          
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dcs_dtc_476th.zip
+          asset_name: dcs_dtc_476th.zip
+          tag: ${{ github.ref }}
+          overwrite: true          
+
       - name: Build the Installer
         run: DevEnv installer/installer.vdproj /build Release
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: build-result
           path: installer/Release/dtc-setup.msi
