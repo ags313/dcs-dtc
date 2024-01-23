@@ -196,6 +196,7 @@ internal class FA18V1V2Loader
     private static Waypoint CopyWaypoint(V1.Aircrafts.FA18.Waypoint w)
     {
         var coord = Coordinate.FromString(w.Latitude, w.Longitude);
+        if(coord == null) return null;
         var latlon = coord.ToHornetPreciseSteerpointFormat();
         var wpt = new Waypoint()
         {

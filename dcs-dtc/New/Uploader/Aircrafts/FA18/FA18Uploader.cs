@@ -28,7 +28,7 @@ public partial class FA18Uploader : Base.Uploader
 
     private void Coord(string coord)
     {
-        var (direction, (numbers, _)) = coord.Replace("°", "").Replace("’", "").Replace("”", "").Split(' ');
+        var (direction, (numbers, _)) = coord.Replace("°", "").Replace("’", "").Replace("”", "").Replace(",",".").Split(' ');
         var (coordDegMin, (coordDecimal, _)) = numbers.Split('.');
         if (coordDegMin.StartsWith('0')) coordDegMin = coordDegMin.Substring(1);
         if (coordDecimal.Length == 1)
