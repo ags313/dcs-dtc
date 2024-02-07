@@ -65,9 +65,6 @@
 		<Content Include="dtc-emitters.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-		<Content Include="dtc-idents.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
 		<Content Include="dtc-settings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
