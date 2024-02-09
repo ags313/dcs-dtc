@@ -208,6 +208,7 @@ public partial class F16Uploader
 
     private void Coord(string coord)
     {
+        int pos = coord.IndexOf("°");
         var (direction, (numbers, _)) = coord.Replace("°", "").Replace("’", "").Split(' ');
         numbers = numbers.Replace(".", "");
 
@@ -221,10 +222,14 @@ public partial class F16Uploader
         }
         else if (direction == "E")
         {
+            if (pos == 4)
+                coord = "0" + coord;
             Cmd(UFC.D6);
         }
         else if (direction == "W")
         {
+            if (pos == 4)
+                coord = "0" + coord;
             Cmd(UFC.D4);
         }
 
