@@ -28,9 +28,27 @@ public partial class MainForm : Form
         DataReceiver.DataReceived += DataReceiver_DataReceived;
         DataReceiver.Start();
 
-        this.Location = new Point(Settings.MainWindowX, Settings.MainWindowY);
+        var position = new Point(Settings.MainWindowX, Settings.MainWindowY);
+        if (!IsVisibleOnAnyScreen(new Rectangle(position, this.Size)))
+        {
+            position = new Point(Math.Max(Settings.MainWindowX, 0), Math.Max(Settings.MainWindowY, 0));
+        }
 
+        this.Location = position;
         this.ResizeEnd += MainForm_Move;
+    }
+
+    private bool IsVisibleOnAnyScreen(Rectangle rect)
+    {
+        foreach (Screen screen in Screen.AllScreens)
+        {
+            if (screen.WorkingArea.Contains(rect))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void MainForm_Move(object? sender, EventArgs e)
@@ -211,7 +229,7 @@ public partial class MainForm : Form
         var page = _pages.Peek();
         if (page is AircraftPage)
         {
-            ((AircraftPage)page).UploadToJet();
+            ((AircraftPage)page).UploadToJet(false, false);
         }
     }
 }

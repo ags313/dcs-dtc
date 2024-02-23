@@ -2,7 +2,7 @@
 
 https://github.com/the-paid-actor/dcs-dtc
 
-This is a Windows application that mimics the functions of a DTC (Data Cartridge) for the F-16, F/A-18 and F-15E.
+This is a Windows application that mimics the functions of a DTC (Data Cartridge) for the F-16, F/A-18, F-15E and Apache.
 
 - **Create and recall presets** for each mission / server you fly, or however you want to organize your settings. These are saved in the DCS-DTC folder under Documents.
 - **Upload** the settings from a preset to the aircraft.
@@ -63,6 +63,13 @@ This is a Windows application that mimics the functions of a DTC (Data Cartridge
 - Radar altitude warning setting
 - TACAN Channel/Band and ILS frequency
 
+## Apache
+
+- Waypoints and Hazards
+- Control Measures
+- Targets and Threats
+- TSD settings
+
 # Requirements
 
 This application is written using .NET 7.0. You may want to download the latest version from the Microsoft website. Look for the .NET Desktop Runtime on the link below.
@@ -74,6 +81,10 @@ https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 - Grab the latest installer from the Releases tab on Github (the file with msi extension).
 - Run the installer. It will create a shortcut on the Start Menu once it finishes.
 - Run the application from the Windows Start Menu. It will setup itself into DCS automatically.
+
+If the application does not start, check if you have Controlled Folder Access enabled in Windows Defender. If so, you will have to add the application to the list of allowed apps, since it creates its storage under the Documents folder. https://support.microsoft.com/en-us/windows/allow-an-app-to-access-controlled-folders-b5b6627a-b008-2ca2-7931-7e51e912b034
+
+If the application still does not start, check the Windows Event Viewer for errors related to the application. https://www.windowscentral.com/how-use-event-viewer-windows-10
 
 ## Manual setup in DCS
 
@@ -93,18 +104,22 @@ The mod features usage of unused cockpit buttons in DCS to show/hide the app, an
 
 ## Viper
 
-- pressing the "WX" button on the UFC for more than 1 second will command the upload of the current preset (you must be on the Upload page of the preset for this to happen)
+- pressing the "WX" button on the UFC for more than 1 second will command the upload of the current preset.
 - the FLIR increment switch shows the DTC app, while the FLIR decrement switch hides it.
 
 ## Hornet
 
-- pressing the "I/P" button on the UFC for more than 1 second will command the upload of the current preset (you must be on the Upload page of the preset for this to happen)
+- pressing the "I/P" button on the UFC for more than 1 second will command the upload of the current preset.
 - flipping the HUD Video Control switch (right below the BCN button on the UFC) to the up position shows the DTC app, while flipping the switch to the down position hides it.
 
 ## Strike Eagle
 
-- pressing the "I/P" button on the UFC for more than 1 second will command the upload of the current preset (you must be on the Upload page of the preset for this to happen)
-- pressing the "EMIS LMT" button on the UFC will toggle visibility of the DTC app
+- pressing the "I/P" button on the UFC for more than 1 second will command the upload of the current preset.
+- pressing the "EMIS LMT" button on the UFC will toggle visibility of the DTC app.
+
+## Apache
+
+- pressing the "Defog" button on either station for more than 1 second will command the upload of the current preset.
 
 # Capturing coordinates in DCS
 
@@ -125,6 +140,10 @@ The setting of Pre-Planned coordinates relies on the settings for all stations b
 If you have displays already programmed in the jet, the app will skip uploading the new displays configuration. This will be improved in a future version.
 
 From either seat (pilot/WSO) it is not possible to change displays on the other seat, given that the displays are only rendered when you occupy the respective position. Therefore when selecting the option on the Upload page to set "Pilot and WSO" displays, DTC will jump between the seats to perform the configuration.
+
+## Apache
+
+During the upload process, do not change anything in the cockpit displays, like changing zoom levels, or otherwise the data input may not work correctly.
 
 ## VR
 
