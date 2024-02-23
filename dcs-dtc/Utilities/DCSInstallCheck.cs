@@ -30,6 +30,11 @@ namespace DTC.Utilities
                         // this is a dedicated server folder, skipping!
                         continue;
                     }
+                    if (File.Exists((directory + "\\donttouch.txt")))
+                    {
+                        // looks like DCS, but maybe skip
+                        continue;
+                    }
                     
                     result.Add(directory);
                 }
