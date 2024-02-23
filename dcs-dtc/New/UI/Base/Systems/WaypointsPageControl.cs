@@ -185,6 +185,11 @@ public partial class WaypointsPageControl : AircraftSystemPage
         this.dgWaypoints.Select(rows);
     }
 
+    protected virtual void InsertButtonClick(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+    
     protected virtual void AddButtonClick(object sender, EventArgs e)
     {
         throw new NotImplementedException();

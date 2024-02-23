@@ -22,6 +22,11 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
         this.RefreshList();
     }
 
+    protected override void InsertButtonClick(object sender, EventArgs e)
+    {
+        this.InsertAtSelection();
+    }
+    
     protected override void AddButtonClick(object sender, EventArgs e)
     {
         this.ShowEditDialog();
@@ -104,6 +109,32 @@ public partial class WaypointsPage<T> : WaypointsPageControl where T : class, IW
         this.SavePreset();
     }
 
+    private void InsertAtSelection()
+    {
+        int? selectedRow = null;
+        foreach (DataGridViewRow row in this.dgWaypoints.SelectedRows)
+        {
+            selectedRow = row.Index;
+            break;
+        }
+
+        if (selectedRow.HasValue)
+        {
+            var newWp = new T();
+            var atSelection = this.waypoints.Waypoints[selectedRow.Value].Sequence;
+            foreach (var w in this.waypoints.Waypoints)
+            {
+                if(w.Sequence >= atSelection)
+                {
+                    w.Sequence++;
+                }
+            }
+            newWp.Sequence = atSelection;
+            this.waypoints.Waypoints.Insert(selectedRow.Value, newWp);
+        }
+        this.RefreshList();
+    }
+    
     private void DeleteSelection()
     {
         if (!DTCMessageBox.ShowQuestion("Are you sure you want to delete the selected(s) waypoint(s)?"))

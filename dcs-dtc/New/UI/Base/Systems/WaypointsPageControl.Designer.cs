@@ -35,6 +35,7 @@ namespace DTC.New.UI.Base.Systems
             clearButton = new DTCButton();
             btnImport = new DTCDropDownButton();
             btnDelete = new DTCButton();
+            btnInsert = new DTCButton();
             btnAdd = new DTCButton();
             dgWaypoints = new DTCGrid();
             contextMenu = new ContextMenuStrip(components);
@@ -54,6 +55,7 @@ namespace DTC.New.UI.Base.Systems
             panel1.Controls.Add(clearButton);
             panel1.Controls.Add(btnImport);
             panel1.Controls.Add(btnDelete);
+            panel1.Controls.Add(btnInsert);
             panel1.Controls.Add(btnAdd);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
@@ -107,6 +109,22 @@ namespace DTC.New.UI.Base.Systems
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += DeleteButtonClick;
+            // 
+            // btnInsert
+            // 
+            btnInsert.BackColor = Color.DarkKhaki;
+            btnInsert.Enabled = false;
+            btnInsert.FlatAppearance.BorderSize = 0;
+            btnInsert.FlatStyle = FlatStyle.Flat;
+            btnInsert.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnInsert.Location = new Point(260, 5);
+            btnInsert.Name = "btnInsert";
+            btnInsert.Size = new Size(80, 25);
+            btnInsert.TabIndex = 3;
+            btnInsert.Text = "Insert";
+            btnInsert.UseVisualStyleBackColor = false;
+            btnInsert.Enabled = true;
+            btnInsert.Click += InsertButtonClick;            
             // 
             // btnAdd
             // 
@@ -199,6 +217,7 @@ namespace DTC.New.UI.Base.Systems
         #endregion
         private Panel panel1;
         private DTCButton btnDelete;
+        private DTCButton btnInsert;
         private DTCButton btnAdd;
         protected DTCGrid dgWaypoints;
         protected Panel pnlContents;
