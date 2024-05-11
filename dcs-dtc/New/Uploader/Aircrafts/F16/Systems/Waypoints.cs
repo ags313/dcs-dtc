@@ -223,13 +223,13 @@ public partial class F16Uploader
         else if (direction == "E")
         {
             if (pos == 4)
-                coord = "0" + coord;
+                numbers = "0" + numbers;
             Cmd(UFC.D6);
         }
         else if (direction == "W")
         {
             if (pos == 4)
-                coord = "0" + coord;
+                numbers = "0" + numbers;
             Cmd(UFC.D4);
         }
 
