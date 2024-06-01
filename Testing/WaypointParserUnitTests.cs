@@ -100,5 +100,20 @@ namespace Testing
             Assert.That(maybeTuple?.Item1.ddmmmm.ddmm_mmm(), Is.EqualTo("115\u00b002.367’"));
             Assert.That(maybeTuple?.Item2.ddmmmm.ddmm_mmm(), Is.EqualTo("36\u00b018.617’"));
         }
+
+        [Test]
+        public void LocoFormats()
+        {
+            var input = """
+                        Flight Plan
+                        #	Type	Name	Fix/Point	Location	Elev	Alt	SPD	ETE/TOT	Leg Fuel
+                        8	TGT		SA-2	N 26°34.736' E 055°22.962'	25				
+                        9	TGT		SA-5	N 26°43.768' E 055°55.410'	25				
+                        10									
+                        11	RVIP		THEBES	N 25°15.000' E 056°00.000'	27000		
+                        """;
+            var waypoints = _parser.parseForF16(input);
+            Console.Out.WriteLine(waypoints);
+        }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Globalization;
-using System.Linq.Expressions;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
+using DTC.New.Presets.V2.Aircrafts.F15E.Systems;
 
 namespace DTC.Models.v476
 {
@@ -63,21 +62,21 @@ namespace DTC.Models.v476
             return result;
         }
 
-        public List<DTC.New.Presets.V2.Aircrafts.F15E.Systems.Waypoint> parseForF15(String contentToParse)
+        public List<Waypoint> parseForF15(String contentToParse)
         {
-            return parse<DTC.New.Presets.V2.Aircrafts.F15E.Systems.Waypoint>(contentToParse,
+            return parse<Waypoint>(contentToParse,
                 (builder) => builder.buildForF15E()); ;
         }
 
-        public List<DTC.New.Presets.V2.Aircrafts.FA18.Systems.Waypoint> parseForFA18(String contentToParse)
+        public List<New.Presets.V2.Aircrafts.FA18.Systems.Waypoint> parseForFA18(String contentToParse)
         {
-            return parse<DTC.New.Presets.V2.Aircrafts.FA18.Systems.Waypoint>(contentToParse,
+            return parse<New.Presets.V2.Aircrafts.FA18.Systems.Waypoint>(contentToParse,
                 (builder) => builder.buildForFA18()); ;
         }
 
-        public List<DTC.New.Presets.V2.Aircrafts.F16.Systems.Waypoint> parseForF16(String contentToParse)
+        public List<New.Presets.V2.Aircrafts.F16.Systems.Waypoint> parseForF16(String contentToParse)
         {
-            return parse<DTC.New.Presets.V2.Aircrafts.F16.Systems.Waypoint>(contentToParse,
+            return parse<New.Presets.V2.Aircrafts.F16.Systems.Waypoint>(contentToParse,
                 (builder) => builder.buildForF16());
         }
 
@@ -247,8 +246,16 @@ namespace DTC.Models.v476
                 _ => throw new ArgumentException()
             };
 
-            var degreeSymbolIdx = substring.IndexOf("°");
+            var degreeSymbolIdx = substring.IndexOf("º");
+            if (degreeSymbolIdx < 0)
+            {
+                degreeSymbolIdx = substring.IndexOf("\u00b0");
+            }
             var minuteSymbolIdx = substring.IndexOf("'");
+            if (minuteSymbolIdx < 0)
+            {
+                minuteSymbolIdx = substring.Length;
+            }
             var degrees = Int32.Parse(substring.Substring(1, degreeSymbolIdx - 1));
 
             if (substring.Contains("\""))
@@ -306,8 +313,16 @@ namespace DTC.Models.v476
                 _ => throw new ArgumentException()
             };
 
-            var degreeSymbolIdx = substring.IndexOf("°");
+            var degreeSymbolIdx = substring.IndexOf("º");
+            if (degreeSymbolIdx < 0)
+            {
+                degreeSymbolIdx = substring.IndexOf("\u00b0");
+            }
             var minuteSymbolIdx = substring.IndexOf("'");
+            if (minuteSymbolIdx < 0)
+            {
+                minuteSymbolIdx = substring.Length;
+            }
             var degrees = Int32.Parse(substring.Substring(1, degreeSymbolIdx - 1));
 
             if (substring.Contains("\""))
