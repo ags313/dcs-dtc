@@ -256,6 +256,102 @@
                                           """;
         public const String ViperFirefoxOK = "\r\n476th Virtual Fighter Group - Powered by vBulletin\r\n\r\n    Log Out\r\n    Settings\r\n    My Profile\r\n    Notifications\r\n    Welcome, Avantar\r\n\r\n    Home\r\n    Forum\r\n    Recruiting\r\n    Downloads\r\n    Awards\r\n    OPS\r\n        Create\r\n        Views\r\n        Tools\r\n        Points\r\n    NTTR\r\n    MI\r\n    Flight log\r\n    Calendar\r\n    What's New?\r\n    09:21:11 ZULU \r\n\r\n476th vFG\r\n>\r\nMission Data Card\r\n\r\nMission Data Card\r\nCallsign:\r\nMission #\r\nMission:\r\nPackage #\r\nFlight\r\n\tPilot \tCrew \tTN \tTCN \tIFF M1 \tIFF M3 \tSRCH \tLASER\r\n-1 \t\t\t\t\t\t\t\t\r\n-2 \t\t\t\t\t\t\t\r\n-3 \t\t\t\t\t\t\t\r\n-4 \t\t\t\t\t\t\t\r\n\r\nRadios\r\nRadio \tUsage\r\nPRI \t1-3-4-10\r\nAUX \t69.6F2\r\n\t\r\n\t\r\n\t\r\n\r\nPackage\r\nCallsign \tA/C \t# Ships \tMission # \tTime \tComms \tTN \tTCN \tTask\r\n\r\nSupport\r\nInstance \tType \tCallsign \tComms \tTCN \tLocation \tAlt\r\nTanker \tKC-135 \tTEXACO 3 \t342.15 \t76Y \tAMOCO \tFL270\r\nTanker \tKC-135 \tTEXACO 5 \t348.5 \t55Y \tAMOCO \t18000\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\r\nLoadout/Config\r\nLoadout \tConfig \tFuel\r\nA/A \t2Ax1Wx1 \tGross Wt \t30217 \tTO \t8500\r\nA/G \t/// \tDrag Index \t\tTGT \t\r\nPods \tTCTS-50 \tMIN AGL \t\tJoker \t3500\r\nRemarks \t120B, CAIM-9M, NO GUN, 60 C/F, Belly Tank, CAT 1 \tMIN MSL \t\tBingo \t2500\r\n\tMAX MSL \t\tTanker Onload \tMAX\r\n\r\nTarget\r\n\tDescription \tCoords \tElevation\r\nPrimary \t\t\t\r\nAlternate \t\t\t\r\nDPI-1 \t\t\t\r\nDPI-2 \t\t\t\r\nDPI-3 \t\t\t\r\nDPI-4 \t\t\t\r\n\r\nATIS/WX\r\nWx D: KLSV 012000Z AUTO 01007KT 10SM FEW060 30/11 A2975\r\n\r\nAirbase\r\n\tAirbase \tTCN \tUHF \tVHF \tATIS \tRWY \tElev \tILS\r\nDEP \tNellis \t12X \t327.1 \t132.65 \t270.1 \t21R \t1857 \t\r\nARR \tNellis \t12X \t327.1 \t132.65 \t270.1 \t21L \t1854 \t109.1\r\nALT \tCreech \t87X \t360.7 \t118.4 \t122.5 \t26 \t3127 \t\r\n\r\nDeparture/Arrival\r\nDeparture \tFLEX NORTH \tRecovery \tACTON\r\nRotation \tMIL-153 \tRefusal \t/// \tRejoin \tStraight Ahead\r\n\r\nFlight Plan\r\n# \tType \tName \tFix/Point \tLocation \tElev \tAlt \tSPD \tETE/TOT \tLeg Fuel\r\n1 \tTRN \t\tFLEX \tN 36°18.617' W 115°02.367' \t\t\t\t\t\r\n2 \tTRN \t\tDREAM \tN 37°10.333' W 114°59.534' \t\t\t\t\t\r\n3 \t\t\t\t\t\t\t\t\t\r\n4 \tRVIP \t\tAmoco.IP \tN 37°41.000' W 114°30.000' \t\t\t\t\t\r\n5 \t\t\t\t\t\t\t\t\t\r\n6 \tTRN \t\tACTON \tN 36°44.517' W 114°36.450' \t\t\t\t\t\r\n7 \tLDG \t\tAPEX \tN 36°21.583' W 114°54.333' \t\t\t\t\t\r\n8 \tLDG \t\tKLSV.21L \tN 36°14.728' W 115°01.314' \t1853 \t\t\t\t\r\n9 \t\t\t\t\t\t\t\t\t\r\n10 \tOBJ \t\tElgin.1 \tN 37°17.000' W 114°50.720' \t\t\t\t\t\r\n11 \tOBJ \t\tElgin.2 \tN 37°27.900' W 114°34.710' \t\t\t\t\t\r\n12 \tOBJ \t\tElgin.3 \tN 37°27.020' W 114°00.470' \t\t\t\t\t\r\n13 \tOBJ \t\tElgin.4 \tN 36°43.000' W 114°36.050' \t\t\t\t\t\r\n14 \tOBJ \t\tElgin.5 \tN 36°43.010' W 114°50.720' \t\t\t\t\t\r\n15 \tOBJ \t\tElgin.6 \tN 37°17.000' W 114°50.720' \t\t\t\t\t\r\n16 \t\t\t\t\t\t\t\t\t\r\n17 \t\t\t\t\t\t\t\t\t\r\n18 \t\t\t\t\t\t\t\t\t\r\n19 \t\t\t\t\t\t\t\t\t\r\n20 \t\t\t\t\t\t\t\t\t\r\n21 \t\t\t\t\t\t\t\t\t\r\n22 \t\t\t\t\t\t\t\t\t\r\n23 \t\t\t\t\t\t\t\t\t\r\n24 \t\t\t\t\t\t\t\t\t\r\n25 \t\t\t\t\t\t\t\t\t\r\n26 \t\t\t\t\t\t\t\t\t\r\n27 \t\t\t\t\t\t\t\t\t\r\n28 \t\t\t\t\t\t\t\t\t\r\n29 \t\t\t\t\t\t\t\t\t\r\n30 \t\t\t\t\t\t\t\t\t\r\n\r\nNotes\r\n\r\n    All times are GMT +1. The time now is 10:20.\r\n    Powered by vBulletin® Version 4.2.5\r\n    Copyright © 2024 vBulletin Solutions Inc. All rights reserved. \r\n\r\n\r\n\r\nVisitor Links\r\n\r\n    About Us\r\n    Recruiting\r\n    Downloads\r\n    Contact Us\r\n\r\nMember Links\r\n\r\n    My User CP\r\n    My Inbox (0)\r\n    Flight Log\r\n    OPS Board\r\n\r\nLike our website?\r\n\r\nYou can help us by donating to cover our costs.\r\n\r\nMany sincere thanks!\r\n\r\nSearch\r\nAdvanced Search\r\nFollow us\r\n\r\nTwitter Twitter youtube\r\n\r\n";
 
+
+        public const String karma20240106 = """
+                                            Mission Data Card
+                                            Callsign: Demon 2Mission # TR-0103Mission: TrainingPackage # 476766
+                                            Flight
+                                            Pilot	Crew	TN	TCN	IFF M1	IFF M3	SRCH	LASER
+                                            -1	Karma	/////	21	42Y	12	5171	HI	1521
+                                            -2	Odin	/////	22	105Y	12	5172	LO	1522
+                                            Radios
+                                            Radio	Usage
+                                            PRI	20 - 1 - 3 - 14 - 3- 16 - 1
+                                            AUX	18
+
+                                            Package
+                                            Callsign	A/C	# Ships	Mission #	Time	Comms	TN -1	TCN	Task
+                                            Demon 2	F/A-18C	2	TR-0103	11:30		021	42Y	Odin / Karma range work
+
+                                            Support
+                                            Instance	Type	Callsign	Comms	TCN	Location	Alt
+                                            Tanker	S-3B	Shell 61	399.950		Overhead mother	FL70
+                                            Tanker	KC-135MPRS	Shell 11	273.525	31Y	Mirage	FL240
+
+                                            Loadout/Config
+                                            Loadout	Config	Fuel
+                                            A/A	1WX2	Gross Wt	41774	TO	15293
+                                            A/G	3G12	Drag Index	94.50	TGT	
+                                            Pods	ATFLIR	MIN AGL		Joker	4500
+                                            Remarks	0 GUN, 0C/120F, AIS, JHMCS, Set Laser code, DU	MIN MSL		Bingo	3500
+                                            MAX MSL		Tanker Onload	
+                                            Target
+                                            Description	Coords	Elevation
+                                            Primary			
+                                            Alternate			
+                                            DPI-1			
+                                            DPI-2			
+                                            DPI-3			
+                                            DPI-4			
+                                            ATIS/WX
+                                            B - PGUA 012359Z AUTO 08007KT 10SM CLR 27/23 A2997
+
+                                            Airbase
+                                            Airbase	TCN	UHF	VHF	ATIS	RWY	Elev	ILS
+                                            DEP	CVN-75 Harry S. Truman	75X	375.95				0	15
+                                            ARR	CVN-75 Harry S. Truman	75X	375.95				0	15
+                                            ALT	Andersen AFB	54X	233.7	121.7		06R	549	110.1
+                                            Departure/Arrival
+                                            Departure	CASE I	Recovery	CASE I
+                                            Rotation		Refusal		Rejoin	Straight Ahead
+                                            Flight Plan
+                                            #	Type	Name	Fix/Point	Location	Elev	Alt	SPD	ETE/TOT	Leg Fuel
+                                            1	TO		CV	N 14º11.144' E 146º48.690'					
+                                            2	TRN		MIRAGE.EN	N 15°40.00000' E 145°45.00					
+                                            3	IP		MIRAGE.IP	N 16°00.00000' E 146°15.0000					
+                                            4	TGT		FDM	N 16°01.03333' E 146°03.5166					
+                                            5	TRN		MIRAGE.EX	N 15°40.00000' E 145°59.00					
+                                            6									
+                                            7									
+                                            8									
+                                            9									
+                                            10	RVCP		MIRAGE.IP	N 16°00.00000' E 146°15.0000					
+                                            11	RVCP		MIRAGE.CP	N 16°45.00000' E 146°10.0000					
+                                            12									
+                                            13									
+                                            14									
+                                            15									
+                                            16									
+                                            17									
+                                            18									
+                                            19									
+                                            20									
+                                            21									
+                                            22									
+                                            23									
+                                            24									
+                                            25									
+                                            26									
+                                            27									
+                                            28									
+                                            29									
+                                            30		B/E		N 13º35.04' E 144º55.80'					
+                                            Notes
+
+                                            CVN-75
+                                            TCN: 75X
+                                            ICLS: 15
+                                            CV TWR: BTN 1
+                                            CV MARSHAL: BTN 16
+                                            SQ COMMON: BTN 20
+                                            N 14º11.144' E 146º48.690'
+                                            Event 1: 06:50:00L
+                                            Event 2: 08:30:00L
+
+                                            DIVERT
+                                            ANDERSEN AFB
+                                            N13°34.57' E144°55.47
+                                            """;
     }
 
 }

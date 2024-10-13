@@ -54,15 +54,13 @@ namespace DTC.Models.v476
             {
                 return Int32.Parse(value.Replace("FL", "")) * 100;
             } 
-            else if (value.Contains("A"))
+            else if (value.EndsWith("A"))
             {
-                // do something
-                return null;
+                return ParseHeightData(value.Substring(0, value.Length - 1));
             }
-            else if (value.Contains("B"))
+            else if (value.EndsWith("B"))
             {
-                // do something
-                return null;
+                return ParseHeightData(value.Substring(0, value.Length - 1));
             }
             else if (value.Trim().Length > 0)
             {
