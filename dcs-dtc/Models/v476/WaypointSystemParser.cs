@@ -8,6 +8,18 @@ namespace DTC.Models.v476
     {
         Dictionary<int, Column> columns = new Dictionary<int, Column>();
         private ParserState parserState = ParserState.Parsing476thData;
+        //public string PilotCallsign { get; set; }
+        private string pilotCallsign = "";
+        private string flightCallsign = "";
+        private string pilotTN = "";
+        private short pilotPosition = -1; //default - pilot not recognized
+        private string[]flightTNs = new string[4];
+        
+        public string PilotCallsign { get => pilotCallsign;  }
+        public string PilotTN { get => pilotTN;  }
+        public short PilotPosition { get => pilotPosition;  }
+        public string[] FlightTNs { get => flightTNs;  }
+        public string FlightCallsign { get => flightCallsign; }
 
         private List<ReturnType> parse<ReturnType>(
             String contentToParse,
@@ -21,7 +33,8 @@ namespace DTC.Models.v476
                 { 
                     var line = "";
                     var idx = 0;
-                    //TODO: This needs to be statefull and finish parsing after detection of last waypoint. Free text notes can be in format resembling waypoints and thus can cause problems.
+
+                    //TODO: This needs to be stateful and finish parsing after detection of last waypoint. Free text notes can be in format resembling waypoints and thus can cause problems.
                     while ((line = reader.ReadLine()) != null)
                     {
                         idx++;
@@ -31,18 +44,44 @@ namespace DTC.Models.v476
                             columns = parseHeaders(line);
                             parserState = ParserState.ParsingFlightPlan;
                         }
-
+                        if(lineType == RecordType.Radios)
+                        {
+                            parserState = ParserState.Parsing476thData;//TODO: this needs to change should we ever want to parse radio info
+                        }
                         if ((lineType == RecordType.Waypoint || lineType == RecordType.EmptyRow) && parserState == ParserState.ParsingFlightPlan)
                         {
                             var waypoint = parseWaypoint(line);
                             result.Add(singleParse(waypoint));
                             //TODO: Most likely we should not be parsing empty waypoints; just ommit it in the sequence when entering?
                         }
+                        if(lineType == RecordType.UserCallsignLine)
+                        {
+                            string[] spliced = line.Split("*");
+                            this.pilotCallsign = spliced[1];
+                            //next line is flight callsign, 
+                            line = reader.ReadLine();
+                            this.flightCallsign = line.Substring(10, line.IndexOf("Mission") - 10);
+                        }
+                        if (lineType == RecordType.FlightInfo)
+                        {
+                            parserState = ParserState.ParsingFlightInfo;
+                        }
                         if (lineType == RecordType.Comment)
                         {
-                            //if Comment prior to flight plan, continue. If comment after parsing waypoints, terminate
+                            //if Comment prior to flight info, continue. If comment after parsing waypoints, terminate
                             if (parserState == ParserState.Parsing476thData)
                                 continue;
+                            if(parserState == ParserState.ParsingFlightInfo)
+                            {
+                                string[] finfo = line.Split("\t");
+                                short wingNumber = 0;
+                                if (line.StartsWith("Pilot") || finfo.Length <2)
+                                    continue;
+                                wingNumber = short.Parse(finfo[0].Substring(1));
+                                if (finfo[1].ToLower().Equals(this.pilotCallsign.ToLower()))
+                                    this.pilotPosition = wingNumber;
+                                this.flightTNs[wingNumber-1] = finfo[3];
+                            }
                             else if (parserState == ParserState.ParsingFlightPlan)
                             {
                                 this.parserState = ParserState.FinishedParsing;
@@ -158,7 +197,18 @@ namespace DTC.Models.v476
         public RecordType detect(String input)
         {
             var line = input.Trim();
- 
+            if(line.StartsWith("Mission Data Card - *"))
+            {
+                return RecordType.UserCallsignLine;
+            }
+            if(line.Equals("Flight"))
+            {
+                return RecordType.FlightInfo;
+            }
+            if(line.Equals("Radios"))
+            {
+                return RecordType.Radios;
+            }
             if (line.Equals("Flight Plan"))
             {
                 return RecordType.FlightPlanIndicator;
@@ -187,7 +237,8 @@ namespace DTC.Models.v476
         ParsingFlightPlan,
         ParsingNotes,
         FinishedParsing,
-        BadFormatUnableToParse
+        BadFormatUnableToParse,
+        ParsingFlightInfo
     }
     public enum RecordType
     {
@@ -195,7 +246,10 @@ namespace DTC.Models.v476
         EmptyRow,
         Waypoint,
         FlightPlanHeader,
-        Comment
+        Comment,
+        FlightInfo,
+        Radios,
+        UserCallsignLine
     }
 
     enum Column

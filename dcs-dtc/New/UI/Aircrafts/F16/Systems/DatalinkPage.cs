@@ -7,7 +7,32 @@ namespace DTC.New.UI.Aircrafts.F16.Systems
     public partial class DatalinkPage : AircraftSystemPage
     {
         private DatalinkSystem datalink;
-
+        
+        public void RefreshDatalinkConfig()
+        {
+            //this is invoked only via 476th DTC so we always want to set callsign
+            chkFlightLead.Checked = this.datalink.FlightLead??false;
+           
+            if (!string.IsNullOrEmpty(datalink.OwnCallsign) && datalink.OwnCallsign.Length == 4)
+            {
+                pnlOwnCallsign.Enabled = true; //we should always know the callsign of the flight and want to set it
+                cboCallsign1.SelectedItem = datalink.OwnCallsign[0].ToString().ToUpper();
+                cboCallsign2.SelectedItem = datalink.OwnCallsign[1].ToString().ToUpper();
+                cboCallsign3.SelectedItem = datalink.OwnCallsign[2].ToString();
+                cboCallsign4.SelectedItem = datalink.OwnCallsign[3].ToString();
+            }
+            if (datalink.Members != null)
+            {
+                txtSTN1.Value = datalink.Members[0] < 0 ? null : datalink.Members[0];
+                txtSTN2.Value = datalink.Members[1] < 0 ? null : datalink.Members[1];
+                txtSTN3.Value = datalink.Members[2] < 0 ? null : datalink.Members[2];
+                txtSTN4.Value = datalink.Members[3] < 0 ? null : datalink.Members[3];
+                txtSTN5.Value = datalink.Members[4] < 0 ? null : datalink.Members[4];
+                txtSTN6.Value = datalink.Members[5] < 0 ? null : datalink.Members[5];
+                txtSTN7.Value = datalink.Members[6] < 0 ? null : datalink.Members[6];
+                txtSTN8.Value = datalink.Members[7] < 0 ? null : datalink.Members[7];
+            }
+        }
         public DatalinkPage(F16Page parent) : base(parent, nameof(parent.Configuration.Datalink))
         {
             this.datalink = parent.Configuration.Datalink;
