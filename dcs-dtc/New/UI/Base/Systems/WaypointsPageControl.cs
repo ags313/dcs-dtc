@@ -2,7 +2,10 @@ using DTC.Models.v476;
 using DTC.New.Presets.V2.Aircrafts.F15E;
 using DTC.New.Presets.V2.Aircrafts.F15E.Systems;
 using DTC.New.Presets.V2.Aircrafts.F16;
+using DTC.New.Presets.V2.Aircrafts.F16.Systems;
 using DTC.New.Presets.V2.Aircrafts.FA18;
+using DTC.New.UI.Aircrafts.F16;
+using DTC.New.UI.Aircrafts.F16.Systems;
 using DTC.New.UI.Base.Pages;
 using DTC.New.UI.Base.Systems.WaypointImport;
 using DTC.New.UI.Base.Systems.WaypointImport.Types;
@@ -24,6 +27,7 @@ public partial class WaypointsPageControl : AircraftSystemPage
     {
         WaypointSystemParser parser = new WaypointSystemParser();
         f16Config.Waypoints.Waypoints.Clear();
+
         foreach (var waypoint in parser.parseForF16(clipboardContent))
         {
             Presets.V2.Aircrafts.F16.Systems.Waypoint w = new()
@@ -37,7 +41,36 @@ public partial class WaypointsPageControl : AircraftSystemPage
             f16Config.Waypoints.Add(w);
 
         }
+
+        if (parser.PilotPosition != -1)
+        {
+            f16Config.Datalink.OwnshipIndex = parser.PilotPosition;
+            if (parser.PilotPosition == 1)
+                f16Config.Datalink.FlightLead = true;
+            else
+                f16Config.Datalink.FlightLead = false;
+        }
+        if (!string.IsNullOrEmpty(parser.FlightCallsign))
+        {
+            f16Config.Datalink.OwnCallsign = parser.FlightCallsign[0].ToString() + 
+                parser.FlightCallsign[parser.FlightCallsign.Length - 3].ToString() + 
+                parser.FlightCallsign[parser.FlightCallsign.Length - 1].ToString() + 
+                parser.PilotPosition.ToString();
+        }
+        f16Config.Datalink.EnableMembers = true;
+        f16Config.Datalink.Members = new int[8];
+        f16Config.Datalink.OwnshipIndex = parser.PilotPosition;
+        for (int i = 0; i < parser.FlightTNs.Length;i++)
+        {
+            if(!string.IsNullOrEmpty(parser.FlightTNs[i]))
+            {
+                f16Config.Datalink.Members[i] = int.Parse(parser.FlightTNs[i]);
+            }
+        }    
         this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints);
+        F16Page pag = this.parent as F16Page;
+        DatalinkPage dlp = (DatalinkPage)pag.GetPageOfTitle("Datalink");
+        dlp.RefreshDatalinkConfig();
     }
 
     private void importHornet(string clipboardContent, FA18Configuration f18Config)
@@ -59,7 +92,7 @@ public partial class WaypointsPageControl : AircraftSystemPage
         this.dgWaypoints.RefreshList(f18Config.Waypoints.Waypoints);
     }
 
-    private WaypointSystem whichEagleRoute(F15EConfiguration f15config)
+    private DTC.New.Presets.V2.Aircrafts.F15E.Systems.WaypointSystem whichEagleRoute(F15EConfiguration f15config)
     {
         switch (systemName)
         {
