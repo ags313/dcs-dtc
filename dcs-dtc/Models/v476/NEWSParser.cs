@@ -30,9 +30,9 @@
         private string hemisphere = "";
         private string[] components = new string[3];
         private string accumulator = "";
-        private List<Coordinate> results = new List<Coordinate>();
+        private List<Coordinate> results = new();
 
-        private void reset()
+        private void ResetState()
         {
             accumulator = "";
             components = new string[3];
@@ -44,7 +44,7 @@
 
         public List<Coordinate> parse(string line)
         {
-            reset();
+            ResetState();
             results.Clear();
             var trimmed = line.Trim();
             for (var i = 0; i < trimmed.Length; i++)
@@ -114,7 +114,7 @@
         {
             if (accumulator.Length == 0)
             {
-                mostRecentlyParsed = next(mostRecentlyParsed);
+                mostRecentlyParsed = Next(mostRecentlyParsed);
             }
 
             accumulator += c;
@@ -138,15 +138,15 @@
             {
                 if (mostRecentlyParsed == ParserState.Fractional)
                 {
-                    results.Add(collectCoords());
-                    reset();
+                    results.Add(CollectCoords());
+                    ResetState();
                 }
 
                 accumulator = "";
             }
         }
 
-        private Coordinate collectCoords()
+        private Coordinate CollectCoords()
         {
             return new Coordinate(hemisphere,
                 components[0],
@@ -156,7 +156,7 @@
                 format);
         }
 
-        static ParserState next(ParserState input)
+        private static ParserState Next(ParserState input)
         {
             switch (input)
             {

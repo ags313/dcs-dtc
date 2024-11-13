@@ -10,10 +10,15 @@ namespace Testing
         [TestCase("N37\u00b0 33.74' ", "N", "37", "33", "74", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         [TestCase("N 37 33 74 ", "N", "37", "33", "74", CoordinateFormat.Unknown, CoordinatePrecision.Unknown)]
         [TestCase("N 37 33.74 ", "N", "37", "33", "74", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N 37 33,74 ", "N", "37", "33", "74", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         [TestCase("N37 33.74", "N", "37", "33", "74", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         [TestCase("N37 33'74\"", "N", "37", "33", "74", CoordinateFormat.DDMMSS, CoordinatePrecision.DescendingUnits)]
         [TestCase("N37º33.74\"", "N", "37", "33", "74", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N37º33.74'", "N", "37", "33", "74", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N37º33,74", "N", "37", "33", "74", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         [TestCase("N 38 14.044 W", "N", "38", "14", "044", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N 38 14,044 W", "N", "38", "14", "044", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N 13\u00b034.82514'", "N", "13", "34", "82514", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         public void Should_recognise_formats(string input,
             string hemisphere,
             string major,
@@ -39,9 +44,13 @@ namespace Testing
         [Test]
         [TestCase("N37\u00b0 33.74' W116\u00b0 39.85'", "W", "116", "39", "85", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         [TestCase("N37\u00b0 33.74' W 116 39.85\"", "W", "116", "39", "85", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N37\u00b0 33,74' W 116 39.85\"", "W", "116", "39", "85", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         [TestCase("N37\u00b0 33.74' W 116 39.85'", "W", "116", "39", "85", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N37\u00b0 33,74' W 116 39.85'", "W", "116", "39", "85", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         [TestCase("N37 33.74W116 39.85", "W", "116", "39", "85", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N37 33,74W116 39.85", "W", "116", "39", "85", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         [TestCase("N 38 14.044 W 115 00.170", "W", "115", "00", "170", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
+        [TestCase("N 38 14,044 W 115 00.170", "W", "115", "00", "170", CoordinateFormat.DDMMMM, CoordinatePrecision.Fractions)]
         public void Should_Parse_Second_Coordinate(string input,
             string hemisphere,
             string major,
