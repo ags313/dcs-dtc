@@ -1,8 +1,10 @@
-﻿using DTC.Utilities;
+﻿using DTC.New.UI.Base.Pages;
+using DTC.Properties;
 using DTC.UI.Base;
 using DTC.UI.Base.Controls;
-using DTC.New.UI.Base.Pages;
-using System.Configuration;
+using DTC.Utilities;
+using DTC.Utilities.Network;
+using Settings = DTC.Properties.Settings;
 
 namespace DTC.New.UI.Base;
 
@@ -21,18 +23,19 @@ public partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
-        lblVersion.Text = "v" + Util.GetAppVersion() + "_" + DTC.Properties.Settings.Default.v476thBuild; 
+        lblVersion.Text = "v" + Util.GetAppVersion() + "_" + Settings.Default.v476thBuild;
 
         ResetToPage(_mainPage);
-        SetTopMost(Settings.AlwaysOnTop);
+        SetTopMost(Utilities.Settings.AlwaysOnTop);
 
-        DataReceiver.DataReceived += DataReceiver_DataReceived;
-        DataReceiver.Start();
+        CockpitInfoReceiver.DataReceived += DataReceiver_DataReceived;
+        CockpitInfoReceiver.Start();
 
-        var position = new Point(Settings.MainWindowX, Settings.MainWindowY);
+        var position = new Point(Utilities.Settings.MainWindowX, Utilities.Settings.MainWindowY);
         if (!IsVisibleOnAnyScreen(new Rectangle(position, this.Size)))
         {
-            position = new Point(Math.Max(Settings.MainWindowX, 0), Math.Max(Settings.MainWindowY, 0));
+            position = new Point(Math.Max(Utilities.Settings.MainWindowX, 0),
+                Math.Max(Utilities.Settings.MainWindowY, 0));
         }
 
         this.Location = position;
@@ -54,8 +57,8 @@ public partial class MainForm : Form
 
     private void MainForm_Move(object? sender, EventArgs e)
     {
-        Settings.MainWindowX = Location.X;
-        Settings.MainWindowY = Location.Y;
+        Utilities.Settings.MainWindowX = Location.X;
+        Utilities.Settings.MainWindowY = Location.Y;
     }
 
     protected override bool ShowWithoutActivation
@@ -63,15 +66,12 @@ public partial class MainForm : Form
         get { return true; }
     }
 
-    private void DataReceiver_DataReceived(DataReceiver.Data d)
+    private void DataReceiver_DataReceived(CockpitInfoReceiver.Data d)
     {
         if (d.toggleDTC == "1" && !toggleDTCPressed)
         {
             toggleDTCPressed = true;
-            Invoke(new Action(() =>
-            {
-                ShowHideDTC(!showHideDTCState);
-            }));
+            Invoke(new Action(() => { ShowHideDTC(!showHideDTCState); }));
         }
 
         if (d.toggleDTC == "0" && toggleDTCPressed)
@@ -82,10 +82,7 @@ public partial class MainForm : Form
         if (d.showDTC == "1" && !showDTCPressed)
         {
             showDTCPressed = true;
-            Invoke(new Action(() =>
-            {
-                ShowHideDTC(true);
-            }));
+            Invoke(new Action(() => { ShowHideDTC(true); }));
         }
 
         if (d.showDTC == "0" && showDTCPressed)
@@ -96,10 +93,7 @@ public partial class MainForm : Form
         if (d.hideDTC == "1" && !hideDTCPressed)
         {
             hideDTCPressed = true;
-            Invoke(new Action(() =>
-            {
-                ShowHideDTC(false);
-            }));
+            Invoke(new Action(() => { ShowHideDTC(false); }));
         }
 
         if (d.hideDTC == "0" && hideDTCPressed)
@@ -124,7 +118,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void MainForm_Load(object sender, System.EventArgs e)
+    private void MainForm_Load(object sender, EventArgs e)
     {
         this.Activate();
         if (!DCSInstallCheck.Check())
@@ -142,7 +136,7 @@ public partial class MainForm : Form
         page.BringToFront();
         page.Focus();
 
-        btnUpload.Visible = page is AircraftPage;
+        btnKneeboard.Visible = btnUpload.Visible = page is AircraftPage;
     }
 
     private void ResetToPage(Page page)
@@ -203,7 +197,7 @@ public partial class MainForm : Form
         //_planeForm.ToggleEnabled();
     }
 
-    private void lblPin_Click(object sender, System.EventArgs e)
+    private void lblPin_Click(object sender, EventArgs e)
     {
         SetTopMost(!this.TopMost);
     }
@@ -211,16 +205,16 @@ public partial class MainForm : Form
     public void SetTopMost(bool topMost)
     {
         this.TopMost = topMost;
-        Settings.AlwaysOnTop = topMost;
-        lblPin.Image = topMost ? Properties.Resources.redpin : Properties.Resources.pin;
+        Utilities.Settings.AlwaysOnTop = topMost;
+        lblPin.Image = topMost ? Resources.redpin : Resources.pin;
     }
 
-    private void lblClose_Click(object sender, System.EventArgs e)
+    private void lblClose_Click(object sender, EventArgs e)
     {
         this.Close();
     }
 
-    private void lblMinimize_Click(object sender, System.EventArgs e)
+    private void lblMinimize_Click(object sender, EventArgs e)
     {
         this.WindowState = FormWindowState.Minimized;
     }
@@ -231,6 +225,15 @@ public partial class MainForm : Form
         if (page is AircraftPage)
         {
             ((AircraftPage)page).UploadToJet(false, false);
+        }
+    }
+
+    private void btnKneeboard_Click(object sender, EventArgs e)
+    {
+        var page = _pages.Peek();
+        if (page is AircraftPage)
+        {
+            ((AircraftPage)page).ShowKneeboard();
         }
     }
 }
