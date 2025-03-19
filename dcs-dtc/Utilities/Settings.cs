@@ -270,7 +270,8 @@ namespace DTC.Utilities
 
         private static void LoadSettings()
         {
-            if (currentSettings != null) {
+            if (currentSettings != null)
+            {
                 return;
             }
 
@@ -280,7 +281,9 @@ namespace DTC.Utilities
             {
                 obj = JsonConvert.DeserializeObject<SettingsData>(json);
             }
-            catch {}
+            catch
+            {
+            }
 
             if (obj == null)
             {
@@ -291,30 +294,37 @@ namespace DTC.Utilities
             {
                 obj.TCPSendPort = 43001;
             }
+
             if (obj.UDPReceivePort == 0)
             {
                 obj.UDPReceivePort = 43000;
             }
+
             if (obj.StrikeEagleCommandDelayMs < 70)
             {
                 obj.StrikeEagleCommandDelayMs = 70;
             }
+
             if (obj.ViperCommandDelayMs < 220)
             {
                 obj.ViperCommandDelayMs = 220;
             }
+
             if (obj.ApacheCommandDelayMs < 100)
             {
                 obj.ApacheCommandDelayMs = 100;
             }
+
             if (obj.HornetCommandDelayMs < 220)
             {
                 obj.HornetCommandDelayMs = 220;
             }
+
             if (obj.CaptureDialogShortcut == null)
             {
                 obj.CaptureDialogShortcut = "Ctrl+Shift+d";
             }
+
             if (obj.KneeboardDialogShortcut == null)
             {
                 obj.KneeboardDialogShortcut = "Ctrl+Shift+k";
