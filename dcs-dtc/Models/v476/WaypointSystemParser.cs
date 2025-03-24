@@ -59,7 +59,9 @@ namespace DTC.Models.v476
                             this.pilotCallsign = spliced[1];
                             //next line is flight callsign, 
                             line = reader.ReadLine();
-                            this.flightCallsign = line.Substring(10, line.IndexOf("Mission") - 10);
+                            int lineEnd = line.IndexOf("Mission");
+                            if(lineEnd == -1) lineEnd = line.Length;
+                            this.flightCallsign = line.Substring(10, lineEnd - 10);
                         }
                         if (lineType == RecordType.FlightInfo)
                         {

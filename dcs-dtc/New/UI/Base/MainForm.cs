@@ -2,6 +2,7 @@
 using DTC.UI.Base;
 using DTC.UI.Base.Controls;
 using DTC.New.UI.Base.Pages;
+using System.Configuration;
 
 namespace DTC.New.UI.Base;
 
@@ -20,7 +21,7 @@ public partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
-        lblVersion.Text = "Version " + Util.GetAppVersion() + " v476th vFG";
+        lblVersion.Text = "v" + Util.GetAppVersion() + "_" + DTC.Properties.Settings.Default.v476thBuild; 
 
         ResetToPage(_mainPage);
         SetTopMost(Settings.AlwaysOnTop);
