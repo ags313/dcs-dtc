@@ -1,5 +1,4 @@
-﻿
-namespace DTC.New.UI.Base;
+﻿namespace DTC.New.UI.Base;
 
 internal class CommandLineProcessor
 {
@@ -52,12 +51,12 @@ internal class CommandLineProcessor
                     args.Pop();
                     if (aircraft == "AH64D")
                     {
-                        if (args.Peek() == "pilot")
+                        if (args.Peek() == "--pilot")
                         {
                             args.Pop();
                             mainForm.ExecuteUpload(true, false);
                         }
-                        else if (args.Peek() == "cpg")
+                        else if (args.Peek() == "--cpg")
                         {
                             args.Pop();
                             mainForm.ExecuteUpload(false, true);

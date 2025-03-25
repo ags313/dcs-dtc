@@ -36,7 +36,7 @@ public partial class MainForm : Form
 
         presetNamedPipeImport = new();
         presetNamedPipeImport.Start();
-
+        
         var position = new Point(Utilities.Settings.MainWindowX, Utilities.Settings.MainWindowY);
         commandLineProcessor = new(this);
 

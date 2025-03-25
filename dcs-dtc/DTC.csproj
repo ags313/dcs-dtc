@@ -7,7 +7,7 @@
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Version>8.0.1</Version>
+		<Version>8.1.0</Version>
 		<Product>DTC for DCS</Product>
 		<Description>$(Product)</Description>
 		<ApplicationIcon>Resources\Iconleak-Atrous-Disk.ico</ApplicationIcon>
@@ -21,7 +21,6 @@
 		<RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
 		<RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
 		<AnalysisLevel>latest</AnalysisLevel>
-		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -33,12 +32,6 @@
 		<DebugType>embedded</DebugType>
 		<NoWarn>1701;1702;CS8603;CS8602;CS8622;CS8604;CS8625;CS8618;CS8767;CS8765;CS8600;CS8605;CS8601;</NoWarn>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Compile Remove="UI\Aircrafts\**" />
-	  <EmbeddedResource Remove="UI\Aircrafts\**" />
-	  <None Remove="UI\Aircrafts\**" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<None Remove="dtc-airbases.json" />
@@ -134,11 +127,6 @@
 		<Compile Update="New\UI\Base\Systems\WaypointsPageControl.cs">
 			<SubType>UserControl</SubType>
 		</Compile>
-		<Compile Update="Properties\Settings.Designer.cs">
-		  <DesignTimeSharedInput>True</DesignTimeSharedInput>
-		  <AutoGen>True</AutoGen>
-		  <DependentUpon>Settings.settings</DependentUpon>
-		</Compile>
 		<Compile Update="UI\Base\Controls\DTCTimeTextBox.cs">
 			<SubType>UserControl</SubType>
 		</Compile>
@@ -223,10 +211,6 @@
 		</None>
 		<None Update="DCS\Hooks\DCSDTCHook.lua">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Properties\Settings.settings">
-		  <Generator>SettingsSingleFileGenerator</Generator>
-		  <LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
 	</ItemGroup>
 

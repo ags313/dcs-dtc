@@ -324,6 +324,10 @@ namespace DTC.Utilities
             {
                 obj.CaptureDialogShortcut = "Ctrl+Shift+d";
             }
+            if (obj.KneeboardDialogShortcut == null)
+            {
+                obj.KneeboardDialogShortcut = "Ctrl+Shift+k";
+            }
 
             if (obj.KneeboardDialogShortcut == null)
             {
