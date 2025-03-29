@@ -7,7 +7,13 @@ namespace DTC.New.UI.Aircrafts.F16.Systems
     public partial class DatalinkPage : AircraftSystemPage
     {
         private DatalinkSystem datalink;
-        
+
+        public DatalinkSystem Datalink { get => datalink; set => datalink = value; }
+
+        public void ForceSavePresets()
+        {
+            this.SavePreset();
+        }
         public void RefreshDatalinkConfig()
         {
             //this is invoked only via 476th DTC so we always want to set callsign
@@ -31,6 +37,17 @@ namespace DTC.New.UI.Aircrafts.F16.Systems
                 txtSTN6.Value = datalink.Members[5] < 0 ? null : datalink.Members[5];
                 txtSTN7.Value = datalink.Members[6] < 0 ? null : datalink.Members[6];
                 txtSTN8.Value = datalink.Members[7] < 0 ? null : datalink.Members[7];
+            }
+            if (datalink.OwnshipIndex.HasValue)
+            {
+                if (datalink.OwnshipIndex == 1) radOwn1.Checked = true;
+                if (datalink.OwnshipIndex == 2) radOwn2.Checked = true;
+                if (datalink.OwnshipIndex == 3) radOwn3.Checked = true;
+                if (datalink.OwnshipIndex == 4) radOwn4.Checked = true;
+                if (datalink.OwnshipIndex == 5) radOwn5.Checked = true;
+                if (datalink.OwnshipIndex == 6) radOwn6.Checked = true;
+                if (datalink.OwnshipIndex == 7) radOwn7.Checked = true;
+                if (datalink.OwnshipIndex == 8) radOwn8.Checked = true;
             }
         }
         public DatalinkPage(F16Page parent) : base(parent, nameof(parent.Configuration.Datalink))
@@ -102,10 +119,10 @@ namespace DTC.New.UI.Aircrafts.F16.Systems
                 this.SavePreset();
             };
 
-            cboCallsign1.SelectedValueChanged += (s, e) => CallsignChanged();
-            cboCallsign2.SelectedValueChanged += (s, e) => CallsignChanged();
-            cboCallsign3.SelectedValueChanged += (s, e) => CallsignChanged();
-            cboCallsign4.SelectedValueChanged += (s, e) => CallsignChanged();
+            cboCallsign1.SelectedValueChanged += (s, e) => CallsignLeterChanged1();
+            cboCallsign2.SelectedValueChanged += (s, e) => CallsignLeterChanged2();
+            cboCallsign3.SelectedValueChanged += (s, e) => CallsignLeterChanged3();
+            cboCallsign4.SelectedValueChanged += (s, e) => CallsignLeterChanged4();
 
             chkFlightLead.CheckedChanged += (s, e) =>
             {
@@ -191,6 +208,43 @@ namespace DTC.New.UI.Aircrafts.F16.Systems
             if (cboCallsign1.SelectedItem != null && cboCallsign2.SelectedItem != null && cboCallsign3.SelectedItem != null && cboCallsign4.SelectedItem != null)
             {
                 var callsign = cboCallsign1.SelectedItem.ToString() + cboCallsign2.SelectedItem.ToString() + cboCallsign3.SelectedItem.ToString() + cboCallsign4.SelectedItem.ToString();
+                this.datalink.OwnCallsign = callsign;
+                this.SavePreset();
+            }
+        }
+        private void CallsignLeterChanged1()
+        {
+            if (cboCallsign1.SelectedItem != null && cboCallsign2.SelectedItem != null && cboCallsign3.SelectedItem != null && cboCallsign4.SelectedItem != null)
+            {
+                var callsign = cboCallsign1.SelectedItem.ToString() + datalink.OwnCallsign[1].ToString() + datalink.OwnCallsign[2].ToString() + datalink.OwnCallsign[3].ToString();// DateRangeEventArgs=ta.SelectedItem.ToString() + cboCallsign3.SelectedItem.ToString() + cboCallsign4.SelectedItem.ToString();
+                this.datalink.OwnCallsign = callsign;
+                this.SavePreset();
+            }
+        }
+        private void CallsignLeterChanged2()
+        {
+            if (cboCallsign1.SelectedItem != null && cboCallsign2.SelectedItem != null && cboCallsign3.SelectedItem != null && cboCallsign4.SelectedItem != null)
+            {
+                var callsign = datalink.OwnCallsign[0].ToString() + cboCallsign2.SelectedItem.ToString() + datalink.OwnCallsign[2].ToString() + datalink.OwnCallsign[3].ToString();
+                this.datalink.OwnCallsign = callsign;
+                this.SavePreset();
+            }
+        }
+
+        private void CallsignLeterChanged3()
+        {
+            if (cboCallsign1.SelectedItem != null && cboCallsign2.SelectedItem != null && cboCallsign3.SelectedItem != null && cboCallsign4.SelectedItem != null)
+            {
+                var callsign = datalink.OwnCallsign[0].ToString() + datalink.OwnCallsign[1].ToString() + cboCallsign3.SelectedItem.ToString() + datalink.OwnCallsign[3].ToString();
+                this.datalink.OwnCallsign = callsign;
+                this.SavePreset();
+            }
+        }
+        private void CallsignLeterChanged4()
+        {
+            if (cboCallsign1.SelectedItem != null && cboCallsign2.SelectedItem != null && cboCallsign3.SelectedItem != null && cboCallsign4.SelectedItem != null)
+            {
+                var callsign = datalink.OwnCallsign[0].ToString() + datalink.OwnCallsign[1].ToString() + datalink.OwnCallsign[2].ToString() + cboCallsign4.SelectedItem.ToString() ;
                 this.datalink.OwnCallsign = callsign;
                 this.SavePreset();
             }

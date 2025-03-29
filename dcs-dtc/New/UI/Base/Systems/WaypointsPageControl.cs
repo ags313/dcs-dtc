@@ -52,8 +52,8 @@ public partial class WaypointsPageControl : AircraftSystemPage
         }
         if (!string.IsNullOrEmpty(parser.FlightCallsign))
         {
-            f16Config.Datalink.OwnCallsign = parser.FlightCallsign[0].ToString() + 
-                parser.FlightCallsign[parser.FlightCallsign.Length - 3].ToString() + 
+            f16Config.Datalink.OwnCallsign = parser.FlightCallsign[0].ToString().ToUpper() + 
+                parser.FlightCallsign[parser.FlightCallsign.Length - 3].ToString().ToUpper() + 
                 parser.FlightCallsign[parser.FlightCallsign.Length - 1].ToString() + 
                 parser.PilotPosition.ToString();
         }
@@ -70,6 +70,9 @@ public partial class WaypointsPageControl : AircraftSystemPage
         this.dgWaypoints.RefreshList(f16Config.Waypoints.Waypoints);
         F16Page pag = this.parent as F16Page;
         DatalinkPage dlp = (DatalinkPage)pag.GetPageOfTitle("Datalink");
+        //dlp.datali
+        dlp.Datalink = f16Config.Datalink;
+        dlp.ForceSavePresets();
         dlp.RefreshDatalinkConfig();
     }
 
