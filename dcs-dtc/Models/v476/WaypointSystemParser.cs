@@ -76,7 +76,7 @@ namespace DTC.Models.v476
                             {
                                 string[] finfo = line.Split("\t");
                                 short wingNumber = 0;
-                                if (line.StartsWith("Pilot") || finfo.Length <2)
+                                if (line.Trim().StartsWith("Pilot") || finfo.Length <2)
                                     continue;
                                 wingNumber = short.Parse(finfo[0].Substring(1));
                                 if (finfo[1].ToLower().Equals(this.pilotCallsign.ToLower()))
