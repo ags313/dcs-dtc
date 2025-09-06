@@ -5,14 +5,16 @@ namespace DTC.Models.v476
 {
     public class PositionParser
     {
+        // Accept both compact and spaced MGRS variants by stripping spaces before matching
         private const string MGRS10_FORMAT = @"\d{2}[A-Z]{3}\d{5}\d+";
         private static readonly Regex REGEX_MGRS10 = new Regex(MGRS10_FORMAT);
         
         public static Tuple<Longitude, Latitude>? ParseLatLong(string value)
         {
-            if (REGEX_MGRS10.IsMatch(value))
+            var noSpaces = value.Replace(" ", "");
+            if (REGEX_MGRS10.IsMatch(noSpaces))
             {
-                // mgrs10 
+                // CoordinateSharp supports MGRS with spaces
                 var parsed = CoordinateSharp.Coordinate.Parse(value);
                 var parsedLon = parsed.Longitude;
                 var parsedLat = parsed.Latitude;

@@ -10,17 +10,19 @@ namespace Testing
     public abstract class LocaleAwareUnitTestBase
     {
         private readonly string _locale;
+        private CultureInfo _culture;
 
         public LocaleAwareUnitTestBase(string locale)
         {
             this._locale = locale;
+            this._culture = new CultureInfo(_locale);
         }
 
         [SetUp]
         public void Setup()
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(_locale);
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(_locale);
+            Thread.CurrentThread.CurrentCulture = this._culture;
+            Thread.CurrentThread.CurrentUICulture = this._culture;
         }
     }
 }

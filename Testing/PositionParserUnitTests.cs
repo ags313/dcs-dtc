@@ -10,17 +10,32 @@ namespace Testing
         {
         }
 
-        [Test]
-        public void Parser_Understands_MGRS()
+
+        [TestCase("11 SNB 7237 4531 49", 
+            Longitude.Hemisphere.West, Latitude.Hemisphere.North,
+            116, 10.858, 37, 31.348)]        
+        [TestCase("11SNB7237453149", 
+            Longitude.Hemisphere.West, Latitude.Hemisphere.North,
+            116, 10.858, 37,  31.348)]        
+        [TestCase("11S PA 76000 12000", 
+            Longitude.Hemisphere.West, Latitude.Hemisphere.North,
+            115, 2.487, 36, 14.212)]
+        public void Parser_Understands_MGRS(string input,
+            Longitude.Hemisphere lonHemisphere,
+            Latitude.Hemisphere latHemisphere,
+            int lonDeg, double lonTail,
+            int latDeg, double latTail)
         {
-            var maybeTuple = PositionParser.ParseLatLong("11SNB7237453149");
+            var maybeTuple = PositionParser.ParseLatLong(input);
 
             Assert.That(maybeTuple, Is.Not.Null);
-            Assert.That(maybeTuple?.Item1._hemisphere, Is.EqualTo(Longitude.Hemisphere.West));
-            Assert.That(maybeTuple?.Item2._hemisphere, Is.EqualTo(Latitude.Hemisphere.North));
+            Assert.That(maybeTuple?.Item1._hemisphere, Is.EqualTo(lonHemisphere));
+            Assert.That(maybeTuple?.Item2._hemisphere, Is.EqualTo(latHemisphere));
 
-            Assert.That(maybeTuple?.Item1.ddmmmm.ddmm_mmm(), Is.EqualTo("116\u00b0" + 10.858 + "’"));
-            Assert.That(maybeTuple?.Item2.ddmmmm.ddmm_mmm(), Is.EqualTo("37\u00b0" + 31.348 + "’"));
+            var expectedLon = lonDeg + "\u00b0" + lonTail.ToString("00.###") + "’";
+            var expectedLat = latDeg + "\u00b0" + latTail.ToString("00.###") + "’";
+            Assert.That(maybeTuple?.Item1.ddmmmm.ddmm_mmm(), Is.EqualTo(expectedLon));
+            Assert.That(maybeTuple?.Item2.ddmmmm.ddmm_mmm(), Is.EqualTo(expectedLat));
         }
 
         [Test]
