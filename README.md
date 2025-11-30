@@ -227,3 +227,8 @@ As a windows app, the application will not show up in VR. Because it is a window
 
 There is a Discord channel to report bugs, send suggestions and chat with other users. You can join it here:
 https://discord.gg/saCACg99EZ
+
+# Development:
+
+Installer dependency:  
+https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects
