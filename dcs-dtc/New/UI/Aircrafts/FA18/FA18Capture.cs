@@ -70,15 +70,18 @@ internal class FA18Capture
                 if (cfg.WaypointsCapture.NavPointsMode == SteerpointCaptureMode.AddToEndOfList)
                 {
                     wpt.Sequence = wptSystem.GetNextSequence();
+                    if (wpt.Sequence == 0) wpt.Sequence = 1;
                 }
                 else if (cfg.WaypointsCapture.NavPointsMode == SteerpointCaptureMode.AddToEndOfFirstGap)
                 {
                     wpt.Sequence = wptSystem.GetNextSequenceOfFirstGap();
+                    if (wpt.Sequence == 0) wpt.Sequence = 1;
                 }
                 else if (cfg.WaypointsCapture.NavPointsMode == SteerpointCaptureMode.AddToRange)
                 {
                     wpt.Sequence = wptSystem.GetNextSequenceFromSequence(cfg.WaypointsCapture.NavPointsRangeFrom);
                 }
+
                 wpt.Name = "STPT " + wpt.Sequence;
                 wptSystem.Add(wpt);
             }
