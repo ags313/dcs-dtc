@@ -148,7 +148,7 @@ public partial class AircraftPage : Page
         pnlMain.Controls.Clear();
         pnlLeft.Controls.Clear();
 
-        var tabIndex = lst.Count-1;
+        var tabIndex = lst.Count - 1;
 
         foreach (var page in lst)
         {
