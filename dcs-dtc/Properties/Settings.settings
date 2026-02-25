@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="v476thBuild" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">2024.11.15</Value>
+      <Value Profile="(Default)">2026.02.24</Value>
     </Setting>
   </Settings>
 </SettingsFile>
