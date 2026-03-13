@@ -7,7 +7,7 @@
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Version>9.0.0</Version>
+		<Version>9.2.1</Version>
 		<Product>DTC for DCS</Product>
 		<Description>$(Product)</Description>
 		<ApplicationIcon>Resources\Iconleak-Atrous-Disk.ico</ApplicationIcon>
@@ -104,9 +104,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="DCS\DCSDTC2.lua">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</None>
 		<None Update="DCS\DCSDTC.lua">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

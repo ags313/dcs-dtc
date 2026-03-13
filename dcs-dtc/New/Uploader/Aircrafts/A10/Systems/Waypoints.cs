@@ -1,5 +1,6 @@
 ﻿using DTC.New.Presets.V2.Aircrafts.A10.Systems;
 using DTC.New.Presets.V2.Base.Systems;
+using DTC.New.Uploader.Base;
 
 namespace DTC.New.Uploader.Aircrafts.A10;
 
@@ -31,19 +32,45 @@ public partial class A10Uploader
         Cmd(SYS.BTN_WP);
         Cmd(SYS.CDU_LSK_L3);
 
+        Cmd(new CustomCommand($"SetInputFormat()"));
+
+        var maxW = 0;
         foreach (var wpt in config.Waypoints.Waypoints)
         {
-            strToCmd(wpt.Name);
-            Cmd(SYS.CDU_LSK_R7);
+            if (wpt.Sequence > maxW)
+            {
+                maxW = wpt.Sequence;
+            }
+        }
 
-            var x = wpt.Latitude.Replace(".", "").Replace("'", "").Replace("\"", "").Replace("°", "").Replace(" ", "").Replace("’","");
+        if (maxW > 0)
+        {
+            Cmd(new CustomCommand($"SetReqWptQty({maxW.ToString()})"));
+        }
+
+        foreach (var wpt in config.Waypoints.Waypoints)
+        {
+
+            strToCmd(wpt.Sequence.ToString());
+            Cmd(SYS.CDU_LSK_L3);
+
+            if (wpt.Name != null && wpt.Name != "")
+            {
+                strToCmd(wpt.Name);
+                Cmd(SYS.CDU_LSK_R3);
+            }
+
+            var x = wpt.Latitude.Replace(".", "").Replace("'", "").Replace("\"", "").Replace("°", "").Replace(" ", "").Replace("’", "");
             var y = wpt.Longitude.Replace(".", "").Replace("'", "").Replace("\"", "").Replace("°", "").Replace(" ", "").Replace("’", "");
             strToCmd(x);
             Cmd(SYS.CDU_LSK_L7);
             strToCmd(y);
             Cmd(SYS.CDU_LSK_L9);
-            strToCmd(wpt.Elevation.ToString());
-            Cmd(SYS.CDU_LSK_L5);
+            if (wpt.Elevation > 0)
+            {
+                strToCmd(wpt.Elevation.ToString());
+                Cmd(SYS.CDU_LSK_L5);
+            }
         }
     }
 }
