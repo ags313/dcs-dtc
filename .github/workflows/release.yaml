@@ -1,9 +1,10 @@
 name: Release
 
 # Manually-triggered release build. Publishes the DTC app, builds the
-# Visual Studio installer (.msi) via DevEnv, and uploads both as workflow
+# Visual Studio installer (.msi) via DevEnv, uploads both as workflow
 # artifacts named like the historical release assets
-# (dcs_dtc_476th.zip and dtc-setup-<version>.msi).
+# (dcs_dtc_476th.zip and dtc-setup-<version>.msi), and publishes a GitHub
+# Release labelled with the version and build date (e.g. "DTC 9.3.3 (2026-06-11)").
 
 on:
     workflow_dispatch:
@@ -13,8 +14,9 @@ on:
                 required: true
                 default: "9.3.3"
 
+# contents: write is required to create the git tag and GitHub Release.
 permissions:
-    contents: read
+    contents: write
 
 jobs:
     release:
@@ -26,6 +28,16 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+
+            # Build the release label/tag from the version input and today's date.
+            - name: Compute release label
+              id: meta
+              shell: pwsh
+              run: |
+                  $date = Get-Date -Format 'yyyy-MM-dd'
+                  "date=$date"                             >> $env:GITHUB_OUTPUT
+                  "tag=v${{ inputs.version }}-$date"       >> $env:GITHUB_OUTPUT
+                  "name=DTC ${{ inputs.version }} ($date)" >> $env:GITHUB_OUTPUT
 
             - name: Setup .NET 8
               uses: actions/setup-dotnet@v4
@@ -73,3 +85,14 @@ jobs:
                   name: dtc-setup-${{ inputs.version }}
                   path: dtc-setup-${{ inputs.version }}.msi
                   overwrite: true
+
+            # Publish a GitHub Release tagged/labelled with version + date,
+            # attaching the zip and the installer.
+            - name: Publish GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ steps.meta.outputs.tag }}
+                  name: ${{ steps.meta.outputs.name }}
+                  files: |
+                      dcs_dtc_476th.zip
+                      dtc-setup-${{ inputs.version }}.msi
