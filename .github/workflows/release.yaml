@@ -1,0 +1,75 @@
+name: Release
+
+# Manually-triggered release build. Publishes the DTC app, builds the
+# Visual Studio installer (.msi) via DevEnv, and uploads both as workflow
+# artifacts named like the historical release assets
+# (dcs_dtc_476th.zip and dtc-setup-<version>.msi).
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Release version, used in the installer file name (e.g. 9.3.3)"
+                required: true
+                default: "9.3.3"
+
+permissions:
+    contents: read
+
+jobs:
+    release:
+        name: Build release artifacts
+        runs-on: windows-latest
+
+        env:
+            DOTNET_INSTALL_DIR: ".\\.dotnet"
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup .NET 8
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: "8.0.x"
+
+            - name: Setup MSBuild
+              uses: microsoft/setup-msbuild@v1.3.1
+
+            - name: Setup VS Dev Environment
+              uses: seanmiddleditch/gha-setup-vsdevenv@v4
+
+            - name: Setup NuGet
+              uses: NuGet/setup-nuget@v1.0.5
+
+            - name: Restore Packages
+              run: dotnet restore dcs-dtc/DTC.csproj
+
+            - name: Disable Out of Process Building
+              run: .\DisableOutOfProcBuild.exe
+              working-directory: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\VSI\DisableOutOfProcBuild
+
+            - name: Publish DTC (Release)
+              run: dotnet publish -c Release -p:PublishProfile=FolderProfile dcs-dtc\DTC.csproj -o build_output
+
+            - name: Zip the publish folder
+              run: Compress-Archive -Path build_output/* -DestinationPath dcs_dtc_476th.zip
+
+            - name: Upload zip artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dcs_dtc_476th
+                  path: dcs_dtc_476th.zip
+                  overwrite: true
+
+            - name: Build the Installer
+              run: DevEnv installer/installer.vdproj /build Release
+
+            - name: Name the installer with the release version
+              run: Copy-Item installer/Release/dtc-setup.msi "dtc-setup-${{ inputs.version }}.msi"
+
+            - name: Upload installer artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dtc-setup-${{ inputs.version }}
+                  path: dtc-setup-${{ inputs.version }}.msi
+                  overwrite: true
