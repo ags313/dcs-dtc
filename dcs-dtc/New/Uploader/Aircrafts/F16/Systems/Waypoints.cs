@@ -39,6 +39,11 @@ public partial class F16Uploader
             Cmd(UFC.ENTR);
             Cmd(UFC.DOWN);
 
+            if (wpt.Elevation < 0)
+            {
+                Cmd(UFC.D0);
+            }
+
             Cmd(Digits(UFC, wpt.Elevation.ToString()));
             Cmd(UFC.ENTR);
             Cmd(UFC.DOWN);
@@ -48,6 +53,7 @@ public partial class F16Uploader
                 Time(wpt.TimeOverSteerpoint);
                 Cmd(UFC.ENTR);
             }
+
             Cmd(UFC.DOWN);
 
             if (wpt.UseOA)
@@ -239,7 +245,7 @@ public partial class F16Uploader
     private void Time(string time)
     {
         time = time.Replace(":", "");
-        if (time[0] == '0') time = time.Substring(1);
+        while (time[0] == '0' && time.Length > 1) time = time.Substring(1);
         Cmd(Digits(UFC, time));
     }
 

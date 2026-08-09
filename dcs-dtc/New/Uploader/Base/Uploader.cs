@@ -1,7 +1,7 @@
-﻿using DTC.New.Presets.V2.Base;
-using DTC.Utilities.Network;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
+using DTC.New.Presets.V2.Base;
+using DTC.Utilities.Network;
 
 namespace DTC.New.Uploader.Base;
 
@@ -125,7 +125,8 @@ public abstract partial class Uploader
 
         foreach (var c in digits.ToCharArray())
         {
-            var first = props.FirstOrDefault(p => p.Name == "D" + c);
+            if (c == '-') continue;
+            var first = props.First(p => p.Name == "D" + c);
             if (first != null)
             {
                 var v = first.GetValue(d, null);
