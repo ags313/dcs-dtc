@@ -22,7 +22,8 @@ jobs:
     release:
         name: Build release artifacts
         if: github.ref == 'refs/heads/main'
-        runs-on: windows-latest
+        # pinned to VS 2022
+        runs-on: windows-2022
 
         env:
             DOTNET_INSTALL_DIR: ".\\.dotnet"
